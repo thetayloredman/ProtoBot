@@ -51,7 +51,7 @@ import { DFurConfig } from './config';
 
 // Interfaces, owo
 interface Client extends discord.Client {
-    config?: DFurConfig
+    [key: string]: any
 }
 
 // Initialize client~
@@ -60,12 +60,51 @@ const client: Client = new discord.Client();
 // Set config in
 client.config = config;
 
+// dbs
+
+// in memory dbs
+client.commands = new enmap();
+client.commandsConfig = new enmap();
+
 // Ready event
-client.on('ready', () => {
+client.on('ready', async () => {
     log('i', 'Ready!');
     log('i', `${chalk.green('[')}${chalk.green.bold('GUILDS')}${chalk.green(']')} In ${chalk.red(client.guilds.cache.size)} guilds!`);
     log('i', `${chalk.green('[')}${chalk.green.bold('CHANNELS')}${chalk.green(']')} With ${chalk.red(client.channels.cache.size)} channels!`);
     log('i', `${chalk.green('[')}${chalk.green.bold('USERS')}${chalk.green(']')} Total ${chalk.red(client.users.cache.size - 1)} users! (${chalk.red('excluding')} ${chalk.red.bold('self')})`);
+    function loadCmds(): void {
+        function l(type: 'i'|'w'|'e', message: string) {
+            log(type, `${chalk.yellow('[')}${chalk.yellow.bold('CMDLOAD')}${chalk.yellow(']')} ${message}`);
+        }
+        l('i', 'Beginning initial command load...');
+        fs.readdir(client.config.dirs.commands, (err: NodeJS.ErrnoException | null, files: string[]) => {
+            if (err) {
+                l('e', `Failed to read directory ${client.config.dirs.commands}:`);
+                // @ts-ignore
+                l('e', err);
+            } else {
+                files.forEach((path: string) => {
+                    if (path.endsWith('.ts')) {
+                        if (!files.includes(path.replace('.ts', '.js'))) {
+                            l('w', 'Found a .ts file: ' + path + ', that wasn\'t paired with a compiled .js file!');
+                        }
+                    } else if (path.endsWith('.js')) {
+                        // normal load
+                        const commandData = require(client.config.dirs.commands.endsWith('/') ? (client.config.dirs.commands + path) : (client.config.dirs.commands + '/' + path));
+                        const cmdName: string = path.replace('.js', '');
+                        l('i', `Loading command "${cmdName}"...`);
+                        client.commandsConfig.set(cmdName, commandData.config);
+                        client.commands.set(cmdName, commandData);
+                        l('i', `Finished loading command "${cmdName}"!`);
+                    } else {
+                        // unknown ext
+                        l('w', 'File in commands dir with unknown extension: ' + path);
+                    }
+                });
+            }
+        });
+    }
+    loadCmds();
 });
 
 // Log in
