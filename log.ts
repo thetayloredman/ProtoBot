@@ -61,7 +61,17 @@ export default function log(mode: 'i'|'w'|'e', message: string) {
     
     switch (mode) {
         case 'i':
-            msg = `` // TODO
+            msg = `${chalk.blue('[')}${chalk.blue.bold('INFO')}${chalk.blue(']')} ${message}`;
+            break;
+        case 'w':
+            msg = `${chalk.yellow('[')}${chalk.yellow.bold('WARN')}${chalk.yellow(']')} ${message}`;
+            break;
+        case 'e':
+            msg = `${chalk.red('[')}${chalk.red.bold('ERR!')}${chalk.red(']')} ${message}`;
+            break;
+        default:
+            msg = `${chalk.blue('[')}${chalk.blue.bold('INFO')}${chalk.blue(']')} ${message}`;
+            break;
     }
 
     const brackets: string[] = [ chalk.yellow('['), chalk.yellow(']') ]
