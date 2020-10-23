@@ -39,7 +39,11 @@
 // Modules
 import discord from 'discord.js';
 import enmap from 'enmap';
+import chalk from 'chalk';
 import * as fs from 'fs';
+
+// Log import
+import log from './log';
 
 // Config import
 import config from './config';
@@ -55,6 +59,12 @@ const client: Client = new discord.Client();
 
 // Set config in
 client.config = config;
+
+// Ready event
+client.on('ready', () => {
+    log('i', 'Ready!');
+    log('i', `${chalk.green('[')}${chalk.green.bold('GUILDS')}${chalk.green(']')} In ${chalk.red(client.guilds.cache.size)} guilds!`);
+});
 
 // Log in
 client.login(client.config.token);
