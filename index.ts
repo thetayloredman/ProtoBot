@@ -107,5 +107,30 @@ client.on('ready', async () => {
     loadCmds();
 });
 
+// Message handler
+client.on('message', (message: discord.Message) => {
+    if (message.author.bot) {
+        // exit
+        return;
+    }
+    if (message.content.startsWith(client.config.prefix)) {
+        const args: string[] = message.content.split(/ +/g);
+        const command: string|undefined = args.shift();
+        if (!command) {
+            // exit
+            return;
+        }
+
+        const commandExec: (client: discord.Client, message: discord.Message, args: string[]) => void|undefined = client.commands.get(command).run;
+        if (!commandExec) {
+            // exit
+            return;
+        } else {
+            log('i', 'Running command!');
+            commandExec(client, message, args);
+        }
+    }
+});
+
 // Log in
 client.login(client.config.token);
