@@ -40,34 +40,33 @@
 import chalk from 'chalk';
 
 // Main
-export default function log(mode: 'i'|'w'|'e'|'info'|'warn'|'err'|'warning'|'error', message: string) {
+export default function log(mode: 'i'|'w'|'e', message: string) {
     let msg: string = '';
+    let preparsedDate: any = new Date(Date.now()).toLocaleDateString('en-US', {
+        weekday: 'short',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+    });
+    preparsedDate = preparsedDate.split(', ');
+    preparsedDate[1] = preparsedDate[1].split(' ');
+    let preparsedTime: any = new Date(Date.now()).toLocaleTimeString('en-US' /* no opts needed */);
+    preparsedTime = preparsedTime.split(' ');
+    preparsedTime[0] = preparsedTime[0].split(':');
 
-    // First, we convert the extended ones like "info" and "warning" down
-    // to the single letter ones like "i" and "w".
-    if (mode === 'info') {
-        mode = 'i';
-    } else if (mode === 'warn' || mode === 'warning') {
-        mode = 'w';
-    } else if (mode === 'err' || mode === 'error') {
-        mode = 'e';
-    }
-
-    // Now, we actually split the logs into different code paths.
+    // Parse date/time
+    let parsedDate: string = `${chalk.green(preparsedDate[0])} ${chalk.yellow(preparsedDate[1][0])} ${chalk.yellow.bold(preparsedDate[1][1])} ${chalk.green.bold(preparsedDate[2])}`;
+    const sep: string = chalk.yellow(':');
+    let parsedTime: string = `${chalk.yellow.bold(preparsedTime[0][0])}${sep}${chalk.yellow.bold(preparsedTime[0][1])}${sep}${chalk.yellow.bold(preparsedTime[0][2])} ${chalk.red(preparsedTime[1])}`;
+    
     switch (mode) {
         case 'i':
-            msg += `${chalk.blue('[')}${chalk.blue.bold('INFO')}${chalk.blue(']')} ${chalk.blue(message)}`;
-            break;
-        case 'w':
-            msg == `${chalk.yellow('[')}${chalk.yellow.bold('WARN')}${chalk.yellow(']')} ${chalk.yellow(message)}`;
-            break;
-        case 'e':
-            msg == `${chalk.red('[')}${chalk.red.bold('ERR')}${chalk.red(']')} ${chalk.red(message)}`;
-            break;
-        default:
-            msg += `${chalk.blue('[')}${chalk.blue.bold('INFO')}${chalk.blue(']')} ${chalk.blue(message)}`;
-            break;
+            msg = `` // TODO
     }
+
+    const brackets: string[] = [ chalk.yellow('['), chalk.yellow(']') ]
+
+    msg = `${brackets[0]}${parsedDate} ${parsedTime}${brackets[1]} ${msg}`;
 
     console.log(msg);
 }
