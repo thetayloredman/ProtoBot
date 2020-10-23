@@ -114,7 +114,7 @@ client.on('message', (message: discord.Message) => {
         return;
     }
     if (message.content.startsWith(client.config.prefix)) {
-        const args: string[] = message.content.split(/ +/g);
+        const args: string[] = message.content.slice(client.config.prefix.length).split(/ +/g);
         const command: string|undefined = args.shift();
         if (!command) {
             // exit
