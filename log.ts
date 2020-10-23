@@ -37,24 +37,37 @@
 // +-------------------------------------------------+
 
 // Modules
-import discord from 'discord.js';
-import enmap from 'enmap';
-import * as fs from 'fs';
+import chalk from 'chalk';
 
-// Config import
-import config from './config';
-import { DFurConfig } from './config';
+// Main
+export default function log(mode: 'i'|'w'|'e'|'info'|'warn'|'err'|'warning'|'error', message: string) {
+    let msg: string = '';
 
-// Interfaces, owo
-interface Client extends discord.Client {
-    config?: DFurConfig
+    // First, we convert the extended ones like "info" and "warning" down
+    // to the single letter ones like "i" and "w".
+    if (mode === 'info') {
+        mode = 'i';
+    } else if (mode === 'warn' || mode === 'warning') {
+        mode = 'w';
+    } else if (mode === 'err' || mode === 'error') {
+        mode = 'e';
+    }
+
+    // Now, we actually split the logs into different code paths.
+    switch (mode) {
+        case 'i':
+            msg += `${chalk.blue('[')}${chalk.blue.bold('INFO')}${chalk.blue(']')} ${chalk.blue(message)}`;
+            break;
+        case 'w':
+            msg == `${chalk.yellow('[')}${chalk.yellow.bold('WARN')}${chalk.yellow(']')} ${chalk.yellow(message)}`;
+            break;
+        case 'e':
+            msg == `${chalk.red('[')}${chalk.red.bold('ERR')}${chalk.red(']')} ${chalk.red(message)}`;
+            break;
+        default:
+            msg += `${chalk.blue('[')}${chalk.blue.bold('INFO')}${chalk.blue(']')} ${chalk.blue(message)}`;
+            break;
+    }
+
+    console.log(msg);
 }
-
-// Initialize client~
-const client: Client = new discord.Client();
-
-// Set config in
-client.config = config;
-
-// Log in
-client.login(client.config.token);
