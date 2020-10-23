@@ -1,0 +1,18 @@
+{
+  "name": "dfur",
+  "version": "1.0.0",
+  "description": "a discord furry bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "BadBoyHaloCat",
+  "license": "UNLICENCED",
+  "dependencies": {
+    "@types/node": "^14.14.2",
+    "better-sqlite3": "^7.1.1",
+    "chalk": "^4.1.0",
+    "discord.js": "^12.4.0",
+    "enmap": "^5.8.0"
+  }
+}
