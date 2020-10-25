@@ -40,7 +40,7 @@
 import chalk from 'chalk';
 
 // Main
-export default function log(mode: 'i'|'w'|'e', message: string) {
+export default function log(mode: 'i'|'w'|'e', message: string): void {
     let msg: string = '';
     let preparsedDate: any = new Date(Date.now()).toLocaleDateString('en-US', {
         weekday: 'short',

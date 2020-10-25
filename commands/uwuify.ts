@@ -39,14 +39,26 @@
 // Modules
 import discord from 'discord.js';
 import chalk from 'chalk';
+import { Uwuifier } from 'uwuifier';
 
 // Main
-export function run(client: discord.Client, message: discord.Message, args: string[]) {
-    message.reply('pong!!!');
+export function run(client: discord.Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void) {
+    const uwuify: Uwuifier = new Uwuifier({
+        spaces: {
+            faces: 0.5,
+            actions: 0.075,
+            stutters: 0.1
+        },
+        words: 1,
+        exclamations: 1
+    });
+    const msg: string = uwuify.uwuifySentence(args.join(' '));
+    // @ts-ignore
+    message.channel.send('**Uwuified text:** ' + msg);
 }
 
 // Config
 export const config = {
-    name: 'ping',
-    description: 'Does stuff'
+    name: 'uwuify',
+    description: 'Converts all of your text to UwU-talk!\nPowered by [Uwuifier](https://github.com/Schotsl/Uwuifier)'
 }

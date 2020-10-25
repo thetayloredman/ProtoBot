@@ -86,9 +86,16 @@ client.on('ready', async () => {
                 files.forEach((path: string) => {
                     if (path.endsWith('.ts')) {
                         if (!files.includes(path.replace('.ts', '.js'))) {
-                            l('w', 'Found a .ts file: ' + path + ', that wasn\'t paired with a compiled .js file!');
+                            l('e', 'UncompiledCommandWarning: Found a .ts file: ' + path + ', that wasn\'t paired with a compiled .js file!');
+                            l('e', `${chalk.blue('[')}${chalk.blue.bold('HINT')}${chalk.blue(']')} Did you forget to run ${chalk.inverse('tsc')}?`);
+                            l('e', 'Failed to load command ' + path.replace('.ts', '') + '.')
                         }
                     } else if (path.endsWith('.js')) {
+                        // show scrapped cmd warning
+                        if (!files.includes(path.replace('.js', '.ts'))) {
+                            l('w', 'CommandScrapWarning: Found a .js file: ' + path + ', that wasn\'t paired with a .ts file!');
+                            l('w', `${chalk.blue('[')}${chalk.blue.bold('HINT')}${chalk.blue(']')} Did you delete a command without deleting the .js file?`);
+                        }
                         // normal load
                         const commandData = require(client.config.dirs.commands.endsWith('/') ? (client.config.dirs.commands + path) : (client.config.dirs.commands + '/' + path));
                         const cmdName: string = path.replace('.js', '');
@@ -121,13 +128,13 @@ client.on('message', (message: discord.Message) => {
             return;
         }
 
-        const commandExec: (client: discord.Client, message: discord.Message, args: string[]) => void|undefined = client.commands.get(command).run;
+        const commandExec: (client: discord.Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void) => void|undefined = client.commands.get(command).run;
         if (!commandExec) {
             // exit
             return;
         } else {
             log('i', 'Running command!');
-            commandExec(client, message, args);
+            commandExec(client, message, args, log);
         }
     }
 });

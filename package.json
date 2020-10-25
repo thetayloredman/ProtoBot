@@ -12,7 +12,8 @@
     "better-sqlite3": "^7.1.1",
     "chalk": "^4.1.0",
     "discord.js": "^12.4.0",
-    "enmap": "^5.8.0"
+    "enmap": "^5.8.0",
+    "uwuifier": "^2.0.2"
   },
   "devDependencies": {
     "@types/node": "^14.14.2",

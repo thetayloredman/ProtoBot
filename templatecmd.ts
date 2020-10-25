@@ -41,7 +41,7 @@ import discord from 'discord.js';
 import chalk from 'chalk';
 
 // Main
-export function run(client: discord.Client, message: discord.Message, args: string[]) {
+export function run(client: discord.Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void) {
 
 }
 
