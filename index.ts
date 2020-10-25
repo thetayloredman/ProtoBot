@@ -69,6 +69,7 @@ client.commandsConfig = new enmap();
 // Ready event
 client.on('ready', async () => {
     log('i', 'Ready!');
+    log('i', `${chalk.green('[')}${chalk.green.bold('BOT')}${chalk.green(']')} Username: ${chalk.red(client.user?.tag) ?? '(error: client.user is undefined)'}`);
     log('i', `${chalk.green('[')}${chalk.green.bold('GUILDS')}${chalk.green(']')} In ${chalk.red(client.guilds.cache.size)} guilds!`);
     log('i', `${chalk.green('[')}${chalk.green.bold('CHANNELS')}${chalk.green(']')} With ${chalk.red(client.channels.cache.size)} channels!`);
     log('i', `${chalk.green('[')}${chalk.green.bold('USERS')}${chalk.green(']')} Total ${chalk.red(client.users.cache.size - 1)} users! (${chalk.red('excluding')} ${chalk.red.bold('self')})`);
@@ -88,12 +89,13 @@ client.on('ready', async () => {
                         if (!files.includes(path.replace('.ts', '.js'))) {
                             l('e', 'UncompiledCommandWarning: Found a .ts file: ' + path + ', that wasn\'t paired with a compiled .js file!');
                             l('e', `${chalk.blue('[')}${chalk.blue.bold('HINT')}${chalk.blue(']')} Did you forget to run ${chalk.inverse('tsc')}?`);
-                            l('e', 'Failed to load command ' + path.replace('.ts', '') + '.')
+                            l('e', `Failed to load command ${path.replace('.ts', '')}.`)
                         }
                     } else if (path.endsWith('.js')) {
                         // show scrapped cmd warning
                         if (!files.includes(path.replace('.js', '.ts'))) {
                             l('w', 'CommandScrapWarning: Found a .js file: ' + path + ', that wasn\'t paired with a .ts file!');
+                            l('w', 'Still loading scrapped command!');
                             l('w', `${chalk.blue('[')}${chalk.blue.bold('HINT')}${chalk.blue(']')} Did you delete a command without deleting the .js file?`);
                         }
                         // normal load
@@ -128,7 +130,7 @@ client.on('message', (message: discord.Message) => {
             return;
         }
 
-        const commandExec: (client: discord.Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void) => void|undefined = client.commands.get(command).run;
+        const commandExec: (client: discord.Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void) => void|undefined = client.commands.get(command)?.run;
         if (!commandExec) {
             // exit
             return;

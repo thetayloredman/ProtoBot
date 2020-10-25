@@ -43,15 +43,11 @@ import { Uwuifier } from 'uwuifier';
 
 // Main
 export function run(client: discord.Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void) {
-    const uwuify: Uwuifier = new Uwuifier({
-        spaces: {
-            faces: 0.5,
-            actions: 0.075,
-            stutters: 0.1
-        },
-        words: 1,
-        exclamations: 1
-    });
+    if (args.length === 0) {
+        message.reply('**Error:** No text provided!');
+        return;
+    }
+    const uwuify: Uwuifier = new Uwuifier();
     const msg: string = uwuify.uwuifySentence(args.join(' '));
     // @ts-ignore
     message.channel.send('**Uwuified text:** ' + msg);
