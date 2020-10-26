@@ -66,7 +66,6 @@ client.config = config;
 client.commands = new enmap();
 client.commandsConfig = new enmap();
 client.modules = new enmap();
-client.modulesConfig = new enmap();
 
 // Ready event
 client.on('ready', async () => {
@@ -146,7 +145,6 @@ client.on('ready', async () => {
                         const moduleData = require(client.config.dirs.modules.endsWith('/') ? (client.config.dirs.modules + path) : (client.config.dirs.modules + '/' + path));
                         const modName: string = path.replace('.js', '');
                         l('i', `Loading module "${modName}"...`);
-                        client.modulesConfig.set(modName, moduleData.config);
                         client.modules.set(modName, moduleData);
                         l('i', `Finished loading module "${modName}"!`);
                     } else {
@@ -161,12 +159,16 @@ client.on('ready', async () => {
 });
 
 // Message handler
-// WIP implement actual module running
 client.on('message', (message: discord.Message) => {
     if (message.author.bot) {
         // exit
         return;
     }
+    // @ts-ignore
+    client.modules.forEach((moduleData) => {
+        log('i', `${chalk.green('[')}${chalk.green.bold('ModuleRunner')}${chalk.green(']')} Running module ${moduleData.config.name}!`);
+        moduleData.run(client, message, log);
+    });
     if (message.content.startsWith(client.config.prefix)) {
         const args: string[] = message.content.slice(client.config.prefix.length).split(/ +/g);
         const command: string|undefined = args.shift();
