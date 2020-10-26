@@ -63,6 +63,8 @@ client.config = config;
 // dbs
 client.cooldowns = new enmap({ name: 'cooldowns' });
 client.tildes = new enmap({ name: 'tildes' });
+client.owos = new enmap({ name: 'owos' });
+client.uwus = new enmap({ name: 'uwus' });
 
 // in memory dbs
 client.commands = new enmap();

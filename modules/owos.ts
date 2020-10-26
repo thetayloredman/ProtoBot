@@ -48,28 +48,24 @@ interface Client extends discord.Client {
 // Main
 export function run(client: Client, message: discord.Message, log: (mode: 'i'|'w'|'e', message: string) => void) {
     // Get the user's current cooldowns (in timestamps)
-    const cooldowns = client.cooldowns.ensure(message.author.id, 0, 'tildes');
+    const cooldowns = client.cooldowns.ensure(message.author.id, 0, 'owos');
 
     // Check cooldown
-    if (!cooldowns || (cooldowns + client.config.cooldowns.tildes) - Date.now() < 1) {
-        if (message.content.endsWith('~') && !/~~+/.test(message.content) && !message.content.startsWith('~')) {
-            //                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-            //                           Don't flag strikethrough
-            //                           markdown as a valid tilde!
+    if (!cooldowns || (cooldowns + client.config.cooldowns.owos) - Date.now() < 1) {
+        if (message.content.toLowerCase().includes('owo') && !message.content.startsWith('~')) {
+            client.owos.ensure(message.author.id, 0);
+            client.owos.inc(message.author.id);
+            client.cooldowns.set(message.author.id, Date.now(), 'owos');
 
-            client.tildes.ensure(message.author.id, 0);
-            client.tildes.inc(message.author.id);
-            client.cooldowns.set(message.author.id, Date.now(), 'tildes');
-
-            log('i', `${chalk.green('[')}${chalk.green.bold('TildeHandler')}${chalk.green(']')} Added tilde!`);
+            log('i', `${chalk.green('[')}${chalk.green.bold('OwOHandler')}${chalk.green(']')} Added owo!`);
         }
     } else {
-        log('i', `${chalk.green('[')}${chalk.green.bold('TildeHandler')}${chalk.green(']')} User still on cooldown! ${chalk.red((cooldowns + client.config.cooldowns.tildes) - Date.now())} ms remaining!`);
+        log('i', `${chalk.green('[')}${chalk.green.bold('OwOHandler')}${chalk.green(']')} User still on cooldown! ${chalk.red((cooldowns + client.config.cooldowns.owos) - Date.now())} ms remaining!`);
     }
 }
 
 // Config
 export const config = {
-    name: 'tildes',
-    description: 'Detects a message ending in ~ and logs it.'
+    name: 'owos',
+    description: 'Detects a message containing "owo" and logs it.'
 }

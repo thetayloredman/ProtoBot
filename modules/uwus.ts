@@ -1,9 +1,9 @@
 // DFur
 // By BadBoyHaloCat
-// Very owo code i have here~
+// Very uwu code i have here~
 
 // +-------------------------------------------------+
-// | LEGAL STUFF                        not very owo |
+// | LEGAL STUFF                        not very uwu |
 // |=================================================|
 // | +---------------------------------------------+ |
 // | | COPYRIGHT                                   | |
@@ -40,7 +40,7 @@
 import discord from 'discord.js';
 import chalk from 'chalk';
 
-// Interfaces, owo
+// Interfaces, uwu
 interface Client extends discord.Client {
     [key: string]: any
 }
@@ -48,28 +48,24 @@ interface Client extends discord.Client {
 // Main
 export function run(client: Client, message: discord.Message, log: (mode: 'i'|'w'|'e', message: string) => void) {
     // Get the user's current cooldowns (in timestamps)
-    const cooldowns = client.cooldowns.ensure(message.author.id, 0, 'tildes');
+    const cooldowns = client.cooldowns.ensure(message.author.id, 0, 'uwus');
 
     // Check cooldown
-    if (!cooldowns || (cooldowns + client.config.cooldowns.tildes) - Date.now() < 1) {
-        if (message.content.endsWith('~') && !/~~+/.test(message.content) && !message.content.startsWith('~')) {
-            //                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-            //                           Don't flag strikethrough
-            //                           markdown as a valid tilde!
+    if (!cooldowns || (cooldowns + client.config.cooldowns.uwus) - Date.now() < 1) {
+        if (message.content.toLowerCase().includes('uwu') && !message.content.startsWith('~')) {
+            client.uwus.ensure(message.author.id, 0);
+            client.uwus.inc(message.author.id);
+            client.cooldowns.set(message.author.id, Date.now(), 'uwus');
 
-            client.tildes.ensure(message.author.id, 0);
-            client.tildes.inc(message.author.id);
-            client.cooldowns.set(message.author.id, Date.now(), 'tildes');
-
-            log('i', `${chalk.green('[')}${chalk.green.bold('TildeHandler')}${chalk.green(']')} Added tilde!`);
+            log('i', `${chalk.green('[')}${chalk.green.bold('UwUHandler')}${chalk.green(']')} Added uwu!`);
         }
     } else {
-        log('i', `${chalk.green('[')}${chalk.green.bold('TildeHandler')}${chalk.green(']')} User still on cooldown! ${chalk.red((cooldowns + client.config.cooldowns.tildes) - Date.now())} ms remaining!`);
+        log('i', `${chalk.green('[')}${chalk.green.bold('UwUHandler')}${chalk.green(']')} User still on cooldown! ${chalk.red((cooldowns + client.config.cooldowns.uwus) - Date.now())} ms remaining!`);
     }
 }
 
 // Config
 export const config = {
-    name: 'tildes',
-    description: 'Detects a message ending in ~ and logs it.'
+    name: 'uwus',
+    description: 'Detects a message containing "uwu" and logs it.'
 }
