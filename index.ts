@@ -65,6 +65,8 @@ client.config = config;
 // in memory dbs
 client.commands = new enmap();
 client.commandsConfig = new enmap();
+client.modules = new enmap();
+client.modulesConfig = new enmap();
 
 // Ready event
 client.on('ready', async () => {
@@ -115,9 +117,51 @@ client.on('ready', async () => {
         });
     }
     loadCmds();
+    function loadMods(): void {
+        function l(type: 'i'|'w'|'e', message: string) {
+            log(type, `${chalk.yellow('[')}${chalk.yellow.bold('MODLOAD')}${chalk.yellow(']')} ${message}`);
+        }
+        l('i', 'Beginning initial module load...');
+        fs.readdir(client.config.dirs.modules, (err: NodeJS.ErrnoException | null, files: string[]) => {
+            if (err) {
+                l('e', `Failed to read directory ${client.config.dirs.modules}:`);
+                // @ts-ignore
+                l('e', err);
+            } else {
+                files.forEach((path: string) => {
+                    if (path.endsWith('.ts')) {
+                        if (!files.includes(path.replace('.ts', '.js'))) {
+                            l('e', 'UncompiledModuleWarning: Found a .ts file: ' + path + ', that wasn\'t paired with a compiled .js file!');
+                            l('e', `${chalk.blue('[')}${chalk.blue.bold('HINT')}${chalk.blue(']')} Did you forget to run ${chalk.inverse('tsc')}?`);
+                            l('e', `Failed to load module ${path.replace('.ts', '')}.`)
+                        }
+                    } else if (path.endsWith('.js')) {
+                        // show scrapped cmd warning
+                        if (!files.includes(path.replace('.js', '.ts'))) {
+                            l('w', 'ModuleScrapWarning: Found a .js file: ' + path + ', that wasn\'t paired with a .ts file!');
+                            l('w', 'Still loading scrapped module!');
+                            l('w', `${chalk.blue('[')}${chalk.blue.bold('HINT')}${chalk.blue(']')} Did you delete a module without deleting the .js file?`);
+                        }
+                        // normal load
+                        const moduleData = require(client.config.dirs.modules.endsWith('/') ? (client.config.dirs.modules + path) : (client.config.dirs.modules + '/' + path));
+                        const modName: string = path.replace('.js', '');
+                        l('i', `Loading module "${modName}"...`);
+                        client.modulesConfig.set(modName, moduleData.config);
+                        client.modules.set(modName, moduleData);
+                        l('i', `Finished loading module "${modName}"!`);
+                    } else {
+                        // unknown ext
+                        l('w', 'File in modules dir with unknown extension: ' + path);
+                    }
+                });
+            }
+        });
+    }
+    loadMods();
 });
 
 // Message handler
+// WIP implement actual module running
 client.on('message', (message: discord.Message) => {
     if (message.author.bot) {
         // exit
