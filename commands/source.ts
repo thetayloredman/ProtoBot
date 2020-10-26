@@ -49,7 +49,7 @@ interface Client extends discord.Client {
 export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void) {
     message.channel.messages.fetch({ limit: 2 }).then((messages: discord.Collection<any, any>) => {
         const m: discord.Message = messages.last();
-        message.reply(`Content of message ID \`${m.id}\` in channel <#${m.channel.id}>:
+        message.reply(`Content of message ID \`${m.id}\` in channel <#${m.channel.id}>${m.content.includes('```') ? ' (**Formatting may be broken, the message contains a code fence**)' : ''}:
 
 \`\`\`md
 ${m.content}
