@@ -102,7 +102,39 @@ If you consent to viewing potentially NSFW content, please run this command:
                     ''                                                                      + '\n' +
                     'I want to write some more'                                             + '\n' +
                     'But I’m running out of lines and I\'m kinda bored'                     + '\n' +
-                    'Yeet my-self in-to the voi-oi-oi-oi-oi-oi-oi-oi-oid'                   + '\n' +
+                    'Yeet my-self in-to the voi-oi-oi-oi-oi-oi-oi-oi-oid'
+            },
+            {
+                id: 3,
+                name: 'Furries at Work - by u/turbowo on r/furrypasta',
+                text:
+                    'It\'s Wednesday morning, 6:58 AM.'                                     + '\n' +
+                    ''                                                                      + '\n' +
+                    'You arrive at the office and sit down in front of your monitor.'       + '\ ' +
+                    'It blinks awake as your computer boots up, nearly blinding you with'   + '\ ' +
+                    'its piercing white light. With a deep sigh, you log in and check your' + '\ ' +
+                    'email. George can\'t find an icon on his desktop, and Karen'           + '\ ' +
+                    'downloaded another virus. You roll your eyes and get to work.'         + '\n' +
+                    ''                                                                      + '\n' +
+                    'Half an hour later, you check your to-do list. There are a few items,' + '\ ' +
+                    'but none of them are urgent or important in the slightest. You could'  + '\ ' +
+                    'apply yourself and finish them within an hour or two, but then you'    + '\ ' +
+                    'wouldn\'t have a way to look busy. If you don\'t look busy, you'       + '\ ' +
+                    'don\'t look necessary; and if you don\'t look necessary, you get'      + '\ ' +
+                    'pushed to part-time status; and if you get pushed to part-time, you'   + '\ ' +
+                    'lose your insurance.'                                                  + '\n' +
+                    ''                                                                      + '\n' +
+                    'So, you open a few emails alongside a spreadsheet. You look around'    + '\ ' +
+                    'before opening a private Firefox window in the bottom corner of your'  + '\ ' +
+                    'screen; it won\'t hide your browsing history from IT, but being a'     + '\ ' +
+                    'furry, you *are* IT. You log into Reddit and find a message'           + '\ ' +
+                    'notification:'                                                         + '\n' +
+                    ''                                                                      + '\n' +
+                    '> OwO your sona is soooo cute!'                                        + '\n' +
+                    ''                                                                      + '\n' +
+                    'You smile before typing a reply:'                                      + '\n' +
+                    ''                                                                      + '\n' +
+                    '> no u UwU'
             }
         ];
 
