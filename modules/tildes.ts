@@ -48,10 +48,10 @@ interface Client extends discord.Client {
 // Main
 export function run(client: Client, message: discord.Message, log: (mode: 'i'|'w'|'e', message: string) => void) {
     // Get the user's current cooldowns (in timestamps)
-    const cooldowns = client.cooldowns.ensure(message.author.id, null, 'tildes');
+    const cooldowns = client.cooldowns.ensure(message.author.id, 0, 'tildes');
 
     // Check cooldown
-    if (!cooldowns || (cooldowns + client.config.cooldowns.tildes) < Date.now()) {
+    if (!cooldowns || (cooldowns + client.config.cooldowns.tildes) - Date.now() < 1) {
         if (message.content.endsWith('~') && !/~~+/.test(message.content)) {
             //                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
             //                           Don't flag strikethrough markdown
@@ -59,11 +59,12 @@ export function run(client: Client, message: discord.Message, log: (mode: 'i'|'w
 
             client.tildes.ensure(message.author.id, 0);
             client.tildes.inc(message.author.id);
+            client.cooldowns.set(message.author.id, Date.now(), 'tildes');
 
             log('i', `${chalk.green('[')}${chalk.green.bold('TildeHandler')}${chalk.green(']')} Added tilde!`);
         }
     } else {
-        log('i', `${chalk.green('[')}${chalk.green.bold('TildeHandler')}${chalk.green(']')} User still on cooldown! ${chalk.red(cooldowns + client.config.cooldowns.tildes)} ms remaining!`);
+        log('i', `${chalk.green('[')}${chalk.green.bold('TildeHandler')}${chalk.green(']')} User still on cooldown! ${chalk.red((cooldowns + client.config.cooldowns.tildes) - Date.now())} ms remaining!`);
     }
 }
 
