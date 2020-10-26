@@ -61,6 +61,8 @@ const client: Client = new discord.Client();
 client.config = config;
 
 // dbs
+client.cooldowns = new enmap({ name: 'cooldowns' });
+client.tildes = new enmap({ name: 'tildes' });
 
 // in memory dbs
 client.commands = new enmap();

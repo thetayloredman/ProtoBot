@@ -1,3 +1,4 @@
 /config.ts
 /node_modules/
 *.js
+/data/
