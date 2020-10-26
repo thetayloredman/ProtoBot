@@ -40,8 +40,13 @@
 import discord from 'discord.js';
 import chalk from 'chalk';
 
+// Interfaces, owo
+interface Client extends discord.Client {
+    [key: string]: any
+}
+
 // Main
-export function run(client: discord.Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void) {
+export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void) {
     message.channel.messages.fetch({ limit: 2 }).then((messages: discord.Collection<any, any>) => {
         const m: discord.Message = messages.last();
         message.reply(`Content of message ID \`${m.id}\` in channel <#${m.channel.id}>:

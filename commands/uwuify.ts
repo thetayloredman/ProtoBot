@@ -41,8 +41,13 @@ import discord from 'discord.js';
 import chalk from 'chalk';
 import { Uwuifier } from 'uwuifier';
 
+// Interfaces, owo
+interface Client extends discord.Client {
+    [key: string]: any
+}
+
 // Main
-export function run(client: discord.Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void) {
+export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void) {
     if (args.length === 0) {
         message.reply('**Error:** No text provided!');
         return;
