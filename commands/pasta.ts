@@ -64,7 +64,7 @@ If you consent to viewing potentially NSFW content, please run this command:
         const pastas: PastaData[] = [
             {
                 id: 1,
-                name: 'furry shit',
+                name: 'furry shit - song by Senzawa',
                 text:
                     '​x3 nuzzles, pounces on you, uwu you so warm (Ooh)'                     + '\n' +
                     'Couldn\'t help but notice your bulge from across the floor'            + '\n' +
@@ -80,6 +80,29 @@ If you consent to viewing potentially NSFW content, please run this command:
                     'Only seven inches long, uwu, please adopt me'                          + '\n' +
                     'Paws on your bulge as I lick my lips (UwU, punish me please)'          + '\n' +
                     'Bout to hit \'em with this furry shit (He don\'t see it comin\')'
+            },
+            {
+                id: 2,
+                name: 'I\'m a furry uwu - song by MatryoshkaGumi',
+                text:
+                    'I walk a furry road, the only one that I have ever known'              + '\n' +
+                    'Don’t know where it goes, but it’s only me and I just OwO'             + '\n' +
+                    ''                                                                      + '\n' +
+                    'I just OwO'                                                            + '\n' +
+                    'I just OwO'                                                            + '\n' +
+                    ''                                                                      + '\n' +
+                    'I just OwO'                                                            + '\n' +
+                    'My sona\'s the only one who walks behind me'                           + '\n' +
+                    'My Furry account\'s the only one that’s active'                        + '\n' +
+                    'Sometime I wish somefur out there would help me'                       + '\n' +
+                    'With my de-press-ion'                                                  + '\n' +
+                    ''                                                                      + '\n' +
+                    'What\'s this OwO UwU ewe'                                              + '\n' +
+                    'Help me I\'m a gay fur-ury'                                            + '\n' +
+                    ''                                                                      + '\n' +
+                    'I want to write some more'                                             + '\n' +
+                    'But I’m running out of lines and I\'m kinda bored'                     + '\n' +
+                    'Yeet my-self in-to the voi-oi-oi-oi-oi-oi-oi-oi-oid'                   + '\n' +
             }
         ];
 
@@ -88,8 +111,8 @@ If you consent to viewing potentially NSFW content, please run this command:
 
         log('i', `${chalk.green('[')}${chalk.green.bold('PastaDelivery')}${chalk.green(']')} Delivered pasta ${chalk.red(pasta.name)} (ID ${chalk.red.bold(pasta.id)})!`)
 
-        message.reply(`**Got your pasta!**
-**Found a problem? This pasta's ID is \`${pasta.id}\`.**
+        message.reply(`**Got your pasta (/song)!**
+**Found a problem? This item's ID is \`${pasta.id}\`.**
 
 **${pasta.name}**
 
@@ -100,5 +123,5 @@ ${pasta.text}`);
 // Config
 export const config = {
     name: 'pasta',
-    description: '**POTENTIAL NSFW WARNING**\nGet a random copypasta'
+    description: '**POTENTIAL NSFW WARNING**\nGet a random copypasta/song'
 }
