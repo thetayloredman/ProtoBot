@@ -61,7 +61,7 @@ export function run(client: Client, message: discord.Message, log: (mode: 'i'|'w
             client.tildes.inc(message.author.id);
             client.cooldowns.set(message.author.id, Date.now(), 'tildes');
 
-            log('i', `${chalk.green('[')}${chalk.green.bold('TildeHandler')}${chalk.green(']')} Added tilde!`);
+            log('i', `${chalk.green('[')}${chalk.green.bold('TildeHandler')}${chalk.green(']')} ${chalk.green(']')} ${chalk.red('[')}${chalk.red.bold('+')}${chalk.red(']')} Added tilde!`);
         }
     } else {
         log('i', `${chalk.green('[')}${chalk.green.bold('TildeHandler')}${chalk.green(']')} User still on cooldown! ${chalk.red((cooldowns + client.config.cooldowns.tildes) - Date.now())} ms remaining!`);
