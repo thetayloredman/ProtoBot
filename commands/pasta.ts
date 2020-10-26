@@ -75,7 +75,7 @@ If you consent to viewing potentially NSFW content, please run this command:
                     'Kissies and lickies your neck (Mmh)'                                   + '\n' +
                     'I hope daddy likies'                                                   + '\n' +
                     'Nuzzles and wuzzles your chest (Yuh)'                                  + '\n' +
-                    'I be (Yeah) gettin’ thirsty'                                           + '\n' +
+                    'I be (Yeah) gettin\' thirsty'                                           + '\n' +
                     'Hey, I got a little itch, you think you can help me?'                  + '\n' +
                     'Only seven inches long, uwu, please adopt me'                          + '\n' +
                     'Paws on your bulge as I lick my lips (UwU, punish me please)'          + '\n' +
