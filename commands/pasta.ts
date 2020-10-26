@@ -130,11 +130,11 @@ If you consent to viewing potentially NSFW content, please run this command:
                     'furry, you *are* IT. You log into Reddit and find a message'           + '\ ' +
                     'notification:'                                                         + '\n' +
                     ''                                                                      + '\n' +
-                    '> OwO your sona is soooo cute!'                                        + '\n' +
+                    '> *OwO your sona is soooo cute!*'                                      + '\n' +
                     ''                                                                      + '\n' +
                     'You smile before typing a reply:'                                      + '\n' +
                     ''                                                                      + '\n' +
-                    '> no u UwU'
+                    '> *no u UwU*'
             }
         ];
 
