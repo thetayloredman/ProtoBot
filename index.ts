@@ -68,6 +68,7 @@ client.commandsConfig = new enmap();
 
 // Ready event
 client.on('ready', async () => {
+    console.clear();
     log('i', 'Ready!');
     log('i', `${chalk.green('[')}${chalk.green.bold('BOT')}${chalk.green(']')} Username: ${chalk.red(client.user?.tag) ?? '(error: client.user is undefined)'}`);
     log('i', `${chalk.green('[')}${chalk.green.bold('GUILDS')}${chalk.green(']')} In ${chalk.red(client.guilds.cache.size)} guilds!`);
