@@ -135,6 +135,15 @@ If you consent to viewing potentially NSFW content, please run this command:
                     'You smile before typing a reply:'                                      + '\n' +
                     ''                                                                      + '\n' +
                     '> *no u UwU*'
+            },
+            {
+                id: 4,
+                name: 'A store full of cuties - by u/Freddy_Fazzle_Berry on r/furrypasta',
+                text:
+                    'So, i walked into a shop today, and there was nothing but cuties!'     + '\ ' +
+                    'Like, the store was full of them! I think. . .I think everyone'        + '\ ' +
+                    'reading this was there right now, and I just stared. I stared, and'    + '\ ' +
+                    'thought "Wow. Thoes are some cute little furballs right there."'
             }
         ];
 
