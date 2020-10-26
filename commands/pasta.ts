@@ -54,7 +54,8 @@ interface PastaData {
 // Main
 export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void) {
     if (!args[0] || args[0].toLowerCase() !== 'nsfw-ok') {
-        message.channel.send(`<@${message.author.id}>, :warning: **POTENTIAL NSFW WARNING** :warning:
+        message.channel.send(`<@${message.author.id}>,
+:warning: **POTENTIAL NSFW WARNING** :warning:
 The command you just ran has been flagged as **potentially *Not Safe For Work***.
 We have not ran this command, *yet*.
 If you consent to viewing potentially NSFW content, please run this command:
