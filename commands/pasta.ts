@@ -86,6 +86,8 @@ If you consent to viewing potentially NSFW content, please run this command:
         // Get random item
         const pasta: PastaData = pastas[Math.floor(Math.random() * pastas.length)];
 
+        log('i', `${chalk.green('[')}${chalk.green.bold('PastaDelivery')}${chalk.green(']')} Delivered pasta ${chalk.red(pasta.name)} (ID ${chalk.red.bold(pasta.id)})!`)
+
         message.reply(`**Got your pasta!**
 **Found a problem? This pasta's ID is \`${pasta.id}\`.**
 
