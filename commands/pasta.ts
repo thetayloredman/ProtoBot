@@ -146,6 +146,7 @@ If you consent to viewing potentially NSFW content, please run this command:
                     'thought "Wow. Thoes are some cute little furballs right there."'
             }
         ];
+        log('i', `${chalk.green('[')}${chalk.green.bold('PastaLoader')}${chalk.green(']')} Loaded ${chalk.red(pastas.length)} pastas!`);
 
         // Get random item
         const pasta: PastaData = pastas[Math.floor(Math.random() * pastas.length)];
