@@ -57,7 +57,7 @@ export function run(client: Client, message: discord.Message, log: (mode: 'i'|'w
             client.uwus.inc(message.author.id);
             client.cooldowns.set(message.author.id, Date.now(), 'uwus');
 
-            log('i', `${chalk.green('[')}${chalk.green.bold('UwUHandler')}${chalk.green(']')} ${chalk.green(']')} ${chalk.red('[')}${chalk.red.bold('+')}${chalk.red(']')} Added uwu!`);
+            log('i', `${chalk.green('[')}${chalk.green.bold('UwUHandler')}${chalk.green(']')} ${chalk.red('[')}${chalk.red.bold('+')}${chalk.red(']')} Added uwu!`);
         }
     } else {
         log('i', `${chalk.green('[')}${chalk.green.bold('UwUHandler')}${chalk.green(']')} User still on cooldown! ${chalk.red((cooldowns + client.config.cooldowns.uwus) - Date.now())} ms remaining!`);

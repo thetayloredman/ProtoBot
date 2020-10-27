@@ -55,7 +55,6 @@ export function run(client: Client, message: discord.Message, args: string[], lo
     let t10: ([number, string]|undefined)[] = [ tops[0], tops[1], tops[2], tops[3], tops[4], tops[5], tops[6], tops[7], tops[8], tops[9] ];
     // @ts-ignore
     let t10ids: string[] = t10.map((item: [number|string]|undefined) => item ? item[1] : undefined);
-    let uintop: boolean = t10ids.includes(message.author.id);
     
     (async () => {
         const u1: FetchedUser = t10ids[0] ? await client.users.fetch(t10ids[0]) : null;

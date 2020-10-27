@@ -57,7 +57,7 @@ export function run(client: Client, message: discord.Message, log: (mode: 'i'|'w
             client.owos.inc(message.author.id);
             client.cooldowns.set(message.author.id, Date.now(), 'owos');
 
-            log('i', `${chalk.green('[')}${chalk.green.bold('OwOHandler')} ${chalk.green(']')} ${chalk.red('[')}${chalk.red.bold('+')}${chalk.red(']')} Added owo!`);
+            log('i', `${chalk.green('[')}${chalk.green.bold('OwOHandler')}${chalk.green(']')} ${chalk.red('[')}${chalk.red.bold('+')}${chalk.red(']')} Added owo!`);
         }
     } else {
         log('i', `${chalk.green('[')}${chalk.green.bold('OwOHandler')}${chalk.green(']')} User still on cooldown! ${chalk.red((cooldowns + client.config.cooldowns.owos) - Date.now())} ms remaining!`);
