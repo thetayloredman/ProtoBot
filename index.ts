@@ -178,7 +178,7 @@ client.on('message', (message: discord.Message) => {
     let msgIsCommand: boolean = false;
     let prefixLen: number = 0;
     client.config.prefixes.forEach((item: string) => {
-        if (!msgIsCommand && message.content.startsWith(item)) {
+        if (!msgIsCommand && message.content.toLowerCase().startsWith(item)) {
             msgIsCommand = true;
             prefixLen = item.length;
         }

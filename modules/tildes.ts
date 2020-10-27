@@ -52,7 +52,13 @@ export function run(client: Client, message: discord.Message, log: (mode: 'i'|'w
 
     // Check cooldown
     if (!cooldowns || (cooldowns + client.config.cooldowns.tildes) - Date.now() < 1) {
-        if (message.content.endsWith('~') && !/~~+/.test(message.content) && !message.content.startsWith('~')) {
+        let hasPrefix: boolean = false;
+        client.config.prefixes.forEach((prefix: string) => {
+            if (!hasPrefix && message.content.startsWith(prefix)) {
+                hasPrefix = true;
+            }
+        });
+        if (message.content.endsWith('~') && !/~~+/.test(message.content) && !hasPrefix) {
             //                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
             //                           Don't flag strikethrough
             //                           markdown as a valid tilde!

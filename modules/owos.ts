@@ -52,7 +52,13 @@ export function run(client: Client, message: discord.Message, log: (mode: 'i'|'w
 
     // Check cooldown
     if (!cooldowns || (cooldowns + client.config.cooldowns.owos) - Date.now() < 1) {
-        if (message.content.toLowerCase().includes('owo') && !message.content.startsWith('~')) {
+        let hasPrefix: boolean = false;
+        client.config.prefixes.forEach((prefix: string) => {
+            if (!hasPrefix && message.content.startsWith(prefix)) {
+                hasPrefix = true;
+            }
+        });
+        if (message.content.toLowerCase().includes('owo') && !hasPrefix) {
             client.owos.ensure(message.author.id, 0);
             client.owos.inc(message.author.id);
             client.cooldowns.set(message.author.id, Date.now(), 'owos');
