@@ -47,7 +47,7 @@ import log from './log';
 
 // Config import
 import config from './config';
-import { DFurConfig } from './config';
+import { FelohConfig } from './config';
 
 // Interfaces, owo
 interface Client extends discord.Client {
@@ -79,6 +79,8 @@ client.on('ready', async () => {
     log('i', `${chalk.green('[')}${chalk.green.bold('GUILDS')}${chalk.green(']')} In ${chalk.red(client.guilds.cache.size)} guilds!`);
     log('i', `${chalk.green('[')}${chalk.green.bold('CHANNELS')}${chalk.green(']')} With ${chalk.red(client.channels.cache.size)} channels!`);
     log('i', `${chalk.green('[')}${chalk.green.bold('USERS')}${chalk.green(']')} Total ${chalk.red(client.users.cache.size - 1)} users! (${chalk.red('excluding')} ${chalk.red.bold('self')})`);
+    log('i', `${chalk.green('[')}${chalk.green.bold('PREFIXES')}${chalk.green(']')} Loaded ${chalk.red(client.config.prefixes.length)} prefixes!`);
+    log('i', `${chalk.green('[')}${chalk.green.bold('PREFIXES')}${chalk.green(']')} Prefixes: ${chalk.green('"' + client.config.prefixes.join('", "') + '"')}`);
     function loadCmds(): void {
         function l(type: 'i'|'w'|'e', message: string) {
             log(type, `${chalk.yellow('[')}${chalk.yellow.bold('CMDLOAD')}${chalk.yellow(']')} ${message}`);
@@ -173,8 +175,16 @@ client.on('message', (message: discord.Message) => {
         log('i', `${chalk.green('[')}${chalk.green.bold('ModuleRunner')}${chalk.green(']')} Running module ${moduleData.config.name}!`);
         moduleData.run(client, message, log);
     });
-    if (message.content.startsWith(client.config.prefix)) {
-        const args: string[] = message.content.slice(client.config.prefix.length).split(/ +/g);
+    let msgIsCommand: boolean = false;
+    let prefixLen: number = 0;
+    client.config.prefixes.forEach((item: string) => {
+        if (!msgIsCommand && message.content.startsWith(item)) {
+            msgIsCommand = true;
+            prefixLen = item.length;
+        }
+    });
+    if (msgIsCommand) {
+        const args: string[] = message.content.slice(prefixLen).split(/ +/g);
         const command: string|undefined = args.shift();
         if (!command) {
             // exit
