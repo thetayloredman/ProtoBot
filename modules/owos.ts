@@ -1,4 +1,4 @@
-// DFur
+// ProtoBot
 // By BadBoyHaloCat
 // Very owo code i have here~
 
@@ -10,7 +10,7 @@
 // | |=============================================| |
 // | | Copyright (C) 2020  Logan Devine            | |
 // | |                                             | |
-// | | DFur is licensed under exclusive            | |
+// | | ProtoBot is licensed under exclusive        | |
 // | | copyright. You may NOT use this source      | |
 // | | code (the "Bot") for anything other than    | |
 // | | usage in non-source form.                   | |
