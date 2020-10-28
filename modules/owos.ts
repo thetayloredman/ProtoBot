@@ -42,17 +42,18 @@ import chalk from 'chalk';
 
 // Interfaces, owo
 interface Client extends discord.Client {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any
 }
 
 // Main
-export function run(client: Client, message: discord.Message, log: (mode: 'i'|'w'|'e', message: string) => void) {
+export function run(client: Client, message: discord.Message, log: (mode: 'i'|'w'|'e', message: string) => void): void {
     // Get the user's current cooldowns (in timestamps)
     const cooldowns = client.cooldowns.ensure(message.author.id, 0, 'owos');
 
     // Check cooldown
-    if (!cooldowns || (cooldowns + client.config.cooldowns.owos) - Date.now() < 1) {
-        let hasPrefix: boolean = false;
+    if (!cooldowns || cooldowns + client.config.cooldowns.owos - Date.now() < 1) {
+        let hasPrefix = false;
         client.config.prefixes.forEach((prefix: string) => {
             if (!hasPrefix && message.content.startsWith(prefix)) {
                 hasPrefix = true;
@@ -66,7 +67,7 @@ export function run(client: Client, message: discord.Message, log: (mode: 'i'|'w
             log('i', `${chalk.green('[')}${chalk.green.bold('OwOHandler')}${chalk.green(']')} ${chalk.red('[')}${chalk.red.bold('+')}${chalk.red(']')} Added owo!`);
         }
     } else {
-        log('i', `${chalk.green('[')}${chalk.green.bold('OwOHandler')}${chalk.green(']')} User still on cooldown! ${chalk.red((cooldowns + client.config.cooldowns.owos) - Date.now())} ms remaining!`);
+        log('i', `${chalk.green('[')}${chalk.green.bold('OwOHandler')}${chalk.green(']')} User still on cooldown! ${chalk.red(cooldowns + client.config.cooldowns.owos - Date.now())} ms remaining!`);
     }
 }
 

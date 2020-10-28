@@ -42,7 +42,8 @@ import * as fs from 'fs';
 
 // Main
 export default function log(mode: 'i'|'w'|'e', message: string): void {
-    let msg: string = '';
+    let msg = '';
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let preparsedDate: any = new Date(Date.now()).toLocaleDateString('en-US', {
         weekday: 'short',
         year: 'numeric',
@@ -51,28 +52,29 @@ export default function log(mode: 'i'|'w'|'e', message: string): void {
     });
     preparsedDate = preparsedDate.split(', ');
     preparsedDate[1] = preparsedDate[1].split(' ');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let preparsedTime: any = new Date(Date.now()).toLocaleTimeString('en-US' /* no opts needed */);
     preparsedTime = preparsedTime.split(' ');
     preparsedTime[0] = preparsedTime[0].split(':');
 
     // Parse date/time
-    let parsedDate: string = `${chalk.green(preparsedDate[0])} ${chalk.yellow(preparsedDate[1][0])} ${chalk.yellow.bold(preparsedDate[1][1])} ${chalk.green.bold(preparsedDate[2])}`;
+    const parsedDate = `${chalk.green(preparsedDate[0])} ${chalk.yellow(preparsedDate[1][0])} ${chalk.yellow.bold(preparsedDate[1][1])} ${chalk.green.bold(preparsedDate[2])}`;
     const sep: string = chalk.yellow(':');
-    let parsedTime: string = `${chalk.yellow.bold(preparsedTime[0][0])}${sep}${chalk.yellow.bold(preparsedTime[0][1])}${sep}${chalk.yellow.bold(preparsedTime[0][2])} ${chalk.red(preparsedTime[1])}`;
+    const parsedTime = `${chalk.yellow.bold(preparsedTime[0][0])}${sep}${chalk.yellow.bold(preparsedTime[0][1])}${sep}${chalk.yellow.bold(preparsedTime[0][2])} ${chalk.red(preparsedTime[1])}`;
     
     switch (mode) {
-        case 'i':
-            msg = `${chalk.blue('[')}${chalk.blue.bold('INFO')}${chalk.blue(']')} ${message}`;
-            break;
-        case 'w':
-            msg = `${chalk.yellow('[')}${chalk.yellow.bold('WARN')}${chalk.yellow(']')} ${message}`;
-            break;
-        case 'e':
-            msg = `${chalk.red('[')}${chalk.red.bold('ERR!')}${chalk.red(']')} ${message}`;
-            break;
-        default:
-            msg = `${chalk.blue('[')}${chalk.blue.bold('INFO')}${chalk.blue(']')} ${message}`;
-            break;
+    case 'i':
+        msg = `${chalk.blue('[')}${chalk.blue.bold('INFO')}${chalk.blue(']')} ${message}`;
+        break;
+    case 'w':
+        msg = `${chalk.yellow('[')}${chalk.yellow.bold('WARN')}${chalk.yellow(']')} ${message}`;
+        break;
+    case 'e':
+        msg = `${chalk.red('[')}${chalk.red.bold('ERR!')}${chalk.red(']')} ${message}`;
+        break;
+    default:
+        msg = `${chalk.blue('[')}${chalk.blue.bold('INFO')}${chalk.blue(']')} ${message}`;
+        break;
     }
 
     const brackets: string[] = [ chalk.yellow('['), chalk.yellow(']') ]

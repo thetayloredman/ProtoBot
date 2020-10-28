@@ -42,6 +42,7 @@ import chalk from 'chalk';
 
 // Interfaces, owo
 interface Client extends discord.Client {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any
 }
 
@@ -49,13 +50,13 @@ interface Client extends discord.Client {
 type FetchedUser = discord.User | null;
 
 // Main
-export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void) {
+export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void): void {
     let tops: [number, string][] = client.owos.map((count: number, id: string) => [ count, id ]);
     tops = tops.sort((item1: [number, string], item2: [number, string]) => item1[0] > item2[0] ? -1 : item1[0] < item2[0] ? 1 : 0);
-    let t10: ([number, string]|undefined)[] = [ tops[0], tops[1], tops[2], tops[3], tops[4], tops[5], tops[6], tops[7], tops[8], tops[9] ];
+    const t10: ([number, string]|undefined)[] = [ tops[0], tops[1], tops[2], tops[3], tops[4], tops[5], tops[6], tops[7], tops[8], tops[9] ];
     // @ts-ignore
-    let t10ids: string[] = t10.map((item: [number|string]|undefined) => item ? item[1] : undefined);
-    let uintop: boolean = t10ids.includes(message.author.id);
+    const t10ids: string[] = t10.map((item: [number|string]|undefined) => item ? item[1] : undefined);
+    const uintop: boolean = t10ids.includes(message.author.id);
     
     (async () => {
         const u1: FetchedUser = t10ids[0] ? await client.users.fetch(t10ids[0]) : null;
@@ -69,19 +70,19 @@ export function run(client: Client, message: discord.Message, args: string[], lo
         const u9: FetchedUser = t10ids[8] ? await client.users.fetch(t10ids[8]) : null;
         const u10: FetchedUser = t10ids[9] ? await client.users.fetch(t10ids[9]) : null;
         
-        let msg: string = '```adoc\n';
+        let msg = '```adoc\n';
         msg += '===== OWO LEADERBOARD =====\n';
         msg += '\n';
-        msg += ` 1 :: ${u1?.tag ?? '(none)'}${t10[0] ? (' with ' + t10[0][0] + ' owos') : ''}\n`;
-        msg += ` 2 :: ${u2?.tag ?? '(none)'}${t10[1] ? (' with ' + t10[1][0] + ' owos') : ''}\n`;
-        msg += ` 3 :: ${u3?.tag ?? '(none)'}${t10[2] ? (' with ' + t10[2][0] + ' owos') : ''}\n`;
-        msg += ` 4 :: ${u4?.tag ?? '(none)'}${t10[3] ? (' with ' + t10[3][0] + ' owos') : ''}\n`;
-        msg += ` 5 :: ${u5?.tag ?? '(none)'}${t10[4] ? (' with ' + t10[4][0] + ' owos') : ''}\n`;
-        msg += ` 6 :: ${u6?.tag ?? '(none)'}${t10[5] ? (' with ' + t10[5][0] + ' owos') : ''}\n`;
-        msg += ` 7 :: ${u7?.tag ?? '(none)'}${t10[6] ? (' with ' + t10[6][0] + ' owos') : ''}\n`;
-        msg += ` 8 :: ${u8?.tag ?? '(none)'}${t10[7] ? (' with ' + t10[7][0] + ' owos') : ''}\n`;
-        msg += ` 9 :: ${u9?.tag ?? '(none)'}${t10[8] ? (' with ' + t10[8][0] + ' owos') : ''}\n`;
-        msg += `10 :: ${u10?.tag ?? '(none)'}${t10[9] ? (' with ' + t10[9][0] + ' owos') : ''}\n`;
+        msg += ` 1 :: ${u1?.tag ?? '(none)'}${t10[0] ? ' with ' + t10[0][0] + ' owos' : ''}\n`;
+        msg += ` 2 :: ${u2?.tag ?? '(none)'}${t10[1] ? ' with ' + t10[1][0] + ' owos' : ''}\n`;
+        msg += ` 3 :: ${u3?.tag ?? '(none)'}${t10[2] ? ' with ' + t10[2][0] + ' owos' : ''}\n`;
+        msg += ` 4 :: ${u4?.tag ?? '(none)'}${t10[3] ? ' with ' + t10[3][0] + ' owos' : ''}\n`;
+        msg += ` 5 :: ${u5?.tag ?? '(none)'}${t10[4] ? ' with ' + t10[4][0] + ' owos' : ''}\n`;
+        msg += ` 6 :: ${u6?.tag ?? '(none)'}${t10[5] ? ' with ' + t10[5][0] + ' owos' : ''}\n`;
+        msg += ` 7 :: ${u7?.tag ?? '(none)'}${t10[6] ? ' with ' + t10[6][0] + ' owos' : ''}\n`;
+        msg += ` 8 :: ${u8?.tag ?? '(none)'}${t10[7] ? ' with ' + t10[7][0] + ' owos' : ''}\n`;
+        msg += ` 9 :: ${u9?.tag ?? '(none)'}${t10[8] ? ' with ' + t10[8][0] + ' owos' : ''}\n`;
+        msg += `10 :: ${u10?.tag ?? '(none)'}${t10[9] ? ' with ' + t10[9][0] + ' owos' : ''}\n`;
         msg += '```';
         message.reply(msg);
     })();
