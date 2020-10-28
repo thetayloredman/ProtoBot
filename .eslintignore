@@ -1,0 +1,4 @@
+*.js
+!.eslintrc.js
+templatecmd.ts
+templatemodule.ts

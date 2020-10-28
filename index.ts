@@ -51,6 +51,7 @@ import { ProtoBotConfig } from './config';
 
 // Interfaces, owo
 interface Client extends discord.Client {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any
 }
 
@@ -85,6 +86,7 @@ client.on('ready', async () => {
             log(type, `${chalk.yellow('[')}${chalk.yellow.bold('CMDLOAD')}${chalk.yellow(']')} ${message}`);
         }
         l('i', 'Beginning initial command load...');
+        // eslint-disable-next-line no-undef
         fs.readdir(client.config.dirs.commands, (err: NodeJS.ErrnoException | null, files: string[]) => {
             if (err) {
                 l('e', `Failed to read directory ${client.config.dirs.commands}:`);
@@ -106,7 +108,7 @@ client.on('ready', async () => {
                             l('w', `${chalk.blue('[')}${chalk.blue.bold('HINT')}${chalk.blue(']')} Did you delete a command without deleting the .js file?`);
                         }
                         // normal load
-                        const commandData = require(client.config.dirs.commands.endsWith('/') ? (client.config.dirs.commands + path) : (client.config.dirs.commands + '/' + path));
+                        const commandData = require(client.config.dirs.commands.endsWith('/') ? client.config.dirs.commands + path : client.config.dirs.commands + '/' + path);
                         const cmdName: string = path.replace('.js', '');
                         l('i', `Loading command "${cmdName}"...`);
                         client.commandsConfig.set(cmdName, commandData.config);
@@ -126,6 +128,7 @@ client.on('ready', async () => {
             log(type, `${chalk.yellow('[')}${chalk.yellow.bold('MODLOAD')}${chalk.yellow(']')} ${message}`);
         }
         l('i', 'Beginning initial module load...');
+        // eslint-disable-next-line no-undef
         fs.readdir(client.config.dirs.modules, (err: NodeJS.ErrnoException | null, files: string[]) => {
             if (err) {
                 l('e', `Failed to read directory ${client.config.dirs.modules}:`);
@@ -147,7 +150,7 @@ client.on('ready', async () => {
                             l('w', `${chalk.blue('[')}${chalk.blue.bold('HINT')}${chalk.blue(']')} Did you delete a module without deleting the .js file?`);
                         }
                         // normal load
-                        const moduleData = require(client.config.dirs.modules.endsWith('/') ? (client.config.dirs.modules + path) : (client.config.dirs.modules + '/' + path));
+                        const moduleData = require(client.config.dirs.modules.endsWith('/') ? client.config.dirs.modules + path : client.config.dirs.modules + '/' + path);
                         const modName: string = path.replace('.js', '');
                         l('i', `Loading module "${modName}"...`);
                         client.modules.set(modName, moduleData);
@@ -174,8 +177,8 @@ client.on('message', (message: discord.Message) => {
         log('i', `${chalk.green('[')}${chalk.green.bold('ModuleRunner')}${chalk.green(']')} Running module ${moduleData.config.name}!`);
         moduleData.run(client, message, log);
     });
-    let msgIsCommand: boolean = false;
-    let prefixLen: number = 0;
+    let msgIsCommand = false;
+    let prefixLen = 0;
     client.config.prefixes.forEach((item: string) => {
         if (!msgIsCommand && message.content.toLowerCase().startsWith(item)) {
             msgIsCommand = true;
