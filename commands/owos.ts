@@ -91,5 +91,12 @@ export function run(client: Client, message: discord.Message, args: string[], lo
 // Config
 export const config = {
     name: 'owos',
-    description: 'Shows a leaderboard of the messages containing "owo"!'
-};
+    description: 'Shows a leaderboard of the messages containing "owo"!',
+    enabled: true,
+    
+    // To restrict the command, change the "false" to the following
+    // format:
+    // 
+    // restrict: { users: [ "array", "of", "authorized", "user", "IDs" ] }
+    restrict: false
+}

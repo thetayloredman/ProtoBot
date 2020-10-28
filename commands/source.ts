@@ -62,5 +62,12 @@ ${m.content}
 // Config
 export const config = {
     name: 'source',
-    description: 'Gets the source of the last message'
+    description: 'Gets the source of the last message',
+    enabled: true,
+    
+    // To restrict the command, change the "false" to the following
+    // format:
+    // 
+    // restrict: { users: [ "array", "of", "authorized", "user", "IDs" ] }
+    restrict: false
 }

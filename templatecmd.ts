@@ -53,5 +53,12 @@ export function run(client: Client, message: discord.Message, args: string[], lo
 // Config
 export const config = {
     name: 'My Cool Command',
-    description: 'Does stuff'
+    description: 'Does stuff',
+    enabled: true,
+    
+    // To restrict the command, change the "false" to the following
+    // format:
+    // 
+    // restrict: { users: [ "array", "of", "authorized", "user", "IDs" ] }
+    restrict: false
 }

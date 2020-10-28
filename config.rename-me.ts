@@ -48,7 +48,8 @@ interface ProtoBotConfig {
         tildes: number,
         owos: number,
         uwus: number
-    }
+    },
+    ownerID: string
 }
 
 // Ms conversion functions
@@ -71,7 +72,8 @@ const config: ProtoBotConfig = {
         tildes: minutes(1),
         owos: seconds(30),
         uwus: seconds(30)
-    }
+    },
+    ownerID: 'your-user-id'
 }
 
 // Export
