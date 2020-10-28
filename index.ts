@@ -46,15 +46,14 @@ import * as fs from 'fs';
 import log from './log';
 
 // Config import
-import config from './config';
-import { ProtoBotConfig } from './config';
+import config, { ProtoBotConfig } from './config';
 
 // Interfaces, owo
 interface Client extends discord.Client {
     [key: string]: any
 }
 
-// Initialize client~
+// Initialize client
 const client: Client = new discord.Client();
 
 // Set config in
@@ -192,10 +191,34 @@ client.on('message', (message: discord.Message) => {
         }
 
         const commandExec: (client: discord.Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void) => void|undefined = client.commands.get(command)?.run;
+        const commandConfig: any = client.commands.get(command)?.config;
         if (!commandExec) {
             // exit
             return;
         } else {
+            // Now we check for specific things to prevent the command from running
+            // in it's configuration.
+            if (!commandConfig.enabled) {
+                log('i', 'Command is disabled!');
+                message.reply('That command is disabled!');
+                return;
+            }
+            if (commandConfig.restrict !== false && commandConfig.restrict !== undefined) {
+                // Command is restricted!
+                if (!(commandConfig.restrict.users ?? []).includes(message.author.id) && client.config.ownerID !== message.author.id) {
+                    if (client.config.ownerID !== message.author.id) {
+                        // User isn't authorized.
+                        // 
+                        // Reasoning for this:
+                        // - Command is restricted
+                        // - They aren't one of the allowed users
+                        // - They aren't the owner
+                        log('i', 'User unauthorized!');
+                        message.reply('You aren\'t authorized to do that!');
+                        return;
+                    }
+                }
+            }
             log('i', 'Running command!');
             commandExec(client, message, args, log);
         }
