@@ -47,7 +47,7 @@ import log from './log';
 
 // Config import
 import config from './config';
-import { FelohConfig } from './config';
+import { ProtoBotConfig } from './config';
 
 // Interfaces, owo
 interface Client extends discord.Client {
