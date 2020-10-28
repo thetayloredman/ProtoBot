@@ -165,6 +165,7 @@ client.on('ready', async () => {
 
 // Message handler
 client.on('message', (message: discord.Message) => {
+    // TODO better cmd handler
     if (message.author.bot) {
         // exit
         return;
