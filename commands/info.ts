@@ -47,6 +47,12 @@ interface Client extends discord.Client {
 }
 
 // Main
+function fireStats(userID: string, message: discord.Message, client: Client): void {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const uData: any = client.ustats.get(userID);
+    message.reply(JSON.stringify(uData));
+}
+
 export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void): void {
     let userID: string|undefined;
     if (!args[0]) {
@@ -58,12 +64,19 @@ export function run(client: Client, message: discord.Message, args: string[], lo
     }
 
     if (!client.ustats.get(userID)) {
-        message.reply('I haven\'t ever seen that user! Maybe they have not talked before?');
+        client.users.fetch(userID).then((user: discord.User) => {
+            client.ustats.ensure(user.id, client.defaults.USER_STATS);
+            // @ts-ignore
+            fireStats(userID, message, client);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        }).catch((reason: any) => {
+            log('i', `Unknown user ${userID}!`);
+            message.reply('Unknown user!');
+            return;
+        });
         return;
     } else {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const uStats: { [key: string]: any } = client.ustats.get(userID);
-        message.reply(JSON.stringify(uStats));
+        fireStats(userID, message, client);
     }
 }
 
@@ -71,7 +84,7 @@ export function run(client: Client, message: discord.Message, args: string[], lo
 export const config = {
     name: 'info',
     description: 'Get a user\'s stats!',
-    enabled: false,
+    enabled: true,
     
     // To restrict the command, change the "false" to the following
     // format:

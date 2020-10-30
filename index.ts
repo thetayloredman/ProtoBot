@@ -60,6 +60,10 @@ const client: Client = new discord.Client();
 // Set config in
 client.config = config;
 
+// Defaults
+client.defaults = {};
+client.defaults.USER_STATS = { hugs: 0 };
+
 // dbs
 client.cooldowns = new enmap({ name: 'cooldowns' });
 client.tildes = new enmap({ name: 'tildes' });
@@ -168,7 +172,7 @@ client.on('ready', async () => {
 
 // Message handler
 client.on('message', (message: discord.Message) => {
-    // TODO better cmd handler
+    client.ustats.ensure(message.author.id, client.defaults.USER_STATS)
     if (message.author.bot) {
         // exit
         return;
