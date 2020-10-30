@@ -194,6 +194,7 @@ client.on('message', (message: discord.Message) => {
         }
 
         const commandExec: (client: discord.Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void) => void|undefined = client.commands.get(command)?.run;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const commandConfig: any = client.commands.get(command)?.config;
         if (!commandExec) {
             // exit
