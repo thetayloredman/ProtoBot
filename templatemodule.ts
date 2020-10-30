@@ -42,11 +42,12 @@ import chalk from 'chalk';
 
 // Interfaces, owo
 interface Client extends discord.Client {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any
 }
 
 // Main
-export function run(client: Client, message: discord.Message, log: (mode: 'i'|'w'|'e', message: string) => void) {
+export function run(client: Client, message: discord.Message, log: (mode: 'i'|'w'|'e', message: string) => void): void {
 
 }
 
