@@ -83,7 +83,8 @@ ${code}`);
         const Linter = require('eslint').Linter;
         const linter = new Linter();
         const lint = linter.verify(code, { 'env': { 'commonjs': true, 'es2021': true, 'node': true }, 'extends': 'eslint:recommended', 'parserOptions': { 'ecmaVersion': 12 } });
-        const error = lint.find(e => e.fatal);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const error = lint.find((e: any) => e.fatal);
         if (error) {
             const line = code.split('\n')[error.line - 1];
             const match = line.slice(error.column - 1).match(/\w+/i);
