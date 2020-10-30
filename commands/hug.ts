@@ -36,46 +36,51 @@
 // | +---------------------------------------------+ |
 // +-------------------------------------------------+
 
-// Interface
-interface ProtoBotConfig {
-    token: string,
-    dirs: {
-        commands: string,
-        modules: string
-    },
-    prefixes: string[],
-    cooldowns: {
-        tildes: number,
-        owos: number,
-        uwus: number
-    },
-    ownerID: string
-}
+// Modules
+import discord from 'discord.js';
+import chalk from 'chalk';
 
-// Ms conversion functions
-function seconds(count: number): number {
-    return 1000 * count;
-}
-function minutes(count: number): number {
-    return seconds(60) * count;
+// Interfaces, owo
+interface Client extends discord.Client {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [key: string]: any
 }
 
 // Main
-const config: ProtoBotConfig = {
-    token: 'your-super-cool-token',
-    dirs: {
-        commands: './commands/',
-        modules: './modules/'
-    },
-    prefixes: [ '~', 'proto, ', 'proto,', 'proto ', 'pb, ', 'pb,', 'pb ', 'protobot, ', 'protobot,', 'protobot ' ],
-    cooldowns: {
-        tildes: minutes(1),
-        owos: seconds(30),
-        uwus: seconds(30)
-    },
-    ownerID: 'your-user-id'
-};
+export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void): void {
+    let userID: string|undefined;
+    if (!args[0]) {
+        log('i', 'No hug arg provided!');
+        message.reply('Who did you want to hug?');
+        return;
+    } else if (/<@!?.+>/.test(args[0])) {
+        userID = args[0].replace(/[<@!>]/g, '');
+    } else {
+        userID = args[0];
+    }
 
-// Export
-export { ProtoBotConfig };
-export default config;
+    if (userID === message.author.id) {
+        log('i', 'Cannot hug self!');
+        message.reply('How are you gonna hug yourself?');
+        return;
+    }
+
+    client.ustats.ensure(userID, client.defaults.USER_STATS);
+    client.ustats.inc(userID, 'hugs');
+
+    message.channel.send(`**HUG!**
+<@${message.author.id}> huggles <@${userID}> tightly.`);
+}
+
+// Config
+export const config = {
+    name: 'hug',
+    description: 'Hug someone!',
+    enabled: true,
+    
+    // To restrict the command, change the "false" to the following
+    // format:
+    // 
+    // restrict: { users: [ "array", "of", "authorized", "user", "IDs" ] }
+    restrict: false
+};

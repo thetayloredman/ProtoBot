@@ -77,7 +77,7 @@ export default function log(mode: 'i'|'w'|'e', message: string): void {
         break;
     }
 
-    const brackets: string[] = [ chalk.yellow('['), chalk.yellow(']') ]
+    const brackets: string[] = [ chalk.yellow('['), chalk.yellow(']') ];
 
     msg = `${brackets[0]}${parsedDate} ${parsedTime}${brackets[1]} ${msg}`;
 

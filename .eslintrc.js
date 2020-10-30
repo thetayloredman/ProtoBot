@@ -42,6 +42,7 @@ module.exports = {
         'no-extra-boolean-cast':              [ 'error', { enforceForLogicalOperands: true } ],
         'no-extra-parens':                    [ 'warn', 'all' ],
         'no-extra-semi':                      [ 'error' ],
+        'semi':                               [ 'error' ],
         'no-func-assign':                     [ 'error' ],
         'no-import-assign':                   [ 'error' ],
         'no-inner-declarations':              [ 'off' ],

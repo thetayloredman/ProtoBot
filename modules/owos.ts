@@ -75,4 +75,4 @@ export function run(client: Client, message: discord.Message, log: (mode: 'i'|'w
 export const config = {
     name: 'owos',
     description: 'Detects a message containing "owo" and logs it.'
-}
+};

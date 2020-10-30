@@ -70,4 +70,4 @@ export const config = {
     // 
     // restrict: { users: [ "array", "of", "authorized", "user", "IDs" ] }
     restrict: false
-}
+};

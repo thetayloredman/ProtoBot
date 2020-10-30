@@ -50,7 +50,8 @@ interface Client extends discord.Client {
 function fireStats(userID: string, message: discord.Message, client: Client): void {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const uData: any = client.ustats.get(userID);
-    message.reply(JSON.stringify(uData));
+    message.reply(`**User info for \`${userID}\`:**
+Hugs: ${uData.hugs}`);
 }
 
 export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void): void {
@@ -91,4 +92,4 @@ export const config = {
     // 
     // restrict: { users: [ "array", "of", "authorized", "user", "IDs" ] }
     restrict: false
-}
+};

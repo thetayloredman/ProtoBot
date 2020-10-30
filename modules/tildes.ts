@@ -79,4 +79,4 @@ export function run(client: Client, message: discord.Message, log: (mode: 'i'|'w
 export const config = {
     name: 'tildes',
     description: 'Detects a message ending in ~ and logs it.'
-}
+};

@@ -102,7 +102,7 @@ client.on('ready', async () => {
                         if (!files.includes(path.replace('.ts', '.js'))) {
                             l('e', 'UncompiledCommandWarning: Found a .ts file: ' + path + ', that wasn\'t paired with a compiled .js file!');
                             l('e', `${chalk.blue('[')}${chalk.blue.bold('HINT')}${chalk.blue(']')} Did you forget to run ${chalk.inverse('tsc')}?`);
-                            l('e', `Failed to load command ${path.replace('.ts', '')}.`)
+                            l('e', `Failed to load command ${path.replace('.ts', '')}.`);
                         }
                     } else if (path.endsWith('.js')) {
                         // show scrapped cmd warning
@@ -144,7 +144,7 @@ client.on('ready', async () => {
                         if (!files.includes(path.replace('.ts', '.js'))) {
                             l('e', 'UncompiledModuleWarning: Found a .ts file: ' + path + ', that wasn\'t paired with a compiled .js file!');
                             l('e', `${chalk.blue('[')}${chalk.blue.bold('HINT')}${chalk.blue(']')} Did you forget to run ${chalk.inverse('tsc')}?`);
-                            l('e', `Failed to load module ${path.replace('.ts', '')}.`)
+                            l('e', `Failed to load module ${path.replace('.ts', '')}.`);
                         }
                     } else if (path.endsWith('.js')) {
                         // show scrapped cmd warning
@@ -172,7 +172,7 @@ client.on('ready', async () => {
 
 // Message handler
 client.on('message', (message: discord.Message) => {
-    client.ustats.ensure(message.author.id, client.defaults.USER_STATS)
+    client.ustats.ensure(message.author.id, client.defaults.USER_STATS);
     if (message.author.bot) {
         // exit
         return;
