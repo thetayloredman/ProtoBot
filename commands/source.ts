@@ -53,10 +53,11 @@ export function run(client: Client, message: discord.Message, args: string[], lo
         const m: discord.Message = messages.last();
         message.reply(`Content of message ID \`${m.id}\` in channel <#${m.channel.id}>${m.content.includes('```') ? ' (**Formatting may be broken, the message contains a code fence**)' : ''}:
 
-\`\`\`md
-${m.content}
-\`\`\``);
-    });
+${
+    // @ts-ignore
+    discord.escapeMarkdown(m.content)
+}`);
+    }); 
 }
 
 // Config
