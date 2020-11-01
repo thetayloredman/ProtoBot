@@ -138,6 +138,7 @@ module.exports = {
         'func-name-matching':                 [ 'error', 'always' ],
         'func-style':                         [ 'error', 'declaration' ],
         'indent':                             [ 'error', 4 ],
-        'quotes':                             [ 'error', 'single' ]
+        'quotes':                             [ 'error', 'single' ],
+        'prefer-template':                    [ 'error' ]
     }
 };

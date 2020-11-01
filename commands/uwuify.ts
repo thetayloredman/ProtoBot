@@ -56,7 +56,7 @@ export function run(client: Client, message: discord.Message, args: string[], lo
     const uwuify: Uwuifier = new Uwuifier();
     const msg: string = uwuify.uwuifySentence(args.join(' '));
     // @ts-ignore
-    message.channel.send('**Uwuified text:** ' + msg);
+    message.channel.send(`**Uwuified text:** ${  msg}`);
 }
 
 // Config
