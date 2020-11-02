@@ -8,7 +8,7 @@
 // | +---------------------------------------------+ |
 // | | COPYRIGHT                                   | |
 // | |=============================================| |
-// | | Copyright (C) 2020  Logan Devine            | |
+// | | Copyright (C) 2020  BadBoyHaloCat           | |
 // | |                                             | |
 // | | ProtoBot is licensed under exclusive        | |
 // | | copyright. You may NOT use this source      | |
