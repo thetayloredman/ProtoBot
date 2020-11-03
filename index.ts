@@ -48,11 +48,8 @@ import log from './log';
 // Config import
 import config, { ProtoBotConfig } from './config';
 
-// Interfaces, owo
-interface Client extends discord.Client {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    [key: string]: any
-}
+// Client interface import
+import { Client } from './Client';
 
 // Initialize client
 const client: Client = new discord.Client();
