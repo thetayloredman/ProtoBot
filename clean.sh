@@ -28,6 +28,7 @@ case "$isSure" in
         rm -fv ./config.rename-me.js;
         echo "Clearing ./log.js";
         rm -fv ./log.js;
+        echo "All cleaned! Have a nice day!";
         ;;
     *)
         echo "You need to type 'y'!";
