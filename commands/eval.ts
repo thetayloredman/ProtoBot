@@ -114,7 +114,7 @@ ${response}`);
         message.channel.send(embed);
     } else {
         log('i', 'Silent eval output:');
-        log('i', `Error: ${  e ? 'Yes' : 'No'}`);
+        log('i', `Error: ${  e ? 'Yes' : 'No'  }`);
         log('i', 'Output:');
         log('i', response);
     }
