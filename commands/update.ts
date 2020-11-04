@@ -95,7 +95,7 @@ $ git add .
 
 ${stdout2 === '' ? stderr2 : stdout2}
 \`\`\``)
-                            .addField('Status', '`$ git commit -m "ProtoBot -- Update (Found uncommitted changes)"');
+                            .addField('Status', '`$ git commit -m "ProtoBot -- Update (Found uncommitted changes)"`');
 
                         m.edit(embed);
 
@@ -148,7 +148,7 @@ $ git commit -m "ProtoBot -- Update (Found uncommitted changes)"
 ${stdout3 === '' ? stderr3 : stdout3}
 \`\`\``)
                                             .addField('Git Sync (fetch -> pull -> push) Result', `\`\`\`
-$ git push
+$ git fetch && git pull && git push
 
 ${stdout4 === '' ? stderr4 : stdout4}`)
                                             .addField('Status', '**Complete.**')
@@ -168,8 +168,8 @@ ${stdout4 === '' ? stderr4 : stdout4}`)
 
 // Config
 export const config = {
-    name: 'My Cool Command',
-    description: 'Does stuff',
+    name: 'update',
+    description: 'Update the bot!',
     enabled: true,
     
     // To restrict the command, change the "false" to the following
