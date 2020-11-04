@@ -70,7 +70,7 @@ export function run(client: Client, message: discord.Message, args: string[], lo
            
             embed = new discord.MessageEmbed()
                 // eslint-disable-next-line no-constant-condition
-                .setTitle(`Branch Switch [${  stderr.startsWith('Switched') ? 'Complete' : 'Failed'  }]`);
+                .setTitle(`Branch Switch [${  stderr.startsWith('Switched') ? 'Complete' : 'Failed'  }]`)
                 .setDescription(stderr.startsWith('Switched') ? `Switched to branch ${  args[0]}` : 'Failed to switch to branch. (Does it exist?)');
                 
             if (stderr) {
