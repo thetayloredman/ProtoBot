@@ -56,6 +56,10 @@ export function run(client: Client, message: discord.Message, args: string[], lo
         return;
     }
 
+    if (!args[0]) {
+        message.reply('What branch did you want to switch to, tho?')
+    }
+
     let embed: discord.MessageEmbed = new discord.MessageEmbed()
         .setTitle('Branch Switch')
         .setDescription(`Please wait.. Switching to \`${  args[0]  }\`...`)
@@ -69,10 +73,14 @@ export function run(client: Client, message: discord.Message, args: string[], lo
                     .setDescription('The branch switch failed. (Does the branch exist?)');
                 
                 if (stderr) {
-                    embed.addField('STDERR', stderr ?? '<none>');
+                    embed.addField('STDERR', `\`\`\`
+${stderr ?? '<none>'}
+\`\`\``);
                 }
                 if (stdout) {
-                    embed.addField('STDOUT', stdout ?? '<none>');
+                    embed.addField('STDOUT', `\`\`\`
+${stdout ?? '<none>'}
+\`\`\``);
                 }
 
                 m.edit(embed);
@@ -80,7 +88,9 @@ export function run(client: Client, message: discord.Message, args: string[], lo
                 embed = new discord.MessageEmbed()
                     .setTitle('Branch Switch [Complete]')
                     .setDescription('The branch switch completed!')
-                    .addField('STDOUT', stdout ?? '<none>');
+                    .addField('STDOUT', `\`\`\`
+${stdout ?? '<none>'}
+\`\`\``);
                 
                 m.edit(embed);
             }
