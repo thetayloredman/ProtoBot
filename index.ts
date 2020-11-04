@@ -76,11 +76,16 @@ client.modules = new enmap();
 // Ready event
 client.on('ready', async () => {
     console.clear();
+    const userCountsPerGuild: number[] = client.guilds.cache.map((g: discord.Guild) => g.memberCount - 1);
+    let userTotal = 0;
+    userCountsPerGuild.forEach((item: number) => userTotal += item);
+    const userAvg = userTotal / userCountsPerGuild.length;
     log('i', 'Ready!');
     log('i', `${chalk.green('[')}${chalk.green.bold('BOT')}${chalk.green(']')} Username: ${chalk.red(client.user?.tag) ?? '(error: client.user is undefined)'}`);
     log('i', `${chalk.green('[')}${chalk.green.bold('GUILDS')}${chalk.green(']')} In ${chalk.red(client.guilds.cache.size)} guilds!`);
     log('i', `${chalk.green('[')}${chalk.green.bold('CHANNELS')}${chalk.green(']')} With ${chalk.red(client.channels.cache.size)} channels!`);
-    log('i', `${chalk.green('[')}${chalk.green.bold('USERS')}${chalk.green(']')} Total ${chalk.red(client.users.cache.size - 1)} users! (${chalk.red('excluding')} ${chalk.red.bold('self')})`);
+    log('i', `${chalk.green('[')}${chalk.green.bold('USERS')}${chalk.green(']')} Total ${chalk.red(userTotal)} users! (${chalk.red('excluding')} ${chalk.red.bold('self')})`);
+    log('i', `${chalk.green('[')}${chalk.green.bold('USERAVG')}${chalk.green(']')} Average user count per guilds: ${chalk.red(Math.round(userAvg))}`);
     log('i', `${chalk.green('[')}${chalk.green.bold('PREFIXES')}${chalk.green(']')} Loaded ${chalk.red(client.config.prefixes.length)} prefixes!`);
     function loadCmds(): void {
         function l(type: 'i'|'w'|'e', message: string) {
@@ -107,6 +112,11 @@ client.on('ready', async () => {
                             l('w', `CommandScrapWarning: Found a .js file: ${  path  }, that wasn't paired with a .ts file!`);
                             l('w', 'Still loading scrapped command!');
                             l('w', `${chalk.blue('[')}${chalk.blue.bold('HINT')}${chalk.blue(']')} Did you delete a command without deleting the .js file?`);
+                        }
+                        if (path.replace('.js', '').toLowerCase() !== path.replace('.js', '')) {
+                            l('w', `CommandCasedWarning: Command at ${  path  } has a name with a capital letter!`);
+                            l('w', `Will be loaded as "${  path.replace('.js', '').toLowerCase()  }"!`);
+                            path = path.toLowerCase();
                         }
                         // normal load
                         const commandData = require(client.config.dirs.commands.endsWith('/') ? client.config.dirs.commands + path : `${client.config.dirs.commands  }/${  path}`);
@@ -189,7 +199,7 @@ client.on('message', (message: discord.Message) => {
     });
     if (msgIsCommand) {
         const args: string[] = message.content.slice(prefixLen).split(/ +/g);
-        const command: string|undefined = args.shift();
+        const command: string|undefined = args.shift()?.toLowerCase() ?? '';
         if (!command) {
             // exit
             return;
