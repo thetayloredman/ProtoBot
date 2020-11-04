@@ -54,7 +54,7 @@ try {
             process.exit(1);
         }
     } else {
-        console.error(e2);
+        console.error(e);
         process.exit(1);
     }
 }
