@@ -127,8 +127,8 @@ ${stdout3 === '' ? stderr3 : stdout3}
                                     m.edit(`Failed to update: ${error4}`);
                                 } else {
                                     embed = new discord.MessageEmbed()
-                                        .setTitle('Update')
-                                        .setDescription('Here is your live progress report on the update!')
+                                        .setTitle('Update [Complete]')
+                                        .setDescription('Here is the update log!')
                                         .addField('Git Status', `\`\`\`
 $ git status
 
