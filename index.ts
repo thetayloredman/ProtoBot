@@ -102,24 +102,24 @@ client.on('ready', async () => {
                 files.forEach((path: string) => {
                     if (path.endsWith('.ts')) {
                         if (!files.includes(path.replace('.ts', '.js'))) {
-                            l('e', `UncompiledCommandWarning: Found a .ts file: ${  path  }, that wasn't paired with a compiled .js file!`);
+                            l('e', `UncompiledCommandWarning: Found a .ts file: ${path}, that wasn't paired with a compiled .js file!`);
                             l('e', `${chalk.blue('[')}${chalk.blue.bold('HINT')}${chalk.blue(']')} Did you forget to run ${chalk.inverse('tsc')}?`);
                             l('e', `Failed to load command ${path.replace('.ts', '')}.`);
                         }
                     } else if (path.endsWith('.js')) {
                         // show scrapped cmd warning
                         if (!files.includes(path.replace('.js', '.ts'))) {
-                            l('w', `CommandScrapWarning: Found a .js file: ${  path  }, that wasn't paired with a .ts file!`);
+                            l('w', `CommandScrapWarning: Found a .js file: ${path}, that wasn't paired with a .ts file!`);
                             l('w', 'Still loading scrapped command!');
                             l('w', `${chalk.blue('[')}${chalk.blue.bold('HINT')}${chalk.blue(']')} Did you delete a command without deleting the .js file?`);
                         }
                         if (path.replace('.js', '').toLowerCase() !== path.replace('.js', '')) {
-                            l('w', `CommandCasedWarning: Command at ${  path  } has a name with a capital letter!`);
-                            l('w', `Will be loaded as "${  path.replace('.js', '').toLowerCase()  }"!`);
+                            l('w', `CommandCasedWarning: Command at ${path} has a name with a capital letter!`);
+                            l('w', `Will be loaded as "${path.replace('.js', '').toLowerCase()}"!`);
                             path = path.toLowerCase();
                         }
                         // normal load
-                        const commandData = require(client.config.dirs.commands.endsWith('/') ? client.config.dirs.commands + path : `${client.config.dirs.commands  }/${  path}`);
+                        const commandData = require(client.config.dirs.commands.endsWith('/') ? client.config.dirs.commands + path : `${client.config.dirs.commands}/${path}`);
                         const cmdName: string = path.replace('.js', '');
                         l('i', `Loading command "${cmdName}"...`);
                         client.commandsConfig.set(cmdName, commandData.config);
@@ -127,7 +127,7 @@ client.on('ready', async () => {
                         l('i', `Finished loading command "${cmdName}"!`);
                     } else {
                         // unknown ext
-                        l('w', `File in commands dir with unknown extension: ${  path}`);
+                        l('w', `File in commands dir with unknown extension: ${path}`);
                     }
                 });
             }
@@ -149,26 +149,26 @@ client.on('ready', async () => {
                 files.forEach((path: string) => {
                     if (path.endsWith('.ts')) {
                         if (!files.includes(path.replace('.ts', '.js'))) {
-                            l('e', `UncompiledModuleWarning: Found a .ts file: ${  path  }, that wasn't paired with a compiled .js file!`);
+                            l('e', `UncompiledModuleWarning: Found a .ts file: ${path}, that wasn't paired with a compiled .js file!`);
                             l('e', `${chalk.blue('[')}${chalk.blue.bold('HINT')}${chalk.blue(']')} Did you forget to run ${chalk.inverse('tsc')}?`);
                             l('e', `Failed to load module ${path.replace('.ts', '')}.`);
                         }
                     } else if (path.endsWith('.js')) {
                         // show scrapped cmd warning
                         if (!files.includes(path.replace('.js', '.ts'))) {
-                            l('w', `ModuleScrapWarning: Found a .js file: ${  path  }, that wasn't paired with a .ts file!`);
+                            l('w', `ModuleScrapWarning: Found a .js file: ${path}, that wasn't paired with a .ts file!`);
                             l('w', 'Still loading scrapped module!');
                             l('w', `${chalk.blue('[')}${chalk.blue.bold('HINT')}${chalk.blue(']')} Did you delete a module without deleting the .js file?`);
                         }
                         // normal load
-                        const moduleData = require(client.config.dirs.modules.endsWith('/') ? client.config.dirs.modules + path : `${client.config.dirs.modules  }/${  path}`);
+                        const moduleData = require(client.config.dirs.modules.endsWith('/') ? client.config.dirs.modules + path : `${client.config.dirs.modules}/${path}`);
                         const modName: string = path.replace('.js', '');
                         l('i', `Loading module "${modName}"...`);
                         client.modules.set(modName, moduleData);
                         l('i', `Finished loading module "${modName}"!`);
                     } else {
                         // unknown ext
-                        l('w', `File in modules dir with unknown extension: ${  path}`);
+                        l('w', `File in modules dir with unknown extension: ${path}`);
                     }
                 });
             }

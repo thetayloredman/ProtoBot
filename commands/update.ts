@@ -56,16 +56,26 @@ export function run(client: Client, message: discord.Message, args: string[], lo
         return;
     }
 
+    log('i', `User "${message.author.tag}" has triggered an update!`);
+
     let embed: discord.MessageEmbed = new discord.MessageEmbed()
         .setTitle('Update')
         .setDescription('Here is your live progress report on the update!')
         .addField('Status', '`$ git status`');
 
+    function l(mode: 'i'|'w'|'e', message: string): void {
+        return log(mode, `${chalk.green('[')}${chalk.green.bold('Updater')}${chalk.green(']')} ${message}`);
+    }
+
+    l('i', 'Getting git status...');
+
     message.channel.send(embed).then((m: discord.Message) => {
         exec('git status', (error: ExecException|null, stdout: string, stderr: string) => {
             if (error) {
-                m.edit(`Failed to update: ${ error}`);
+                l('e', `Failed to update: ${error}`);
+                m.edit(`Failed to update: ${error}`);
             } else {
+                l('i', 'Got git status!');
                 embed = new discord.MessageEmbed()
                     .setTitle('Update')
                     .setDescription('Here is your live progress report on the update!')
@@ -78,10 +88,13 @@ ${stdout === '' ? stderr : stdout}
                 
                 m.edit(embed);
 
+                l('i', 'Adding files...');
                 exec('git add .', (error2: ExecException|null, stdout2: string, stderr2: string) => {
                     if (error2) {
+                        l('e', `Failed to update: ${error2}`);
                         m.edit(`Failed to update: ${error2}`);
                     } else {
+                        l('i', 'Added files!');
                         embed = new discord.MessageEmbed()
                             .setTitle('Update')
                             .setDescription('Here is your live progress report on the update!')
@@ -99,7 +112,10 @@ ${stdout2 === '' ? stderr2 : stdout2}
 
                         m.edit(embed);
 
+                        l('i', 'Committing...');
+
                         exec('git commit -m "ProtoBot -- Update (Found uncommitted changes)"', (error3: ExecException|null, stderr3: string, stdout3: string) => {
+                            l('i', 'Committed!');
                             embed = new discord.MessageEmbed()
                                 .setTitle('Update')
                                 .setDescription('Here is your live progress report on the update!')
@@ -122,10 +138,14 @@ ${stdout3 === '' ? stderr3 : stdout3}
 
                             m.edit(embed);
 
+                            l('i', 'Syncing...');
+
                             exec('git fetch && git pull --no-rebase && git push', (error4: ExecException|null, stderr4: string, stdout4: string) => {
                                 if (error4) {
+                                    l('e', `Failed to update: ${error4}`);
                                     m.edit(`Failed to update: ${error4}`);
                                 } else {
+                                    l('i', 'Synced!');
                                     embed = new discord.MessageEmbed()
                                         .setTitle('Update [Complete]')
                                         .setDescription('Here is the update log!')
@@ -153,6 +173,8 @@ ${stdout4 === '' ? stderr4 : stdout4}
                                         .addField('Restart to apply changes', `To apply the update, run ${client.config.prefixes[0]}restart.`);
 
                                     m.edit(embed);
+
+                                    l('i', 'Update completed!');
                                 }
                             });
                         });
