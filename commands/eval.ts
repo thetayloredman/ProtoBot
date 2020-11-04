@@ -104,7 +104,7 @@ ${' '.repeat(error.column - 1)}${'^'.repeat(length)}
         .setTitle(e ? '**Error**' : '**Success**')
         .setColor(e ? 'RED' : 'GREEN')
         .setDescription(`\`\`\`${response.substr(0, 2042)}\`\`\``);
-    if (length >= 2049) {
+    if (length >= 2049 && !silent) { // dont do this on silent items
         log(e ? 'e' : 'i', `An eval command executed by ${message.author.username}'s response was too long (${length}/2048).`);
         log(e ? 'e' : 'i', `Error: ${e ? 'Yes' : 'No'}`);
         log(e ? 'e' : 'i', 'Output:');
