@@ -57,7 +57,7 @@ export function run(client: Client, message: discord.Message, args: string[], lo
     }
 
     if (!args[0]) {
-        message.reply('What branch did you want to switch to, tho?')
+        message.reply('What branch did you want to switch to, tho?');
     }
 
     let embed: discord.MessageEmbed = new discord.MessageEmbed()
@@ -67,33 +67,19 @@ export function run(client: Client, message: discord.Message, args: string[], lo
 
     message.channel.send(embed).then((m: discord.Message) => {
         exec(`git checkout ${args[0]}`, (error: ExecException|null, stdout: string, stderr: string) => {
-            if (stderr !== '') {
-                embed = new discord.MessageEmbed()
-                    .setTitle('Branch Switch [Failed]')
-                    .setDescription('The branch switch failed. (Does the branch exist?)');
+           
+            embed = new discord.MessageEmbed()
+                .setTitle(`Branch Switch [${  stderr.startsWith('Switched')}` ? 'Complete' : 'Failed' + ']')
+                .setDescription(stderr.startsWith('Switched') ? `Switched to branch ${  args[0]}` : 'Failed to switch to branch. (Does it exist?)');
                 
-                if (stderr) {
-                    embed.addField('STDERR', `\`\`\`
+            if (stderr) {
+                embed.addField('Log', `\`\`\`
 ${stderr ?? '<none>'}
 \`\`\``);
-                }
-                if (stdout) {
-                    embed.addField('STDOUT', `\`\`\`
-${stdout ?? '<none>'}
-\`\`\``);
-                }
-
-                m.edit(embed);
-            } else {
-                embed = new discord.MessageEmbed()
-                    .setTitle('Branch Switch [Complete]')
-                    .setDescription('The branch switch completed!')
-                    .addField('STDOUT', `\`\`\`
-${stdout ?? '<none>'}
-\`\`\``);
-                
-                m.edit(embed);
             }
+
+            m.edit(embed);
+            
         });
     });
 }
