@@ -216,6 +216,7 @@ client.on('message', (message: discord.Message) => {
         const commandConfig: any = client.commands.get(command)?.config;
         if (!commandExec) {
             // exit
+            log('i', `Failed to find command "${command}", exiting handler.`);
             return;
         } else {
             // Now we check for specific things to prevent the command from running
