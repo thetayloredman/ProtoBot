@@ -52,9 +52,9 @@ function fireStats(userID: string, message: discord.Message, client: Client): vo
     const uData: any = client.ustats.get(userID);
     message.reply(`**User info for \`${userID}\`:**
 Hugs: ${uData.hugs}
-uwus: ${client.uwus.ensure(userID, 0)}
-owos: ${client.owos.ensure(userID, 0)}
-Tildes: ${client.tildes.ensure(userID, 0)}`);
+uwus: ${client.uwus.get(userID) ?? 0}
+owos: ${client.owos.get(userID) ?? 0}
+Tildes: ${client.tildes.get(userID) ?? 0}`);
 }
 
 export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void): void {
