@@ -4,7 +4,7 @@
   "description": "a discord furry bot",
   "main": "index.js",
   "scripts": {
-    "start": "tsc; node ."
+    "start": "chmod u+x ./start.sh; ./start.sh"
   },
   "author": "BadBoyHaloCat",
   "license": "UNLICENCED",
