@@ -54,7 +54,8 @@ export async function run(client: Client, message: discord.Message, args: string
     // Safety check
     let silent = false;
     if (args[0] === '-s') {
-        args = args.shift(); silent = true; 
+        args.shift();
+        silent = true; 
     }
     let code: string = args.join(' ');
     if (message.author.id !== client.config.ownerID) {
