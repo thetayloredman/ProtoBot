@@ -119,7 +119,8 @@ ${stdout2 === '' ? stderr2 : stdout2}
                                     .addField('Git Commit Result', `\`\`\`
 $ git commit -m "ProtoBot -- Update (Found uncommitted changes)"
 
-${stdout3 === '' ? stderr3 : stdout3}`)
+${stdout3 === '' ? stderr3 : stdout3}
+\`\`\``)
                                     .addField('Status', '**TBD**');
 
                                 m.edit(embed);
