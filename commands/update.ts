@@ -100,9 +100,6 @@ ${stdout2 === '' ? stderr2 : stdout2}
                         m.edit(embed);
 
                         exec('git commit -m "ProtoBot -- Update (Found uncommitted changes)"', (error3: ExecException|null, stderr3: string, stdout3: string) => {
-                            if (error3) {
-                                m.edit(`Failed to update: ${error3}`);
-                            } else {
                                 embed = new discord.MessageEmbed()
                                     .setTitle('Update')
                                     .setDescription('Here is your live progress report on the update!')
@@ -150,14 +147,14 @@ ${stdout3 === '' ? stderr3 : stdout3}
                                             .addField('Git Sync (fetch -> pull -> push) Result', `\`\`\`
 $ git fetch && git pull && git push
 
-${stdout4 === '' ? stderr4 : stdout4}`)
+${stdout4 === '' ? stderr4 : stdout4}
+\`\`\``)
                                             .addField('Status', '**Complete.**')
                                             .addField('Restart to apply changes', `To apply the update, run ${client.config.prefix}restart.`);
 
                                         m.edit(embed);
                                     }
                                 });
-                            }
                         });
                     }
                 });
