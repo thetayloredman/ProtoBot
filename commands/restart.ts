@@ -50,15 +50,20 @@ interface Client extends discord.Client {
 export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void): void {
     // Safety check
     if (message.author.id !== client.config.ownerID) {
-        console.log('w', `User ${message.author.tag} tried to use "update"!`);
+        console.log('w', `User ${message.author.tag} tried to use "restart"!`);
         message.reply('You don\'t have permission to do that!');
         return;
     }
 
+    log('w', `${message.author.tag} has triggered a restart!`);
     // restart bot
-    message.reply('Goodbye!');
-    client.destroy();
-    process.exit();
+    message.reply('Goodbye!').then(() => {
+        log('w', 'Terminating client...');
+        client.destroy();
+        log('w', 'Client has been killed.');
+        log('w', 'Exiting process.. Goodbye!');
+        process.exit();
+    });
 }
 
 // Config
