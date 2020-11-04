@@ -208,6 +208,9 @@ client.on('message', (message: discord.Message) => {
             return;
         }
 
+        log('i', `Running command "${command}" for "${message.author.tag}" with args "${args.join(' ')}"!`);
+        log('i', `Command found at: ${message.guild?.name ?? 'unknown'} (${message.guild?.id ?? 'unknown'}) => #${message.channel?.name ?? '#unknown'} (${message.channel?.id ?? 'unknown'}) => ${message.id}`);
+
         const commandExec: (client: discord.Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void) => void|undefined = client.commands.get(command)?.run;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const commandConfig: any = client.commands.get(command)?.config;
@@ -238,7 +241,6 @@ client.on('message', (message: discord.Message) => {
                     }
                 }
             }
-            log('i', 'Running command!');
             commandExec(client, message, args, log);
         }
     }
