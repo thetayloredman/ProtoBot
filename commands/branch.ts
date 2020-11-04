@@ -69,7 +69,8 @@ export function run(client: Client, message: discord.Message, args: string[], lo
         exec(`git checkout ${args[0]}`, (error: ExecException|null, stdout: string, stderr: string) => {
            
             embed = new discord.MessageEmbed()
-                .setTitle(`Branch Switch [${  stderr.startsWith('Switched')}` ? 'Complete' : 'Failed' + ']')
+                // eslint-disable-next-line no-constant-condition
+                .setTitle(`Branch Switch [${  stderr.startsWith('Switched') ? 'Complete' : 'Failed'  }]`);
                 .setDescription(stderr.startsWith('Switched') ? `Switched to branch ${  args[0]}` : 'Failed to switch to branch. (Does it exist?)');
                 
             if (stderr) {
