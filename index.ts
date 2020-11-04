@@ -183,7 +183,7 @@ client.on('ready', async () => {
 // Message handler
 client.on('message', (message: discord.Message) => {
     client.ustats.ensure(message.author.id, client.defaults.USER_STATS);
-    if (message.author.bot) {
+    if (message.author.bot || message.channel.type === 'dm') {
         // exit
         return;
     }
