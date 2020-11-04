@@ -150,7 +150,7 @@ $ git fetch && git pull --no-rebase && git push
 ${stdout4 === '' ? stderr4 : stdout4}
 \`\`\``)
                                         .addField('Status', '**Complete.**')
-                                        .addField('Restart to apply changes', `To apply the update, run ${client.config.prefix}restart.`);
+                                        .addField('Restart to apply changes', `To apply the update, run ${client.config.prefixes[0]}restart.`);
 
                                     m.edit(embed);
                                 }
