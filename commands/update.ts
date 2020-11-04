@@ -100,61 +100,61 @@ ${stdout2 === '' ? stderr2 : stdout2}
                         m.edit(embed);
 
                         exec('git commit -m "ProtoBot -- Update (Found uncommitted changes)"', (error3: ExecException|null, stderr3: string, stdout3: string) => {
-                                embed = new discord.MessageEmbed()
-                                    .setTitle('Update')
-                                    .setDescription('Here is your live progress report on the update!')
-                                    .addField('Git Status', `\`\`\`
+                            embed = new discord.MessageEmbed()
+                                .setTitle('Update')
+                                .setDescription('Here is your live progress report on the update!')
+                                .addField('Git Status', `\`\`\`
 $ git status
 
 ${stdout === '' ? stderr : stdout}
 \`\`\``)
-                                    .addField('Git Add Result', `\`\`\`
+                                .addField('Git Add Result', `\`\`\`
 $ git add .
 
 ${stdout2 === '' ? stderr2 : stdout2}
 \`\`\``)
-                                    .addField('Git Commit Result', `\`\`\`
+                                .addField('Git Commit Result', `\`\`\`
 $ git commit -m "ProtoBot -- Update (Found uncommitted changes)"
 
 ${stdout3 === '' ? stderr3 : stdout3}
 \`\`\``)
-                                    .addField('Status', '`$ git fetch && git pull && git push`');
+                                .addField('Status', '`$ git fetch && git pull --no-rebase && git push`');
 
-                                m.edit(embed);
+                            m.edit(embed);
 
-                                exec('git fetch && git pull && git push', (error4: ExecException|null, stderr4: string, stdout4: string) => {
-                                    if (error4) {
-                                        m.edit(`Failed to update: ${error4}`);
-                                    } else {
-                                        embed = new discord.MessageEmbed()
-                                            .setTitle('Update')
-                                            .setDescription('Here is your live progress report on the update!')
-                                            .addField('Git Status', `\`\`\`
+                            exec('git fetch && git pull --no-rebase && git push', (error4: ExecException|null, stderr4: string, stdout4: string) => {
+                                if (error4) {
+                                    m.edit(`Failed to update: ${error4}`);
+                                } else {
+                                    embed = new discord.MessageEmbed()
+                                        .setTitle('Update')
+                                        .setDescription('Here is your live progress report on the update!')
+                                        .addField('Git Status', `\`\`\`
 $ git status
 
 ${stdout === '' ? stderr : stdout}
 \`\`\``)
-                                            .addField('Git Add Result', `\`\`\`
+                                        .addField('Git Add Result', `\`\`\`
 $ git add .
 
 ${stdout2 === '' ? stderr2 : stdout2}
 \`\`\``)
-                                            .addField('Git Commit Result', `\`\`\`
+                                        .addField('Git Commit Result', `\`\`\`
 $ git commit -m "ProtoBot -- Update (Found uncommitted changes)"
 
 ${stdout3 === '' ? stderr3 : stdout3}
 \`\`\``)
-                                            .addField('Git Sync (fetch -> pull -> push) Result', `\`\`\`
-$ git fetch && git pull && git push
+                                        .addField('Git Sync (fetch -> pull -> push) Result', `\`\`\`
+$ git fetch && git pull --no-rebase && git push
 
 ${stdout4 === '' ? stderr4 : stdout4}
 \`\`\``)
-                                            .addField('Status', '**Complete.**')
-                                            .addField('Restart to apply changes', `To apply the update, run ${client.config.prefix}restart.`);
+                                        .addField('Status', '**Complete.**')
+                                        .addField('Restart to apply changes', `To apply the update, run ${client.config.prefix}restart.`);
 
-                                        m.edit(embed);
-                                    }
-                                });
+                                    m.edit(embed);
+                                }
+                            });
                         });
                     }
                 });
