@@ -177,7 +177,7 @@ client.on('ready', async () => {
     loadMods();
 
     // Status
-    client.user?.setActivity(`with ${userTotal} furries | ${client.config.prefixes[0]}info`, { type: 'PLAYING' });
+    client.user?.setActivity(`with ${userTotal} furries | ${client.config.prefixes[0]}about`, { type: 'PLAYING' });
 });
 
 // Message handler
