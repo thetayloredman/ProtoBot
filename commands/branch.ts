@@ -62,15 +62,12 @@ export function run(client: Client, message: discord.Message, args: string[], lo
         .addField('Status', `\`$ git branch ${  args[0]  }\``);
 
     message.channel.send(embed).then((m: discord.Message) => {
-        exec(`git branch ${args[0]}`, (error: ExecException|null, stdout: string, stderr: string) => {
-            if (error || stderr !== '') {
+        exec(`git checkout ${args[0]}`, (error: ExecException|null, stdout: string, stderr: string) => {
+            if (stderr !== '') {
                 embed = new discord.MessageEmbed()
                     .setTitle('Branch Switch [Failed]')
-                    .setDescription('The branch switch failed.')
+                    .setDescription('The branch switch failed. (Does the branch exist?)');
                 
-                if (error) {
-                    embed.addField('ExecError:', error);
-                }
                 if (stderr) {
                     embed.addField('STDERR', stderr ?? '<none>');
                 }
