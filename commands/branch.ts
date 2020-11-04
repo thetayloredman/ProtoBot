@@ -74,7 +74,7 @@ export function run(client: Client, message: discord.Message, args: string[], lo
                 
             if (stderr) {
                 embed.addField('Log', `\`\`\`
-${stderr ?? '<none>'}
+${stderr ?? '<none>'}${stdout !== '' ? (`\n${stdout}`) : ''}
 \`\`\``);
             }
 
