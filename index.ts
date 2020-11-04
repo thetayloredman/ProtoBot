@@ -175,6 +175,9 @@ client.on('ready', async () => {
         });
     }
     loadMods();
+
+    // Status
+    client.user?.setActivity(`with ${userTotal} furries | ${client.config.prefixes[0]}info`, { type: 'PLAYING' });
 });
 
 // Message handler

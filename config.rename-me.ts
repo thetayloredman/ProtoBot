@@ -67,6 +67,10 @@ const config: ProtoBotConfig = {
         commands: './commands/',
         modules: './modules/'
     },
+    // The first prefix listed here will
+    // be the "primary prefix", the one
+    // displayed in most places.
+    //          vvv
     prefixes: [ '~', 'proto, ', 'proto,', 'proto ', 'pb, ', 'pb,', 'pb ', 'protobot, ', 'protobot,', 'protobot ' ],
     cooldowns: {
         tildes: minutes(1),
