@@ -105,9 +105,20 @@ ${' '.repeat(error.column - 1)}${'^'.repeat(length)}
         .setColor(e ? 'RED' : 'GREEN')
         .setDescription(`\`\`\`${response.substr(0, 2042)}\`\`\``);
     if (length >= 2049) {
-        log('i', `An eval command executed by ${message.author.username}'s response was too long (${length}/2048) the response was:
-${response}`);
+        log(e ? 'e' : 'i', `An eval command executed by ${message.author.username}'s response was too long (${length}/2048).`);
+        log(e ? 'e' : 'i', `Error: ${e ? 'Yes' : 'No'}`);
+        log(e ? 'e' : 'i', 'Output:');
+        response.split('\n').forEach((b: string) => {
+            log(e ? 'e' : 'i', b);
+        });
         embed.addField('Note:', `The response was too long with a length of \`${length}/2048\` characters. it was logged to the console. `);
+    } else if (!silent) { // use different log for silent items
+        log(e ? 'e' : 'i', `An eval command has been executed by ${message.author.username}!`);
+        log(e ? 'e' : 'i', `Error: ${e ? 'Yes' : 'No'}`);
+        log(e ? 'e' : 'i', 'Output:');
+        response.split('\n').forEach((b: string) => {
+            log(e ? 'e' : 'i', b);
+        });
     }
 
     if (!silent) {
@@ -116,7 +127,9 @@ ${response}`);
         log(e ? 'e' : 'i', 'Silent eval output:');
         log(e ? 'e' : 'i', `Error: ${  e ? 'Yes' : 'No'  }`);
         log(e ? 'e' : 'i', 'Output:');
-        log(e ? 'e' : 'i', response);
+        response.split('\n').forEach((b: string) => {
+            log(e ? 'e' : 'i', b);
+        });
     }
 }
 
