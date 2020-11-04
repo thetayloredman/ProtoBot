@@ -48,7 +48,17 @@ interface Client extends discord.Client {
 
 // Main
 export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void): void {
-    message.reply('command is wip')
+    message.channel.send(`**Oh hewwo there <@${message.author.id}>!**
+
+**I'm ProtoBot.**
+
+I'm a Discord bot with furries in mind.
+
+I'm made mostly by **@BadBoyHaloCat#1826** and my secondary developer is **@DeveloperRaco#1337**.
+
+My prefix is \`${client.config.prefixes[0]}\`.
+
+Feel free to send a DM to **@BadBoyHaloCat#1826** for support.`);
 }
 
 // Config
