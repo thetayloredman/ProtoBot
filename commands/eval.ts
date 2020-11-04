@@ -52,6 +52,11 @@ export async function run(client: Client, message: discord.Message, args: string
      * Credit to WilsonTheWolf for some of this eval code!
      */
     // Safety check
+    let silent = false;
+    if (args[0] === '-s') {
+        args.shift();
+        silent = true; 
+    }
     let code: string = args.join(' ');
     if (message.author.id !== client.config.ownerID) {
         console.log('w', `User ${message.author.tag} tried to use eval! Code:
@@ -105,7 +110,14 @@ ${response}`);
         embed.addField('Note:', `The response was too long with a length of \`${length}/2048\` characters. it was logged to the console. `);
     }
 
-    message.channel.send(embed);
+    if (!silent) {
+        message.channel.send(embed);
+    } else {
+        log('i', 'Silent eval output:');
+        log('i', `Error: ${  e ? 'Yes' : 'No'}`);
+        log('i', 'Output:');
+        log('i', response);
+    }
 }
 
 // Config

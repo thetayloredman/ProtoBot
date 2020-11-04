@@ -47,52 +47,29 @@ interface Client extends discord.Client {
 }
 
 // Main
-function fireStats(userID: string, message: discord.Message, client: Client): void {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const uData: any = client.ustats.get(userID);
-    message.reply(`**User info for \`${userID}\`:**
-Hugs: ${uData.hugs}
-uwus: ${client.uwus.ensure(userID, 0)}
-owos: ${client.owos.ensure(userID, 0)}
-Tildes: ${client.tildes.ensure(userID, 0)}`);
-}
-
 export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void): void {
-    let userID: string|undefined;
-    if (!args[0]) {
-        userID = message.author.id;
-    } else if (/<@!?.+>/.test(args[0])) {
-        userID = args[0].replace(/[<@!>]/g, '');
-    } else {
-        userID = args[0];
+    // Safety check
+    if (message.author.id !== client.config.ownerID) {
+        console.log('w', `User ${message.author.tag} tried to use "update"!`);
+        message.reply('You don\'t have permission to do that!');
+        return;
     }
 
-    if (!client.ustats.get(userID)) {
-        client.users.fetch(userID).then((user: discord.User) => {
-            client.ustats.ensure(user.id, client.defaults.USER_STATS);
-            // @ts-ignore
-            fireStats(userID, message, client);
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        }).catch((reason: any) => {
-            log('i', `Unknown user ${userID}!`);
-            message.reply('Unknown user!');
-            return;
-        });
-        return;
-    } else {
-        fireStats(userID, message, client);
-    }
+    // restart bot
+    message.reply('Goodbye!');
+    client.destroy();
+    process.exit();
 }
 
 // Config
 export const config = {
-    name: 'info',
-    description: 'Get a user\'s stats!',
+    name: 'My Cool Command',
+    description: 'Does stuff',
     enabled: true,
     
     // To restrict the command, change the "false" to the following
     // format:
     // 
     // restrict: { users: [ "array", "of", "authorized", "user", "IDs" ] }
-    restrict: false
+    restrict: {  } // owner only
 };

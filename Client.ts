@@ -38,61 +38,12 @@
 
 // Modules
 import discord from 'discord.js';
-import chalk from 'chalk';
 
-// Interfaces, owo
-interface Client extends discord.Client {
+// Config import
+import { ProtoBotConfig } from './config';
+
+// Main
+export interface Client extends discord.Client {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any
 }
-
-// Main
-function fireStats(userID: string, message: discord.Message, client: Client): void {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const uData: any = client.ustats.get(userID);
-    message.reply(`**User info for \`${userID}\`:**
-Hugs: ${uData.hugs}
-uwus: ${client.uwus.ensure(userID, 0)}
-owos: ${client.owos.ensure(userID, 0)}
-Tildes: ${client.tildes.ensure(userID, 0)}`);
-}
-
-export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void): void {
-    let userID: string|undefined;
-    if (!args[0]) {
-        userID = message.author.id;
-    } else if (/<@!?.+>/.test(args[0])) {
-        userID = args[0].replace(/[<@!>]/g, '');
-    } else {
-        userID = args[0];
-    }
-
-    if (!client.ustats.get(userID)) {
-        client.users.fetch(userID).then((user: discord.User) => {
-            client.ustats.ensure(user.id, client.defaults.USER_STATS);
-            // @ts-ignore
-            fireStats(userID, message, client);
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        }).catch((reason: any) => {
-            log('i', `Unknown user ${userID}!`);
-            message.reply('Unknown user!');
-            return;
-        });
-        return;
-    } else {
-        fireStats(userID, message, client);
-    }
-}
-
-// Config
-export const config = {
-    name: 'info',
-    description: 'Get a user\'s stats!',
-    enabled: true,
-    
-    // To restrict the command, change the "false" to the following
-    // format:
-    // 
-    // restrict: { users: [ "array", "of", "authorized", "user", "IDs" ] }
-    restrict: false
-};

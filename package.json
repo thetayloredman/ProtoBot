@@ -4,7 +4,7 @@
   "description": "a discord furry bot",
   "main": "index.js",
   "scripts": {
-    "start": "tsc; node ."
+    "start": "chmod u+x ./start.sh; ./start.sh"
   },
   "author": "BadBoyHaloCat",
   "license": "UNLICENCED",
@@ -19,6 +19,8 @@
     "@types/node": "^14.14.6",
     "@typescript-eslint/eslint-plugin": "^4.6.1",
     "@typescript-eslint/parser": "^4.6.0",
+    "@typescript-eslint/eslint-plugin": "^4.6.0",
+    "@typescript-eslint/parser": "^4.6.1",
     "eslint": "^7.12.1",
     "typescript": "^4.0.5",
     "typescript-eslint": "0.0.1-alpha.0"

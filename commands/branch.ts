@@ -39,6 +39,7 @@
 // Modules
 import discord from 'discord.js';
 import chalk from 'chalk';
+import { exec, ExecException } from 'child_process';
 
 // Interfaces, owo
 interface Client extends discord.Client {
@@ -47,52 +48,52 @@ interface Client extends discord.Client {
 }
 
 // Main
-function fireStats(userID: string, message: discord.Message, client: Client): void {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const uData: any = client.ustats.get(userID);
-    message.reply(`**User info for \`${userID}\`:**
-Hugs: ${uData.hugs}
-uwus: ${client.uwus.ensure(userID, 0)}
-owos: ${client.owos.ensure(userID, 0)}
-Tildes: ${client.tildes.ensure(userID, 0)}`);
-}
-
 export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void): void {
-    let userID: string|undefined;
-    if (!args[0]) {
-        userID = message.author.id;
-    } else if (/<@!?.+>/.test(args[0])) {
-        userID = args[0].replace(/[<@!>]/g, '');
-    } else {
-        userID = args[0];
+// Safety check
+    if (message.author.id !== client.config.ownerID) {
+        console.log('w', `User ${message.author.tag} tried to use branch! Destination: ${args[0]}`);
+        message.reply('You don\'t have permission to do that!');
+        return;
     }
 
-    if (!client.ustats.get(userID)) {
-        client.users.fetch(userID).then((user: discord.User) => {
-            client.ustats.ensure(user.id, client.defaults.USER_STATS);
-            // @ts-ignore
-            fireStats(userID, message, client);
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        }).catch((reason: any) => {
-            log('i', `Unknown user ${userID}!`);
-            message.reply('Unknown user!');
-            return;
-        });
-        return;
-    } else {
-        fireStats(userID, message, client);
+    if (!args[0]) {
+        message.reply('What branch did you want to switch to, tho?');
     }
+
+    let embed: discord.MessageEmbed = new discord.MessageEmbed()
+        .setTitle('Branch Switch')
+        .setDescription(`Please wait.. Switching to \`${  args[0]  }\`...`)
+        .addField('Status', `\`$ git branch ${  args[0]  }\``);
+
+    message.channel.send(embed).then((m: discord.Message) => {
+        exec(`git checkout ${args[0]}`, (error: ExecException|null, stdout: string, stderr: string) => {
+           
+            embed = new discord.MessageEmbed()
+                // eslint-disable-next-line no-constant-condition
+                .setTitle(`Branch Switch [${  stderr.startsWith('Switched') ? 'Complete' : 'Failed'  }]`)
+                .setDescription(stderr.startsWith('Switched') ? `Switched to branch ${  args[0]}` : 'Failed to switch to branch. (Does it exist?)');
+                
+            if (stderr) {
+                embed.addField('Log', `\`\`\`
+${stderr ?? '<none>'}${stdout !== '' ? (`\n${stdout}`) : ''}
+\`\`\``);
+            }
+
+            m.edit(embed);
+            
+        });
+    });
 }
 
 // Config
 export const config = {
-    name: 'info',
-    description: 'Get a user\'s stats!',
+    name: 'branch',
+    description: 'Changes the current branch [owner only]',
     enabled: true,
     
     // To restrict the command, change the "false" to the following
     // format:
     // 
     // restrict: { users: [ "array", "of", "authorized", "user", "IDs" ] }
-    restrict: false
+    restrict: {  } // owner only
 };
