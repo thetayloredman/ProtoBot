@@ -58,10 +58,8 @@ export function run(client: Client, message: discord.Message, args: string[], lo
     log('w', `${message.author.tag} has triggered a restart!`);
     // restart bot
     message.reply('Goodbye!').then(() => {
-        log('w', 'Terminating client...');
+        log('w', 'Goodbye!');
         client.destroy();
-        log('w', 'Client has been killed.');
-        log('w', 'Exiting process.. Goodbye!');
         process.exit();
     });
 }
