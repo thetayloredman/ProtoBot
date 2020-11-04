@@ -13,12 +13,11 @@
     "chalk": "^4.1.0",
     "discord.js": "^12.4.1",
     "enmap": "^5.8.0",
+    "strip-ansi": "^6.0.0",
     "uwuifier": "^2.0.2"
   },
   "devDependencies": {
     "@types/node": "^14.14.6",
-    "@typescript-eslint/eslint-plugin": "^4.6.1",
-    "@typescript-eslint/parser": "^4.6.0",
     "@typescript-eslint/eslint-plugin": "^4.6.0",
     "@typescript-eslint/parser": "^4.6.1",
     "eslint": "^7.12.1",

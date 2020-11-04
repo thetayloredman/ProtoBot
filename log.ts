@@ -39,6 +39,66 @@
 // Modules
 import chalk from 'chalk';
 import * as fs from 'fs';
+import strip from 'strip-ansi';
+
+// Create logging streams
+const logInitTime: number = Date.now();
+try {
+    fs.readdirSync('./logs/');
+} catch (e) {
+    if (e.code === 'ENOENT') {
+        try {
+            fs.mkdirSync('./logs/');
+        } catch (e2) {
+            console.error(e2);
+            process.exit(1);
+        }
+    } else {
+        console.error(e2);
+        process.exit(1);
+    }
+}
+try {
+    fs.mkdirSync(`./logs/${logInitTime}/`);
+} catch (e) {
+    console.error(e);
+    process.exit(1);
+}
+let allStr: fs.WriteStream|null = null;
+try {
+    allStr = fs.createWriteStream(`./logs/${logInitTime}/all.log`);
+} catch (e) {
+    console.error(e);
+    process.exit(1);
+}
+let warnStr: fs.WriteStream|null = null;
+try {
+    warnStr = fs.createWriteStream(`./logs/${logInitTime}/warn.log`);
+} catch (e) {
+    console.error(e);
+    process.exit(1);
+}
+let errStr: fs.WriteStream|null = null;
+try {
+    errStr = fs.createWriteStream(`./logs/${logInitTime}/err.log`);
+} catch (e) {
+    console.error(e);
+    process.exit(1);
+}
+
+// Log to file func
+function writeItem(mode: 'i'|'w'|'e', message: string): void {
+    if (mode === 'e') {
+        errStr?.write(`${strip(message)}\n`);
+        warnStr?.write(`${strip(message)}\n`);
+        allStr?.write(`${strip(message)}\n`);
+    } else if (mode === 'w') {
+        warnStr?.write(`${strip(message)}\n`);
+        allStr?.write(`${strip(message)}\n`);
+    } else if (mode === 'i') {
+        allStr?.write(`${strip(message)}\n`);
+    }
+}
 
 // Main
 export default function log(mode: 'i'|'w'|'e', message: string): void {
@@ -82,4 +142,5 @@ export default function log(mode: 'i'|'w'|'e', message: string): void {
     msg = `${brackets[0]}${parsedDate} ${parsedTime}${brackets[1]} ${msg}`;
 
     console.log(msg);
+    writeItem(mode, msg);
 }

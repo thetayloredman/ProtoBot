@@ -139,6 +139,7 @@ module.exports = {
         'func-style':                         [ 'error', 'declaration' ],
         'indent':                             [ 'error', 4 ],
         'quotes':                             [ 'error', 'single' ],
-        'prefer-template':                    [ 'error' ]
+        'prefer-template':                    [ 'error' ],
+        'template-curly-spacing':             [ 'error' ]
     }
 };
