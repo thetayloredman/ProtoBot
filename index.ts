@@ -250,7 +250,7 @@ client.on('message', (message: discord.Message) => {
     // FurDevs
     // @ts-ignore
     if (message.guild.id === '731520035717251142') {
-        if (message.content.toLowerCase().includes('bloat') || message.content.toLowerCase().includes(':b:loat')) {
+        if (message.content.toLowerCase().includes('bloat') || message.content.toLowerCase().includes('🅱️loat')) {
             log('i', `Message flagged ${chalk.red('BLOAT FILTER')}!`);
             log('i', `Content: ${message.content}`);
             message.delete().then(() => {
