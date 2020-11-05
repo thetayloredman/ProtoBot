@@ -290,8 +290,10 @@ client.on('message', (message: discord.Message) => {
 
 // Handle rate limits
 client.on('rateLimit', (data: discord.RateLimitData) => {
-    // @ts-ignore
-    log('i', JSON.stringify(data));
+    log('w', 'Git hit with a ratelimit!');
+    log('w', `Ratelimited when performing ${data.method} ${data.path}`);
+    log('w', `API route was ${data.route} and limit hit was ${data.limit}/${data.timeout / 1000} seconds.`);
+    log('w', 'Operations have been paused until the ratelimit is lifted!')
 });
 
 // Log in
