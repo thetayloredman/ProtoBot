@@ -261,7 +261,24 @@ client.on('message', (message: discord.Message) => {
                     }, 10000);
                 });
             }).catch(() => {
-                message.reply('Hey! Don\'t say that! (bloat is forbidden here!)').then((m: discord.Message) => {
+                message.reply('Hey! Don\'t say that! ("bloat" is forbidden here!)').then((m: discord.Message) => {
+                    setTimeout(() => {
+                        m.delete();
+                    }, 10000);
+                });
+            });
+        } else if (message.content.toLowerCase().includes('winix')) {
+            log('i', `Message flagged ${chalk.red('WINIX FILTER')}!`);
+            log('i', `Content: ${message.content}`);
+            message.delete().then(() => {
+                log('i', 'Resolved!');
+                message.reply('Hey! Don\'t say that! ("winix" is forbidden here!)').then((m: discord.Message) => {
+                    setTimeout(() => {
+                        m.delete();
+                    }, 10000);
+                });
+            }).catch(() => {
+                message.reply('Hey! Don\'t say that! ("winix" is forbidden here!)').then((m: discord.Message) => {
                     setTimeout(() => {
                         m.delete();
                     }, 10000);
