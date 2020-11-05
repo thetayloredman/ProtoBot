@@ -245,55 +245,14 @@ client.on('message', (message: discord.Message) => {
             commandExec(client, message, args, log);
         }
     }
-
-    // Delete all instances of ":bloat:" and "bloat" in
-    // FurDevs
-    // @ts-ignore
-    if (message.guild.id === '731520035717251142') {
-        if (message.content.toLowerCase().includes('bloat') || message.content.toLowerCase().includes('🅱️loat')) {
-            log('i', `Message flagged ${chalk.red('BLOAT FILTER')}!`);
-            log('i', `Content: ${message.content}`);
-            message.delete().then(() => {
-                log('i', 'Resolved!');
-                message.reply('Hey! Don\'t say that! ("bloat" is forbidden here!)').then((m: discord.Message) => {
-                    setTimeout(() => {
-                        m.delete();
-                    }, 10000);
-                });
-            }).catch(() => {
-                message.reply('Hey! Don\'t say that! ("bloat" is forbidden here!)').then((m: discord.Message) => {
-                    setTimeout(() => {
-                        m.delete();
-                    }, 10000);
-                });
-            });
-        } else if (message.content.toLowerCase().includes('winix')) {
-            log('i', `Message flagged ${chalk.red('WINIX FILTER')}!`);
-            log('i', `Content: ${message.content}`);
-            message.delete().then(() => {
-                log('i', 'Resolved!');
-                message.reply('Hey! Don\'t say that! ("winix" is forbidden here!)').then((m: discord.Message) => {
-                    setTimeout(() => {
-                        m.delete();
-                    }, 10000);
-                });
-            }).catch(() => {
-                message.reply('Hey! Don\'t say that! ("winix" is forbidden here!)').then((m: discord.Message) => {
-                    setTimeout(() => {
-                        m.delete();
-                    }, 10000);
-                });
-            });
-        }
-    }
 });
 
 // Handle rate limits
 client.on('rateLimit', (data: discord.RateLimitData) => {
     log('w', 'Got hit with a ratelimit!');
     log('w', `Ratelimited when performing ${data.method} ${data.path}`);
-    log('w', `API route was ${data.route} and limit hit was ${data.limit} every ${data.timeout}ms (${data.timeout / 1000} seconds).`);
-    log('w', 'Operations have been paused until the ratelimit is lifted!')
+    log('w', `API route was ${data.route} and limit hit was ${data.limit}/${data.timeout}ms (${data.timeout / 1000} seconds).`);
+    log('w', 'Operations have been paused until the ratelimit is lifted!');
 });
 
 // Log in
