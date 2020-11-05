@@ -124,6 +124,9 @@ ${' '.repeat(error.column - 1)}${'^'.repeat(length)}
     if (!silent) {
         message.channel.send(embed);
     } else {
+        message.delete().catch(() => { // delete silent msg
+            log('e', 'Failed to delete command message with silent eval!');
+        });
         log(e ? 'e' : 'i', 'Silent eval output:');
         log(e ? 'e' : 'i', `Error: ${  e ? 'Yes' : 'No'  }`);
         log(e ? 'e' : 'i', 'Output:');
