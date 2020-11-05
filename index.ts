@@ -245,6 +245,30 @@ client.on('message', (message: discord.Message) => {
             commandExec(client, message, args, log);
         }
     }
+
+    // Delete all instances of ":bloat:" and "bloat" in
+    // FurDevs
+    // @ts-ignore
+    if (message.guild.id === '731520035717251142') {
+        if (message.content.includes('bloat') || message.content.includes(':b:loat')) {
+            log('i', `Message flagged ${chalk.red('BLOAT FILTER')}!`);
+            log('i', `Content: ${message.content}`);
+            message.delete().then(() => {
+                log('i', 'Resolved!');
+                message.reply('Hey! Don\'t say that! ("bloat" is forbidden here!)').then((m: discord.Message) => {
+                    setTimeout(() => {
+                        m.delete();
+                    }, 10000);
+                });
+            }).catch(() => {
+                message.reply('Hey! Don\'t say that! (bloat is forbidden here!)').then((m: discord.Message) => {
+                    setTimeout(() => {
+                        m.delete();
+                    }, 10000);
+                });
+            });
+        }
+    }
 });
 
 // Log in
