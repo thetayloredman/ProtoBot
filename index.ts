@@ -291,7 +291,7 @@ client.on('message', (message: discord.Message) => {
 // Handle rate limits
 client.on('rateLimit', (data: discord.RateLimitData) => {
     // @ts-ignore
-    log('i', data);
+    log('i', JSON.stringify(data));
 });
 
 // Log in
