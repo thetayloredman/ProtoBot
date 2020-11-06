@@ -59,7 +59,7 @@ export function run(client: Client, message: discord.Message, log: (mode: 'i'|'w
                 hasPrefix = true;
             }
         });
-        if (message.content.endsWith('~') && !/~~+/.test(message.content) && !hasPrefix) {
+        if (message.content.endsWith('~') && !/~~+/.test(message.content) && message.content !== '~' && !hasPrefix) {
             //                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
             //                           Don't flag strikethrough
             //                           markdown as a valid tilde!
