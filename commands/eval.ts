@@ -39,6 +39,7 @@
 // Modules
 import discord from 'discord.js';
 import chalk from 'chalk';
+import markov from 'markovchain';
 
 // Interfaces, owo
 interface Client extends discord.Client {
