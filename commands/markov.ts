@@ -129,17 +129,15 @@ We will provide as much info as possible.
 
 **Deleting your data**
 Please DM \`BadBoyHaloCat#1826\` on Discord and state what data you would like deleted.
-We will delete as much info as you would like, as long as it is **your** data.`);
-        }).then(() => {
-            // eslint-disable-next-line no-undef
-            m.edit('Sent the privacy policy to your DM!');
-            log('i', 'Sent privacy info.');
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        }).catch((err: any) => {
-            // eslint-disable-next-line no-undef
-            m.edit('Failed to send privacy policy. Please enable DMs!');
-            log('e', `Failed to send privacy info: ${err}`);
-        });
+We will delete as much info as you would like, as long as it is **your** data.`).then(() => {
+    m.edit('Sent the privacy policy to your DM!');
+    log('i', 'Sent privacy info.');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+}).catch((err: any) => {
+    m.edit('Failed to send privacy policy. Please enable DMs!');
+    log('e', `Failed to send privacy info: ${err}`);
+});
+        })
     } else {
         message.reply(`Try ${client.config.prefixes[0]}markov for help!`);
     }
