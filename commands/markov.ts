@@ -69,11 +69,11 @@ ${client.config.prefixes[0]}markov generate :: Generate a markov chain.
     } else if (args[0].toLowerCase() === 'optin') {
         message.reply('Opted in!');
         client.uconfs.set(message.author.id, true, 'markov_optin');
-        log('i', `Opted user in.`);
+        log('i', 'Opted user in.');
     } else if (args[0].toLowerCase() === 'optout') {
         message.reply('Opted out!');
         client.uconfs.set(message.author.id, false, 'markov_optin');
-        log('i', `Opted user out.`);
+        log('i', 'Opted user out.');
     } else if (args[0].toLowerCase() === 'generate') {
         const chain = new Markov({ stateSize: 2 });
         // @ts-ignore
@@ -94,11 +94,11 @@ ${client.config.prefixes[0]}markov generate :: Generate a markov chain.
             log('e', `Failed to generate markov chain: ${e}`);
             return;
         }
-        log('i', 'Generated: ' + out.string);
+        log('i', `Generated: ${out.string}`);
         message.reply(out.string);
     } else if (args[0].toLowerCase() === 'privacy') {
-        log('i', `Sent privacy info!`);
-        message.reply(`Sending the privacy policy to your DM...`).then((m: discord.Message) => {
+        log('i', 'Sending privacy info...');
+        message.reply('Sending the privacy policy to your DM...').then((m: discord.Message) => {
             message.author.send(`**Privacy info about ProtoBot's markov generation**
 
 All ProtoBot staff are careful about your privacy.
@@ -130,6 +130,15 @@ We will provide as much info as possible.
 **Deleting your data**
 Please DM \`BadBoyHaloCat#1826\` on Discord and state what data you would like deleted.
 We will delete as much info as you would like, as long as it is **your** data.`);
+        }).then(() => {
+            // eslint-disable-next-line no-undef
+            m.edit('Sent the privacy policy to your DM!');
+            log('i', 'Sent privacy info.');
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        }).catch((err: any) => {
+            // eslint-disable-next-line no-undef
+            m.edit('Failed to send privacy policy. Please enable DMs!');
+            log('e', `Failed to send privacy info: ${err}`);
         });
     } else {
         message.reply(`Try ${client.config.prefixes[0]}markov for help!`);
@@ -147,4 +156,4 @@ export const config = {
     // 
     // restrict: { users: [ "array", "of", "authorized", "user", "IDs" ] }
     restrict: false
-}
+};

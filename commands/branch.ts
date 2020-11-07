@@ -62,16 +62,16 @@ export function run(client: Client, message: discord.Message, args: string[], lo
 
     let embed: discord.MessageEmbed = new discord.MessageEmbed()
         .setTitle('Branch Switch')
-        .setDescription(`Please wait.. Switching to \`${  args[0]  }\`...`)
-        .addField('Status', `\`$ git branch ${  args[0]  }\``);
+        .setDescription(`Please wait.. Switching to \`${args[0]}\`...`)
+        .addField('Status', `\`$ git branch ${args[0]}\``);
 
     message.channel.send(embed).then((m: discord.Message) => {
         exec(`git checkout ${args[0]}`, (error: ExecException|null, stdout: string, stderr: string) => {
            
             embed = new discord.MessageEmbed()
                 // eslint-disable-next-line no-constant-condition
-                .setTitle(`Branch Switch [${  stderr.startsWith('Switched') ? 'Complete' : 'Failed'  }]`)
-                .setDescription(stderr.startsWith('Switched') ? `Switched to branch ${  args[0]}` : 'Failed to switch to branch. (Does it exist?)');
+                .setTitle(`Branch Switch [${stderr.startsWith('Switched') ? 'Complete' : 'Failed'}]`)
+                .setDescription(stderr.startsWith('Switched') ? `Switched to branch ${args[0]}` : 'Failed to switch to branch. (Does it exist?)');
                 
             if (stderr) {
                 embed.addField('Log', `\`\`\`

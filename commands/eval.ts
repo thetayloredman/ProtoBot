@@ -73,9 +73,9 @@ ${code}`);
     let e = false;
     try {
         if (code.includes('await') && !message.content.includes('\n')) {
-            code = `( async () => {return ${  code  }})()`;
+            code = `( async () => {return ${code}})()`;
         } else if (code.includes('await') && message.content.includes('\n')) {
-            code = `( async () => {${  code  }})()`;
+            code = `( async () => {${code}})()`;
         }
         // eslint-disable-next-line no-eval
         response = await eval(code);
@@ -128,7 +128,7 @@ ${' '.repeat(error.column - 1)}${'^'.repeat(length)}
             log('e', 'Failed to delete command message with silent eval!');
         });
         log(e ? 'e' : 'i', 'Silent eval output:');
-        log(e ? 'e' : 'i', `Error: ${  e ? 'Yes' : 'No'  }`);
+        log(e ? 'e' : 'i', `Error: ${e ? 'Yes' : 'No'}`);
         log(e ? 'e' : 'i', 'Output:');
         response.split('\n').forEach((b: string) => {
             log(e ? 'e' : 'i', b);
