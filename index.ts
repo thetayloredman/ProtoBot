@@ -60,6 +60,8 @@ client.config = config;
 // Defaults
 client.defaults = {};
 client.defaults.USER_STATS = { hugs: 0 };
+// eslint-disable-next-line camelcase
+client.defaults.USER_CONFS = { markov_optin: false };
 
 // dbs
 client.cooldowns = new enmap({ name: 'cooldowns' });
@@ -67,6 +69,9 @@ client.tildes = new enmap({ name: 'tildes' });
 client.owos = new enmap({ name: 'owos' });
 client.uwus = new enmap({ name: 'uwus' });
 client.ustats = new enmap({ name: 'ustats' });
+client.uconfs = new enmap({ name: 'uconfs' });
+client.markovMessages = new enmap({ name: 'markovMessages' });
+client.gconfs = new enmap({ name: 'gconfs' });
 
 // in memory dbs
 client.commands = new enmap();
@@ -183,6 +188,7 @@ client.on('ready', async () => {
 // Message handler
 client.on('message', (message: discord.Message) => {
     client.ustats.ensure(message.author.id, client.defaults.USER_STATS);
+    client.uconfs.ensure(message.author.id, client.defaults.USER_CONFS)
     if (message.author.bot || message.channel.type === 'dm') {
         // exit
         return;
