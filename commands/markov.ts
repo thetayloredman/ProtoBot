@@ -60,7 +60,7 @@ This chain is trained based on all messages in this guild, from opted in users.
 ===== MARKOV MODULE =====
 
 ==== OPTIN/OPTOUT =====
-${client.config.prefixes[0]}markov optin :: Opt in to data collection
+${client.config.prefixes[0]}markov optin :: Opt in to data collection -- Please check ${client.config.prefixes[0]}markov privacy
 ${client.config.prefixes[0]}markov optout :: Stop data collection
 
 ==== GENERATE ====
@@ -74,7 +74,7 @@ ${client.config.prefixes[0]}markov generate :: Generate a markov chain.
         message.reply('Opted out!');
         client.uconfs.set(message.author.id, false, 'markov_optin');
         log('i', `Opted user out.`);
-    } else if (args[0].toLocaleLowerCase() === 'generate') {
+    } else if (args[0].toLowerCase() === 'generate') {
         const chain = new Markov({ stateSize: 2 });
         // @ts-ignore
         const data = Object.entries(client.markovMessages.get(message.guild.id)).map(i => i[1].content);
@@ -96,6 +96,41 @@ ${client.config.prefixes[0]}markov generate :: Generate a markov chain.
         }
         log('i', 'Generated: ' + out.string);
         message.reply(out.string);
+    } else if (args[0].toLowerCase() === 'privacy') {
+        log('i', `Sent privacy info!`);
+        message.reply(`Sending the privacy policy to your DM...`).then((m: discord.Message) => {
+            message.author.send(`**Privacy info about ProtoBot's markov generation**
+
+All ProtoBot staff are careful about your privacy.
+This message contains all you need to know about how we handle your data.
+
+**Data we collect**
+When ProtoBot sees a message from an opted-in member, ProtoBot will collect this message.
+
+The exact data collected is:
+- *The message content*
+- *The message's guild (server) ID*
+- *The message's author ID*
+- *The message's ID*
+
+**When your data is used**
+This message data is only used when fed into the Markov generator for that guild.
+
+**Opting Out**
+To stop data collection, run \`${client.config.prefixes[0]}markov optout\`.
+
+**How long we keep the data**
+We keep this data forever, until the database gets too large.
+You may request deletion of your data, however!
+
+**Viewing your data**
+Please DM \`BadBoyHaloCat#1826\` on Discord and state what data you would like.
+We will provide as much info as possible.
+
+**Deleting your data**
+Please DM \`BadBoyHaloCat#1826\` on Discord and state what data you would like deleted.
+We will delete as much info as you would like, as long as it is **your** data.`);
+        });
     } else {
         message.reply(`Try ${client.config.prefixes[0]}markov for help!`);
     }
