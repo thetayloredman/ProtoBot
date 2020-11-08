@@ -97,7 +97,7 @@ ${client.config.prefixes[0]}markov generate :: Generate a markov chain.
             return;
         }
         log('i', `Generated: ${out.string}`);
-        message.reply(out.string.replace(/<@!(?.)+>/g, ''));
+        message.reply(out.string.replace(/[<!@>]/g, ''));
     } else if (['privacy'].includes(args[0].toLowerCase())) {
         log('i', 'Sending privacy info...');
         message.reply('Sending the privacy policy to your DM...').then((m: discord.Message) => {
