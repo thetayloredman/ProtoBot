@@ -59,7 +59,7 @@ export async function run(client: Client, message: discord.Message, args: string
     }
     let code: string = args.join(' ');
     if (message.author.id !== client.config.ownerID) {
-        console.log('w', `User ${message.author.tag} tried to use eval! Code:
+        log('w', `User ${message.author.tag} tried to use eval! Code:
 ${code}`);
         message.reply('You don\'t have permission to do that!');
         return;
