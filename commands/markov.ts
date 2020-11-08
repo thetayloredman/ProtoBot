@@ -40,6 +40,7 @@
 import discord from 'discord.js';
 import chalk from 'chalk';
 import Markov, { MarkovResult } from 'markov-strings';
+import * as fs from 'fs';
 
 // Interfaces, owo
 interface Client extends discord.Client {
@@ -62,19 +63,20 @@ This chain is trained based on all messages in this guild, from opted in users.
 ==== OPTIN/OPTOUT =====
 ${client.config.prefixes[0]}markov optin :: Opt in to data collection -- Please check ${client.config.prefixes[0]}markov privacy
 ${client.config.prefixes[0]}markov optout :: Stop data collection
+${client.config.prefixes[0]}markov privacy :: View the privacy policy
 
 ==== GENERATE ====
 ${client.config.prefixes[0]}markov generate :: Generate a markov chain.
 \`\`\``);
-    } else if (args[0].toLowerCase() === 'optin') {
+    } else if (['optin', 'oi', 'enable'].includes(args[0].toLowerCase())) {
         message.reply('Opted in!');
         client.uconfs.set(message.author.id, true, 'markov_optin');
         log('i', 'Opted user in.');
-    } else if (args[0].toLowerCase() === 'optout') {
+    } else if (['optout', 'oo', 'disable'].includes(args[0].toLowerCase())) {
         message.reply('Opted out!');
         client.uconfs.set(message.author.id, false, 'markov_optin');
         log('i', 'Opted user out.');
-    } else if (args[0].toLowerCase() === 'generate') {
+    } else if (['generate', 'g', 'gen', 'c', 'create', 'm', 'make'].includes(args[0].toLowerCase())) {
         const chain = new Markov({ stateSize: 2 });
         // @ts-ignore
         const data = Object.entries(client.markovMessages.get(message.guild.id)).map(i => i[1].content);
@@ -95,8 +97,8 @@ ${client.config.prefixes[0]}markov generate :: Generate a markov chain.
             return;
         }
         log('i', `Generated: ${out.string}`);
-        message.reply(out.string);
-    } else if (args[0].toLowerCase() === 'privacy') {
+        message.reply(out.string.replace(/<@!(?.)+>/g, ''));
+    } else if (['privacy'].includes(args[0].toLowerCase())) {
         log('i', 'Sending privacy info...');
         message.reply('Sending the privacy policy to your DM...').then((m: discord.Message) => {
             message.author.send(`**Privacy info about ProtoBot's markov generation**
