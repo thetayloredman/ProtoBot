@@ -5,5 +5,8 @@
         "config.ts",
         "config.js"
     ],
-    "hideFiles": []
+    "hideFiles": [
+        "*.js",
+        "!.eslintrc.js"
+    ]
 }
