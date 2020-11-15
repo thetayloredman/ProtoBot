@@ -42,24 +42,35 @@ import chalk from 'chalk';
 
 // Interfaces, owo
 interface Client extends discord.Client {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    [key: string]: any
+    [key: string]: any;
 }
 
 // Main
-export function run(client: Client, message: discord.Message, log: (mode: 'i'|'w'|'e', message: string) => void): void {
+export function run(
+    client: Client,
+    message: discord.Message,
+    log: (mode: 'i' | 'w' | 'e', message: string) => void
+): void {
     // Get the user's current cooldowns (in timestamps)
     const cooldowns = client.cooldowns.ensure(message.author.id, 0, 'tildes');
 
     // Check cooldown
-    if (!cooldowns || cooldowns + client.config.cooldowns.tildes - Date.now() < 1) {
+    if (
+        !cooldowns ||
+        cooldowns + client.config.cooldowns.tildes - Date.now() < 1
+    ) {
         let hasPrefix = false;
         client.config.prefixes.forEach((prefix: string) => {
             if (!hasPrefix && message.content.startsWith(prefix)) {
                 hasPrefix = true;
             }
         });
-        if (message.content.endsWith('~') && !/~~+/.test(message.content) && message.content !== '~' && !hasPrefix) {
+        if (
+            message.content.endsWith('~') &&
+            !/~~+/.test(message.content) &&
+            message.content !== '~' &&
+            !hasPrefix
+        ) {
             //                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
             //                           Don't flag strikethrough
             //                           markdown as a valid tilde!
@@ -68,10 +79,24 @@ export function run(client: Client, message: discord.Message, log: (mode: 'i'|'w
             client.tildes.inc(message.author.id);
             client.cooldowns.set(message.author.id, Date.now(), 'tildes');
 
-            log('i', `${chalk.green('[')}${chalk.green.bold('TildeHandler')}${chalk.green(']')} ${chalk.red('[')}${chalk.red.bold('+')}${chalk.red(']')} Added tilde!`);
+            log(
+                'i',
+                `${chalk.green('[')}${chalk.green.bold(
+                    'TildeHandler'
+                )}${chalk.green(']')} ${chalk.red('[')}${chalk.red.bold(
+                    '+'
+                )}${chalk.red(']')} Added tilde!`
+            );
         }
     } else {
-        log('i', `${chalk.green('[')}${chalk.green.bold('TildeHandler')}${chalk.green(']')} User still on cooldown! ${chalk.red(cooldowns + client.config.cooldowns.tildes - Date.now())} ms remaining!`);
+        log(
+            'i',
+            `${chalk.green('[')}${chalk.green.bold(
+                'TildeHandler'
+            )}${chalk.green(']')} User still on cooldown! ${chalk.red(
+                cooldowns + client.config.cooldowns.tildes - Date.now()
+            )} ms remaining!`
+        );
     }
 }
 

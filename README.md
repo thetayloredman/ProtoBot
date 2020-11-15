@@ -2,7 +2,7 @@
 
 A Discord furry bot
 
-## Woah~ You're special!
+## OwO What's this??!?!?!?
 
 You just got access to a **top-secret** code repository.
 
@@ -14,8 +14,8 @@ Once you wrote some code, you should test it!
 
 Here's what you need:
 
-- Node.js
-- npm (included with Node)
+-   Node.js
+-   npm (included with Node)
 
 ### Step 1: Config
 
@@ -49,7 +49,7 @@ An Enmap is our form of database wrapper.
 
 ## Useful resources
 
-- [Discord.js Docs](https://discord.js.org/)
-- [MDN](https://developer.mozilla.org/)
-- [Enmap Docs](https://enmap.evie.dev/)
-- [TypeScript Docs](https://www.typescriptlang.org/) *You might see an invalid SSL certificate warning, bypass it.*
+-   [Discord.js Docs](https://discord.js.org/)
+-   [MDN](https://developer.mozilla.org/)
+-   [Enmap Docs](https://enmap.evie.dev/)
+-   [TypeScript Docs](https://www.typescriptlang.org/) _You might see an invalid SSL certificate warning, bypass it._

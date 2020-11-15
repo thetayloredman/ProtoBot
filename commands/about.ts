@@ -42,12 +42,16 @@ import chalk from 'chalk';
 
 // Interfaces, owo
 interface Client extends discord.Client {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    [key: string]: any
+    [key: string]: any;
 }
 
 // Main
-export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void): void {
+export function run(
+    client: Client,
+    message: discord.Message,
+    args: string[],
+    log: (mode: 'i' | 'w' | 'e', message: string) => void
+): void {
     message.channel.send(`**Oh hewwo there <@${message.author.id}>!**
 
 **I'm ProtoBot.**
@@ -66,10 +70,10 @@ export const config = {
     name: 'about',
     description: 'Learn about me!',
     enabled: true,
-    
+
     // To restrict the command, change the "false" to the following
     // format:
-    // 
+    //
     // restrict: { users: [ "array", "of", "authorized", "user", "IDs" ] }
     restrict: false
 };

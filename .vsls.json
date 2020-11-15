@@ -1,0 +1,6 @@
+{
+    "$schema": "http://json.schemastore.org/vsls",
+    "gitignore": "hide",
+    "excludeFiles": ["config.ts", "config.js"],
+    "hideFiles": ["*.js", "!.eslintrc.js"]
+}
