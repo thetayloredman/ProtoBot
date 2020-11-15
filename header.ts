@@ -15,33 +15,3 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-// Modules
-import discord from 'discord.js';
-import chalk from 'chalk';
-
-// Interfaces, owo
-interface Client extends discord.Client {
-    [key: string]: any;
-}
-
-// Main
-export function run(
-    client: Client,
-    message: discord.Message,
-    args: string[],
-    log: (mode: 'i' | 'w' | 'e', message: string) => void
-): void {}
-
-// Config
-export const config = {
-    name: 'My Cool Command',
-    description: 'Does stuff',
-    enabled: true,
-
-    // To restrict the command, change the "false" to the following
-    // format:
-    //
-    // restrict: { users: [ "array", "of", "authorized", "user", "IDs" ] }
-    restrict: false
-};

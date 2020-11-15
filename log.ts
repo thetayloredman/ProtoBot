@@ -1,40 +1,20 @@
-// ProtoBot
-// By BadBoyHaloCat
-// Very owo code i have here~
-
-// +-------------------------------------------------+
-// | LEGAL STUFF                        not very owo |
-// |=================================================|
-// | +---------------------------------------------+ |
-// | | COPYRIGHT                                   | |
-// | |=============================================| |
-// | | Copyright (C) 2020  BadBoyHaloCat           | |
-// | |                                             | |
-// | | ProtoBot is licensed under exclusive        | |
-// | | copyright. You may NOT use this source      | |
-// | | code (the "Bot") for anything other than    | |
-// | | usage in non-source form.                   | |
-// | |                                             | |
-// | | Unless the developers ("We") decide to      | |
-// | | remove the copyright on this code and       | |
-// | | place it under an applicable Open-source*   | |
-// | | licence, you may NOT use this codebase.     | |
-// | |                                             | |
-// | | The only permitted users of this codebase   | |
-// | | are the APPROVED** developers of this code. | |
-// | |                                             | |
-// | | *  Open-source describes any code licensed  | |
-// | |    under an applicable open licence such as | |
-// | |    the GNU GPL v3.0. Any licence that       | |
-// | |    allows others to modify and create       | |
-// | |    derivative works off of the Software is  | |
-// | |    considered Open-source.                  | |
-// | |                                             | |
-// | | ** Approved indicates a developer that has  | |
-// | |    invited to contribute to this codebase   | |
-// | |    and is not applicable to this copyright. | |
-// | +---------------------------------------------+ |
-// +-------------------------------------------------+
+/**
+ * ProtoBot -- A Discord furry bot
+ * Copyright (C) 2020  BadBoyHaloCat
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
 // Modules
 import chalk from 'chalk';
