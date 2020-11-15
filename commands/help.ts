@@ -61,7 +61,7 @@ export function run(
         .setDescription('Here are all of my commands!')
     
     client.commandsConfig.forEach((command: { name: string, description: string, enabled: boolean, restrict: boolean|{users:string[]} }) => {
-        embed.addField(command.name, `${command.description}${command.enabled ? '' : ' **[Disabled]**'}${command.restrict ? ' **[Restricted]**' : ''}`);
+        embed.addField(command.name, `${command.description}${command.enabled ? '' : ' **[Disabled]**'}${command.restrict ? ' **[Restricted]**' : ''}`, true);
     });
 
     message.channel.send(embed);
