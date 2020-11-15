@@ -44,7 +44,6 @@ import * as fs from 'fs';
 
 // Interfaces, owo
 interface Client extends discord.Client {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any;
 }
 
@@ -151,7 +150,6 @@ We will delete as much info as you would like, as long as it is **your** data.`
                     .then(() => {
                         m.edit('Sent the privacy policy to your DM!');
                         log('i', 'Sent privacy info.');
-                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     })
                     .catch((err: any) => {
                         m.edit(

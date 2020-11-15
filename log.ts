@@ -103,7 +103,6 @@ function writeItem(mode: 'i' | 'w' | 'e', message: string): void {
 // Main
 export default function log(mode: 'i' | 'w' | 'e', message: string): void {
     let msg = '';
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let preparsedDate: any = new Date(Date.now()).toLocaleDateString('en-US', {
         weekday: 'short',
         year: 'numeric',
@@ -112,7 +111,6 @@ export default function log(mode: 'i' | 'w' | 'e', message: string): void {
     });
     preparsedDate = preparsedDate.split(', ');
     preparsedDate[1] = preparsedDate[1].split(' ');
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let preparsedTime: any = new Date(Date.now()).toLocaleTimeString(
         'en-US' /* no opts needed */
     );

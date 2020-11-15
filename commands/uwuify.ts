@@ -43,7 +43,6 @@ import { Uwuifier } from 'uwuifier';
 
 // Interfaces, owo
 interface Client extends discord.Client {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any;
 }
 

@@ -43,7 +43,6 @@ import { exec, ExecException } from 'child_process';
 
 // Interfaces, owo
 interface Client extends discord.Client {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any;
 }
 
@@ -78,7 +77,6 @@ export function run(
             `git checkout ${args[0]}`,
             (error: ExecException | null, stdout: string, stderr: string) => {
                 embed = new discord.MessageEmbed()
-                    // eslint-disable-next-line no-constant-condition
                     .setTitle(
                         `Branch Switch [${
                             stderr.startsWith('Switched')

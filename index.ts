@@ -60,7 +60,6 @@ client.config = config;
 // Defaults
 client.defaults = {};
 client.defaults.USER_STATS = { hugs: 0 };
-// eslint-disable-next-line camelcase
 client.defaults.USER_CONFS = { markov_optin: false };
 
 // dbs
@@ -138,7 +137,6 @@ client.on('ready', async () => {
             );
         }
         l('i', 'Beginning initial command load...');
-        // eslint-disable-next-line no-undef
         fs.readdir(
             client.config.dirs.commands,
             (err: NodeJS.ErrnoException | null, files: string[]) => {
@@ -245,7 +243,6 @@ client.on('ready', async () => {
             );
         }
         l('i', 'Beginning initial module load...');
-        // eslint-disable-next-line no-undef
         fs.readdir(
             client.config.dirs.modules,
             (err: NodeJS.ErrnoException | null, files: string[]) => {
@@ -385,7 +382,6 @@ client.on('message', (message: discord.Message) => {
             args: string[],
             log: (mode: 'i' | 'w' | 'e', message: string) => void
         ) => void | undefined = client.commands.get(command)?.run;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const commandConfig: any = client.commands.get(command)?.config;
         if (!commandExec) {
             // exit

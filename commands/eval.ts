@@ -42,7 +42,6 @@ import chalk from 'chalk';
 
 // Interfaces, owo
 interface Client extends discord.Client {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any;
 }
 
@@ -85,7 +84,6 @@ ${code}`
         } else if (code.includes('await') && message.content.includes('\n')) {
             code = `( async () => {${code}})()`;
         }
-        // eslint-disable-next-line no-eval
         response = await eval(code);
         if (typeof response !== 'string') {
             response = require('util').inspect(response, { depth: 3 });
@@ -100,7 +98,6 @@ ${code}`
             extends: 'eslint:recommended',
             parserOptions: { ecmaVersion: 12 }
         });
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const error = lint.find((e: any) => e.fatal);
         if (error) {
             const line = code.split('\n')[error.line - 1];

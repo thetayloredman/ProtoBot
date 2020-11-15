@@ -42,7 +42,6 @@ import chalk from 'chalk';
 
 // Interfaces, owo
 interface Client extends discord.Client {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any;
 }
 
@@ -53,7 +52,6 @@ export function run(
     args: string[],
     log: (mode: 'i' | 'w' | 'e', message: string) => void
 ): void {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     message.channel.messages
         .fetch({ limit: 2 })
         .then((messages: discord.Collection<any, any>) => {

@@ -42,7 +42,6 @@ import chalk from 'chalk';
 
 // Interfaces, owo
 interface Client extends discord.Client {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any;
 }
 
@@ -52,7 +51,6 @@ function fireStats(
     message: discord.Message,
     client: Client
 ): void {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const uData: any = client.ustats.get(userID);
     message.reply(`**User info for \`${userID}\`:**
 Hugs: ${uData.hugs}
@@ -83,7 +81,6 @@ export function run(
                 client.ustats.ensure(user.id, client.defaults.USER_STATS);
                 // @ts-ignore
                 fireStats(userID, message, client);
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
             })
             .catch((reason: any) => {
                 log('i', `Unknown user ${userID}!`);
