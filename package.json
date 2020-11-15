@@ -1,30 +1,29 @@
 {
-    "name": "dfur",
-    "version": "1.0.0",
-    "description": "a discord furry bot",
-    "main": "index.js",
-    "scripts": {
-        "start": "chmod u+x ./start.sh; ./start.sh"
-    },
-    "author": "BadBoyHaloCat",
-    "license": "UNLICENCED",
-    "dependencies": {
-        "better-sqlite3": "^7.1.1",
-        "chalk": "^4.1.0",
-        "discord.js": "^12.4.1",
-        "enmap": "^5.8.0",
-        "markov-strings": "^3.0.1",
-        "markovchain": "^1.0.2",
-        "prettier": "^2.1.2",
-        "strip-ansi": "^6.0.0",
-        "uwuifier": "^2.0.2"
-    },
-    "devDependencies": {
-        "@types/node": "^14.14.6",
-        "@typescript-eslint/eslint-plugin": "^4.6.0",
-        "@typescript-eslint/parser": "^4.6.1",
-        "eslint": "^7.12.1",
-        "typescript": "^4.0.5",
-        "typescript-eslint": "0.0.1-alpha.0"
-    }
+  "name": "protobot",
+  "version": "1.0.0",
+  "description": "A Discord furry bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "chmod u+x ./start.sh; ./start.sh"
+  },
+  "author": "BadBoyHaloCat",
+  "license": "UNLICENCED",
+  "dependencies": {
+    "better-sqlite3": "^7.1.1",
+    "chalk": "^4.1.0",
+    "discord.js": "^12.4.1",
+    "enmap": "^5.8.2",
+    "markov-strings": "^3.0.1",
+    "markovchain": "^1.0.2",
+    "strip-ansi": "^6.0.0",
+    "uwuifier": "^2.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.7",
+    "@typescript-eslint/eslint-plugin": "^4.7.0",
+    "@typescript-eslint/parser": "^4.7.0",
+    "eslint": "^7.13.0",
+    "typescript": "^4.0.5",
+    "typescript-eslint": "0.0.1-alpha.0"
+  }
 }
