@@ -69,7 +69,7 @@ export async function run(
             `User ${message.author.tag} tried to use eval! Code:
 ${code}`
         );
-        message.reply('You don\'t have permission to do that!');
+        message.reply("You don't have permission to do that!");
         return;
     }
 

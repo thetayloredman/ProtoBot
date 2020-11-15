@@ -99,7 +99,7 @@ export function run(
 // Config
 export const config = {
     name: 'info',
-    description: 'Get a user\'s stats!',
+    description: "Get a user's stats!",
     enabled: true,
 
     // To restrict the command, change the "false" to the following

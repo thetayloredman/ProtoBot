@@ -56,7 +56,7 @@ export function run(
     // Safety check
     if (message.author.id !== client.config.ownerID) {
         console.log('w', `User ${message.author.tag} tried to use "restart"!`);
-        message.reply('You don\'t have permission to do that!');
+        message.reply("You don't have permission to do that!");
         return;
     }
 
