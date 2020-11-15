@@ -60,7 +60,7 @@ export function run(
         .setFooter(`Requested by ${message.author.tag}`)
         .setDescription('Here are all of my commands!')
     
-    client.commandsConfig.forEach((command) => {
+    client.commandsConfig.forEach((command: { name: string, description: string, enabled: boolean, restrict: boolean|{users:string[]} }) => {
         embed.addField(command.name, `${command.description}${command.enabled ? '' : ' **[Disabled]**'}${command.restrict ? ' **[Restricted]**' : ''}`);
     });
 
