@@ -60,7 +60,6 @@ client.config = config;
 // Defaults
 client.defaults = {};
 client.defaults.USER_STATS = { hugs: 0 };
-// eslint-disable-next-line camelcase
 client.defaults.USER_CONFS = { markov_optin: false };
 
 // dbs
@@ -81,108 +80,251 @@ client.modules = new enmap();
 // Ready event
 client.on('ready', async () => {
     console.clear();
-    const userCountsPerGuild: number[] = client.guilds.cache.map((g: discord.Guild) => g.memberCount - 1);
+    const userCountsPerGuild: number[] = client.guilds.cache.map(
+        (g: discord.Guild) => g.memberCount - 1
+    );
     let userTotal = 0;
-    userCountsPerGuild.forEach((item: number) => userTotal += item);
+    userCountsPerGuild.forEach((item: number) => (userTotal += item));
     const userAvg = userTotal / userCountsPerGuild.length;
     log('i', 'Ready!');
-    log('i', `${chalk.green('[')}${chalk.green.bold('BOT')}${chalk.green(']')} Username: ${chalk.red(client.user?.tag) ?? '(error: client.user is undefined)'}`);
-    log('i', `${chalk.green('[')}${chalk.green.bold('GUILDS')}${chalk.green(']')} In ${chalk.red(client.guilds.cache.size)} guilds!`);
-    log('i', `${chalk.green('[')}${chalk.green.bold('CHANNELS')}${chalk.green(']')} With ${chalk.red(client.channels.cache.size)} channels!`);
-    log('i', `${chalk.green('[')}${chalk.green.bold('USERS')}${chalk.green(']')} Total ${chalk.red(userTotal)} users! (${chalk.red('excluding')} ${chalk.red.bold('self')})`);
-    log('i', `${chalk.green('[')}${chalk.green.bold('USERAVG')}${chalk.green(']')} Average user count per guilds: ${chalk.red(Math.round(userAvg))}`);
-    log('i', `${chalk.green('[')}${chalk.green.bold('PREFIXES')}${chalk.green(']')} Loaded ${chalk.red(client.config.prefixes.length)} prefixes!`);
+    log(
+        'i',
+        `${chalk.green('[')}${chalk.green.bold('BOT')}${chalk.green(
+            ']'
+        )} Username: ${
+            chalk.red(client.user?.tag) ?? '(error: client.user is undefined)'
+        }`
+    );
+    log(
+        'i',
+        `${chalk.green('[')}${chalk.green.bold('GUILDS')}${chalk.green(
+            ']'
+        )} In ${chalk.red(client.guilds.cache.size)} guilds!`
+    );
+    log(
+        'i',
+        `${chalk.green('[')}${chalk.green.bold('CHANNELS')}${chalk.green(
+            ']'
+        )} With ${chalk.red(client.channels.cache.size)} channels!`
+    );
+    log(
+        'i',
+        `${chalk.green('[')}${chalk.green.bold('USERS')}${chalk.green(
+            ']'
+        )} Total ${chalk.red(userTotal)} users! (${chalk.red(
+            'excluding'
+        )} ${chalk.red.bold('self')})`
+    );
+    log(
+        'i',
+        `${chalk.green('[')}${chalk.green.bold('USERAVG')}${chalk.green(
+            ']'
+        )} Average user count per guilds: ${chalk.red(Math.round(userAvg))}`
+    );
+    log(
+        'i',
+        `${chalk.green('[')}${chalk.green.bold('PREFIXES')}${chalk.green(
+            ']'
+        )} Loaded ${chalk.red(client.config.prefixes.length)} prefixes!`
+    );
     function loadCmds(): void {
-        function l(type: 'i'|'w'|'e', message: string) {
-            log(type, `${chalk.yellow('[')}${chalk.yellow.bold('CMDLOAD')}${chalk.yellow(']')} ${message}`);
+        function l(type: 'i' | 'w' | 'e', message: string) {
+            log(
+                type,
+                `${chalk.yellow('[')}${chalk.yellow.bold(
+                    'CMDLOAD'
+                )}${chalk.yellow(']')} ${message}`
+            );
         }
         l('i', 'Beginning initial command load...');
-        // eslint-disable-next-line no-undef
-        fs.readdir(client.config.dirs.commands, (err: NodeJS.ErrnoException | null, files: string[]) => {
-            if (err) {
-                l('e', `Failed to read directory ${client.config.dirs.commands}:`);
-                // @ts-ignore
-                l('e', err);
-            } else {
-                files.forEach((path: string) => {
-                    if (path.endsWith('.ts')) {
-                        if (!files.includes(path.replace('.ts', '.js'))) {
-                            l('e', `UncompiledCommandWarning: Found a .ts file: ${path}, that wasn't paired with a compiled .js file!`);
-                            l('e', `${chalk.blue('[')}${chalk.blue.bold('HINT')}${chalk.blue(']')} Did you forget to run ${chalk.inverse('tsc')}?`);
-                            l('e', `Failed to load command ${path.replace('.ts', '')}.`);
+        fs.readdir(
+            client.config.dirs.commands,
+            (err: NodeJS.ErrnoException | null, files: string[]) => {
+                if (err) {
+                    l(
+                        'e',
+                        `Failed to read directory ${client.config.dirs.commands}:`
+                    );
+                    // @ts-ignore
+                    l('e', err);
+                } else {
+                    files.forEach((path: string) => {
+                        if (path.endsWith('.ts')) {
+                            if (!files.includes(path.replace('.ts', '.js'))) {
+                                l(
+                                    'e',
+                                    `UncompiledCommandWarning: Found a .ts file: ${path}, that wasn't paired with a compiled .js file!`
+                                );
+                                l(
+                                    'e',
+                                    `${chalk.blue('[')}${chalk.blue.bold(
+                                        'HINT'
+                                    )}${chalk.blue(
+                                        ']'
+                                    )} Did you forget to run ${chalk.inverse(
+                                        'tsc'
+                                    )}?`
+                                );
+                                l(
+                                    'e',
+                                    `Failed to load command ${path.replace(
+                                        '.ts',
+                                        ''
+                                    )}.`
+                                );
+                            }
+                        } else if (path.endsWith('.js')) {
+                            // show scrapped cmd warning
+                            if (!files.includes(path.replace('.js', '.ts'))) {
+                                l(
+                                    'w',
+                                    `CommandScrapWarning: Found a .js file: ${path}, that wasn't paired with a .ts file!`
+                                );
+                                l('w', 'Still loading scrapped command!');
+                                l(
+                                    'w',
+                                    `${chalk.blue('[')}${chalk.blue.bold(
+                                        'HINT'
+                                    )}${chalk.blue(
+                                        ']'
+                                    )} Did you delete a command without deleting the .js file?`
+                                );
+                            }
+                            if (
+                                path.replace('.js', '').toLowerCase() !==
+                                path.replace('.js', '')
+                            ) {
+                                l(
+                                    'w',
+                                    `CommandCasedWarning: Command at ${path} has a name with a capital letter!`
+                                );
+                                l(
+                                    'w',
+                                    `Will be loaded as "${path
+                                        .replace('.js', '')
+                                        .toLowerCase()}"!`
+                                );
+                                path = path.toLowerCase();
+                            }
+                            // normal load
+                            const commandData = require(client.config.dirs.commands.endsWith(
+                                '/'
+                            )
+                                ? client.config.dirs.commands + path
+                                : `${client.config.dirs.commands}/${path}`);
+                            const cmdName: string = path.replace('.js', '');
+                            l('i', `Loading command "${cmdName}"...`);
+                            client.commandsConfig.set(
+                                cmdName,
+                                commandData.config
+                            );
+                            client.commands.set(cmdName, commandData);
+                            l('i', `Finished loading command "${cmdName}"!`);
+                        } else {
+                            // unknown ext
+                            l(
+                                'w',
+                                `File in commands dir with unknown extension: ${path}`
+                            );
                         }
-                    } else if (path.endsWith('.js')) {
-                        // show scrapped cmd warning
-                        if (!files.includes(path.replace('.js', '.ts'))) {
-                            l('w', `CommandScrapWarning: Found a .js file: ${path}, that wasn't paired with a .ts file!`);
-                            l('w', 'Still loading scrapped command!');
-                            l('w', `${chalk.blue('[')}${chalk.blue.bold('HINT')}${chalk.blue(']')} Did you delete a command without deleting the .js file?`);
-                        }
-                        if (path.replace('.js', '').toLowerCase() !== path.replace('.js', '')) {
-                            l('w', `CommandCasedWarning: Command at ${path} has a name with a capital letter!`);
-                            l('w', `Will be loaded as "${path.replace('.js', '').toLowerCase()}"!`);
-                            path = path.toLowerCase();
-                        }
-                        // normal load
-                        const commandData = require(client.config.dirs.commands.endsWith('/') ? client.config.dirs.commands + path : `${client.config.dirs.commands}/${path}`);
-                        const cmdName: string = path.replace('.js', '');
-                        l('i', `Loading command "${cmdName}"...`);
-                        client.commandsConfig.set(cmdName, commandData.config);
-                        client.commands.set(cmdName, commandData);
-                        l('i', `Finished loading command "${cmdName}"!`);
-                    } else {
-                        // unknown ext
-                        l('w', `File in commands dir with unknown extension: ${path}`);
-                    }
-                });
+                    });
+                }
             }
-        });
+        );
     }
     loadCmds();
     function loadMods(): void {
-        function l(type: 'i'|'w'|'e', message: string) {
-            log(type, `${chalk.yellow('[')}${chalk.yellow.bold('MODLOAD')}${chalk.yellow(']')} ${message}`);
+        function l(type: 'i' | 'w' | 'e', message: string) {
+            log(
+                type,
+                `${chalk.yellow('[')}${chalk.yellow.bold(
+                    'MODLOAD'
+                )}${chalk.yellow(']')} ${message}`
+            );
         }
         l('i', 'Beginning initial module load...');
-        // eslint-disable-next-line no-undef
-        fs.readdir(client.config.dirs.modules, (err: NodeJS.ErrnoException | null, files: string[]) => {
-            if (err) {
-                l('e', `Failed to read directory ${client.config.dirs.modules}:`);
-                // @ts-ignore
-                l('e', err);
-            } else {
-                files.forEach((path: string) => {
-                    if (path.endsWith('.ts')) {
-                        if (!files.includes(path.replace('.ts', '.js'))) {
-                            l('e', `UncompiledModuleWarning: Found a .ts file: ${path}, that wasn't paired with a compiled .js file!`);
-                            l('e', `${chalk.blue('[')}${chalk.blue.bold('HINT')}${chalk.blue(']')} Did you forget to run ${chalk.inverse('tsc')}?`);
-                            l('e', `Failed to load module ${path.replace('.ts', '')}.`);
+        fs.readdir(
+            client.config.dirs.modules,
+            (err: NodeJS.ErrnoException | null, files: string[]) => {
+                if (err) {
+                    l(
+                        'e',
+                        `Failed to read directory ${client.config.dirs.modules}:`
+                    );
+                    // @ts-ignore
+                    l('e', err);
+                } else {
+                    files.forEach((path: string) => {
+                        if (path.endsWith('.ts')) {
+                            if (!files.includes(path.replace('.ts', '.js'))) {
+                                l(
+                                    'e',
+                                    `UncompiledModuleWarning: Found a .ts file: ${path}, that wasn't paired with a compiled .js file!`
+                                );
+                                l(
+                                    'e',
+                                    `${chalk.blue('[')}${chalk.blue.bold(
+                                        'HINT'
+                                    )}${chalk.blue(
+                                        ']'
+                                    )} Did you forget to run ${chalk.inverse(
+                                        'tsc'
+                                    )}?`
+                                );
+                                l(
+                                    'e',
+                                    `Failed to load module ${path.replace(
+                                        '.ts',
+                                        ''
+                                    )}.`
+                                );
+                            }
+                        } else if (path.endsWith('.js')) {
+                            // show scrapped cmd warning
+                            if (!files.includes(path.replace('.js', '.ts'))) {
+                                l(
+                                    'w',
+                                    `ModuleScrapWarning: Found a .js file: ${path}, that wasn't paired with a .ts file!`
+                                );
+                                l('w', 'Still loading scrapped module!');
+                                l(
+                                    'w',
+                                    `${chalk.blue('[')}${chalk.blue.bold(
+                                        'HINT'
+                                    )}${chalk.blue(
+                                        ']'
+                                    )} Did you delete a module without deleting the .js file?`
+                                );
+                            }
+                            // normal load
+                            const moduleData = require(client.config.dirs.modules.endsWith(
+                                '/'
+                            )
+                                ? client.config.dirs.modules + path
+                                : `${client.config.dirs.modules}/${path}`);
+                            const modName: string = path.replace('.js', '');
+                            l('i', `Loading module "${modName}"...`);
+                            client.modules.set(modName, moduleData);
+                            l('i', `Finished loading module "${modName}"!`);
+                        } else {
+                            // unknown ext
+                            l(
+                                'w',
+                                `File in modules dir with unknown extension: ${path}`
+                            );
                         }
-                    } else if (path.endsWith('.js')) {
-                        // show scrapped cmd warning
-                        if (!files.includes(path.replace('.js', '.ts'))) {
-                            l('w', `ModuleScrapWarning: Found a .js file: ${path}, that wasn't paired with a .ts file!`);
-                            l('w', 'Still loading scrapped module!');
-                            l('w', `${chalk.blue('[')}${chalk.blue.bold('HINT')}${chalk.blue(']')} Did you delete a module without deleting the .js file?`);
-                        }
-                        // normal load
-                        const moduleData = require(client.config.dirs.modules.endsWith('/') ? client.config.dirs.modules + path : `${client.config.dirs.modules}/${path}`);
-                        const modName: string = path.replace('.js', '');
-                        l('i', `Loading module "${modName}"...`);
-                        client.modules.set(modName, moduleData);
-                        l('i', `Finished loading module "${modName}"!`);
-                    } else {
-                        // unknown ext
-                        l('w', `File in modules dir with unknown extension: ${path}`);
-                    }
-                });
+                    });
+                }
             }
-        });
+        );
     }
     loadMods();
 
     // Status
-    client.user?.setActivity(`with ${userTotal} furries | ${client.config.prefixes[0]}about`, { type: 'PLAYING' });
+    client.user?.setActivity(
+        `with ${userTotal} furries | ${client.config.prefixes[0]}about`,
+        { type: 'PLAYING' }
+    );
 });
 
 // Message handler
@@ -195,7 +337,12 @@ client.on('message', (message: discord.Message) => {
     }
     // @ts-ignore
     client.modules.forEach((moduleData) => {
-        log('i', `${chalk.green('[')}${chalk.green.bold('ModuleRunner')}${chalk.green(']')} Running module ${moduleData.config.name}!`);
+        log(
+            'i',
+            `${chalk.green('[')}${chalk.green.bold(
+                'ModuleRunner'
+            )}${chalk.green(']')} Running module ${moduleData.config.name}!`
+        );
         moduleData.run(client, message, log);
     });
     let msgIsCommand = false;
@@ -208,17 +355,33 @@ client.on('message', (message: discord.Message) => {
     });
     if (msgIsCommand) {
         const args: string[] = message.content.slice(prefixLen).split(/ +/g);
-        const command: string|undefined = args.shift()?.toLowerCase() ?? '';
+        const command: string | undefined = args.shift()?.toLowerCase() ?? '';
         if (!command) {
             // exit
             return;
         }
 
-        log('i', `Running command "${command}" for "${message.author.tag}" with args "${args.join(' ')}"!`);
-        log('i', `Command found at: ${message.guild?.name ?? 'unknown'} (${message.guild?.id ?? 'unknown'}) => #${message.channel?.name ?? '#unknown'} (${message.channel?.id ?? 'unknown'}) => ${message.id}`);
+        log(
+            'i',
+            `Running command "${command}" for "${
+                message.author.tag
+            }" with args "${args.join(' ')}"!`
+        );
+        log(
+            'i',
+            `Command found at: ${message.guild?.name ?? 'unknown'} (${
+                message.guild?.id ?? 'unknown'
+            }) => #${message.channel?.name ?? '#unknown'} (${
+                message.channel?.id ?? 'unknown'
+            }) => ${message.id}`
+        );
 
-        const commandExec: (client: discord.Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void) => void|undefined = client.commands.get(command)?.run;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const commandExec: (
+            client: discord.Client,
+            message: discord.Message,
+            args: string[],
+            log: (mode: 'i' | 'w' | 'e', message: string) => void
+        ) => void | undefined = client.commands.get(command)?.run;
         const commandConfig: any = client.commands.get(command)?.config;
         if (!commandExec) {
             // exit
@@ -232,18 +395,26 @@ client.on('message', (message: discord.Message) => {
                 message.reply('That command is disabled!');
                 return;
             }
-            if (commandConfig.restrict !== false && commandConfig.restrict !== undefined) {
+            if (
+                commandConfig.restrict !== false &&
+                commandConfig.restrict !== undefined
+            ) {
                 // Command is restricted!
-                if (!(commandConfig.restrict.users ?? []).includes(message.author.id) && client.config.ownerID !== message.author.id) {
+                if (
+                    !(commandConfig.restrict.users ?? []).includes(
+                        message.author.id
+                    ) &&
+                    client.config.ownerID !== message.author.id
+                ) {
                     if (client.config.ownerID !== message.author.id) {
                         // User isn't authorized.
-                        // 
+                        //
                         // Reasoning for this:
                         // - Command is restricted
                         // - They aren't one of the allowed users
                         // - They aren't the owner
                         log('i', 'User unauthorized!');
-                        message.reply('You aren\'t authorized to do that!');
+                        message.reply("You aren't authorized to do that!");
                         return;
                     }
                 }
@@ -257,7 +428,12 @@ client.on('message', (message: discord.Message) => {
 client.on('rateLimit', (data: discord.RateLimitData) => {
     log('w', 'Got hit with a ratelimit!');
     log('w', `Ratelimited when performing ${data.method} ${data.path}`);
-    log('w', `API route was ${data.route} and limit hit was ${data.limit}/${data.timeout}ms (${data.timeout / 1000} seconds).`);
+    log(
+        'w',
+        `API route was ${data.route} and limit hit was ${data.limit}/${
+            data.timeout
+        }ms (${data.timeout / 1000} seconds).`
+    );
     log('w', 'Operations have been paused until the ratelimit is lifted!');
 });
 

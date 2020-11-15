@@ -43,12 +43,15 @@ import Markov from 'markov-strings';
 
 // Interfaces, owo
 interface Client extends discord.Client {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    [key: string]: any
+    [key: string]: any;
 }
 
 // Main
-export function run(client: Client, message: discord.Message, log: (mode: 'i'|'w'|'e', message: string) => void): void {
+export function run(
+    client: Client,
+    message: discord.Message,
+    log: (mode: 'i' | 'w' | 'e', message: string) => void
+): void {
     //                                                      To be safe we will not perform
     //                                                      generation without the guild.
     //                                                      vvvvvvvvvvvvvvvvv
@@ -63,23 +66,54 @@ export function run(client: Client, message: discord.Message, log: (mode: 'i'|'w
             guild: { id: guildID }
         } = message;
         // add message to database
-        client.markovMessages.set(message.guild.id, {
-            // Message storage structure
-            // is in this block.
-            content: content,
-            author: authorID,
-            id: id,
-            guild: guildID
-        }, message.id);
-        log('i', `${chalk.red('[')}${chalk.red.bold('MarkovMsgListener')}${chalk.red(']')} Added message to markov database.`);
-        if (Object.keys(client.markovMessages.get(message.guild.id)).length > 2000) {
-            log('w', `${chalk.red('[')}${chalk.red.bold('MarkovMsgListener')}${chalk.red(']')} Found more than 2000 messages in guild's cache! Might be time to prune!`);
+        client.markovMessages.set(
+            message.guild.id,
+            {
+                // Message storage structure
+                // is in this block.
+                content: content,
+                author: authorID,
+                id: id,
+                guild: guildID
+            },
+            message.id
+        );
+        log(
+            'i',
+            `${chalk.red('[')}${chalk.red.bold('MarkovMsgListener')}${chalk.red(
+                ']'
+            )} Added message to markov database.`
+        );
+        if (
+            Object.keys(client.markovMessages.get(message.guild.id)).length >
+            2000
+        ) {
+            log(
+                'w',
+                `${chalk.red('[')}${chalk.red.bold(
+                    'MarkovMsgListener'
+                )}${chalk.red(
+                    ']'
+                )} Found more than 2000 messages in guild's cache! Might be time to prune!`
+            );
         }
     } else {
         if (!message.guild) {
-            log('e', `${chalk.red('[')}${chalk.red.bold('MarkovMsgListener')}${chalk.red(']')} ${chalk.blue('message.guild')} was not present!`);
+            log(
+                'e',
+                `${chalk.red('[')}${chalk.red.bold(
+                    'MarkovMsgListener'
+                )}${chalk.red(']')} ${chalk.blue(
+                    'message.guild'
+                )} was not present!`
+            );
         } else {
-            log('i', `${chalk.red('[')}${chalk.red.bold('MarkovMsgListener')}${chalk.red(']')} User not opted-in for markov generation.`);
+            log(
+                'i',
+                `${chalk.red('[')}${chalk.red.bold(
+                    'MarkovMsgListener'
+                )}${chalk.red(']')} User not opted-in for markov generation.`
+            );
         }
     }
 }
@@ -87,5 +121,6 @@ export function run(client: Client, message: discord.Message, log: (mode: 'i'|'w
 // Config
 export const config = {
     name: 'markov',
-    description: 'Generate a markov chain from the current mood in the chat. [Message Collector]'
+    description:
+        'Generate a markov chain from the current mood in the chat. [Message Collector]'
 };
