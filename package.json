@@ -1,7 +1,7 @@
 {
-  "name": "dfur",
+  "name": "protobot",
   "version": "1.0.0",
-  "description": "a discord furry bot",
+  "description": "A Discord furry bot",
   "main": "index.js",
   "scripts": {
     "start": "chmod u+x ./start.sh; ./start.sh"
