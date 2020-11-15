@@ -60,7 +60,7 @@ export function run(
             'w',
             `User ${message.author.tag} tried to use branch! Destination: ${args[0]}`
         );
-        message.reply("You don't have permission to do that!");
+        message.reply('You don\'t have permission to do that!');
         return;
     }
 

@@ -127,7 +127,6 @@ module.exports = {
         // }
         /* ===================================== */
         'array-bracket-newline': ['warn', 'consistent'],
-        'array-bracket-spacing': ['warn', 'always'],
         'array-element-newline': ['warn', 'consistent'],
         'block-spacing': ['error', 'always'],
         'brace-style': ['error', '1tbs'],
@@ -140,9 +139,12 @@ module.exports = {
         'func-call-spacing': ['error', 'never'],
         'func-name-matching': ['error', 'always'],
         'func-style': ['error', 'declaration'],
-        'indent': ['error', 4],
+        'indent': ['error', 4, { SwitchCase: 1 }],
         'quotes': ['error', 'single'],
         'prefer-template': ['error'],
         'template-curly-spacing': ['error']
+    },
+    globals: {
+        'NodeJS': 'readonly'
     }
 };

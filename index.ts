@@ -85,7 +85,7 @@ client.on('ready', async () => {
         (g: discord.Guild) => g.memberCount - 1
     );
     let userTotal = 0;
-    userCountsPerGuild.forEach((item: number) => (userTotal += item));
+    userCountsPerGuild.forEach((item: number) => userTotal += item);
     const userAvg = userTotal / userCountsPerGuild.length;
     log('i', 'Ready!');
     log(
@@ -418,7 +418,7 @@ client.on('message', (message: discord.Message) => {
                         // - They aren't one of the allowed users
                         // - They aren't the owner
                         log('i', 'User unauthorized!');
-                        message.reply("You aren't authorized to do that!");
+                        message.reply('You aren\'t authorized to do that!');
                         return;
                     }
                 }
