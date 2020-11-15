@@ -2,7 +2,7 @@
 
 A Discord furry bot
 
-## Woah~ You're special!
+## OwO What's this??!?!?!?
 
 You just got access to a **top-secret** code repository.
 
