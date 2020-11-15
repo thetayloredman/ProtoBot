@@ -43,11 +43,16 @@ import chalk from 'chalk';
 // Interfaces, owo
 interface Client extends discord.Client {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    [key: string]: any
+    [key: string]: any;
 }
 
 // Main
-export async function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void): Promise<void> {
+export async function run(
+    client: Client,
+    message: discord.Message,
+    args: string[],
+    log: (mode: 'i' | 'w' | 'e', message: string) => void
+): Promise<void> {
     /**
      * Credit to WilsonTheWolf for some of this eval code!
      */
@@ -55,13 +60,16 @@ export async function run(client: Client, message: discord.Message, args: string
     let silent = false;
     if (args[0] === '-s') {
         args.shift();
-        silent = true; 
+        silent = true;
     }
     let code: string = args.join(' ');
     if (message.author.id !== client.config.ownerID) {
-        log('w', `User ${message.author.tag} tried to use eval! Code:
-${code}`);
-        message.reply('You don\'t have permission to do that!');
+        log(
+            'w',
+            `User ${message.author.tag} tried to use eval! Code:
+${code}`
+        );
+        message.reply("You don't have permission to do that!");
         return;
     }
 
@@ -87,7 +95,11 @@ ${code}`);
         response = err.toString();
         const Linter = require('eslint').Linter;
         const linter = new Linter();
-        const lint = linter.verify(code, { 'env': { 'commonjs': true, 'es2021': true, 'node': true }, 'extends': 'eslint:recommended', 'parserOptions': { 'ecmaVersion': 12 } });
+        const lint = linter.verify(code, {
+            env: { commonjs: true, es2021: true, node: true },
+            extends: 'eslint:recommended',
+            parserOptions: { ecmaVersion: 12 }
+        });
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const error = lint.find((e: any) => e.fatal);
         if (error) {
@@ -104,16 +116,27 @@ ${' '.repeat(error.column - 1)}${'^'.repeat(length)}
         .setTitle(e ? '**Error**' : '**Success**')
         .setColor(e ? 'RED' : 'GREEN')
         .setDescription(`\`\`\`${response.substr(0, 2042)}\`\`\``);
-    if (length >= 2049 && !silent) { // dont do this on silent items
-        log(e ? 'e' : 'i', `An eval command executed by ${message.author.username}'s response was too long (${length}/2048).`);
+    if (length >= 2049 && !silent) {
+        // dont do this on silent items
+        log(
+            e ? 'e' : 'i',
+            `An eval command executed by ${message.author.username}'s response was too long (${length}/2048).`
+        );
         log(e ? 'e' : 'i', `Error: ${e ? 'Yes' : 'No'}`);
         log(e ? 'e' : 'i', 'Output:');
         response.split('\n').forEach((b: string) => {
             log(e ? 'e' : 'i', b);
         });
-        embed.addField('Note:', `The response was too long with a length of \`${length}/2048\` characters. it was logged to the console. `);
-    } else if (!silent) { // use different log for silent items
-        log(e ? 'e' : 'i', `An eval command has been executed by ${message.author.username}!`);
+        embed.addField(
+            'Note:',
+            `The response was too long with a length of \`${length}/2048\` characters. it was logged to the console. `
+        );
+    } else if (!silent) {
+        // use different log for silent items
+        log(
+            e ? 'e' : 'i',
+            `An eval command has been executed by ${message.author.username}!`
+        );
         log(e ? 'e' : 'i', `Error: ${e ? 'Yes' : 'No'}`);
         log(e ? 'e' : 'i', 'Output:');
         response.split('\n').forEach((b: string) => {
@@ -124,7 +147,8 @@ ${' '.repeat(error.column - 1)}${'^'.repeat(length)}
     if (!silent) {
         message.channel.send(embed);
     } else {
-        message.delete().catch(() => { // delete silent msg
+        message.delete().catch(() => {
+            // delete silent msg
             log('e', 'Failed to delete command message with silent eval!');
         });
         log(e ? 'e' : 'i', 'Silent eval output:');
@@ -141,10 +165,10 @@ export const config = {
     name: 'eval',
     description: 'Execute code!',
     enabled: true,
-    
+
     // To restrict the command, change the "false" to the following
     // format:
-    // 
+    //
     // restrict: { users: [ "array", "of", "authorized", "user", "IDs" ] }
-    restrict: {  } // owner only
+    restrict: {} // owner only
 };

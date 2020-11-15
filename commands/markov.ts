@@ -45,11 +45,16 @@ import * as fs from 'fs';
 // Interfaces, owo
 interface Client extends discord.Client {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    [key: string]: any
+    [key: string]: any;
 }
 
 // Main
-export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void): void {
+export function run(
+    client: Client,
+    message: discord.Message,
+    args: string[],
+    log: (mode: 'i' | 'w' | 'e', message: string) => void
+): void {
     if (!args[0]) {
         message.reply(`**Markov Chain Generation**
 
@@ -76,12 +81,18 @@ ${client.config.prefixes[0]}markov generate :: Generate a markov chain.
         message.reply('Opted out!');
         client.uconfs.set(message.author.id, false, 'markov_optin');
         log('i', 'Opted user out.');
-    } else if (['generate', 'g', 'gen', 'c', 'create', 'm', 'make'].includes(args[0].toLowerCase())) {
+    } else if (
+        ['generate', 'g', 'gen', 'c', 'create', 'm', 'make'].includes(
+            args[0].toLowerCase()
+        )
+    ) {
         const chain = new Markov({ stateSize: 2 });
         // @ts-ignore
-        const data = Object.entries(client.markovMessages.get(message.guild.id)).map(i => i[1].content);
+        const data = Object.entries(
+            client.markovMessages.get(message.guild.id)
+        ).map((i) => i[1].content);
         chain.addData(data);
-        let out: string|MarkovResult = '';
+        let out: string | MarkovResult = '';
         try {
             out = chain.generate({
                 maxTries: 20,
@@ -100,8 +111,12 @@ ${client.config.prefixes[0]}markov generate :: Generate a markov chain.
         message.reply(out.string.replace(/[<!@>]/g, ''));
     } else if (['privacy'].includes(args[0].toLowerCase())) {
         log('i', 'Sending privacy info...');
-        message.reply('Sending the privacy policy to your DM...').then((m: discord.Message) => {
-            message.author.send(`**Privacy info about ProtoBot's markov generation**
+        message
+            .reply('Sending the privacy policy to your DM...')
+            .then((m: discord.Message) => {
+                message.author
+                    .send(
+                        `**Privacy info about ProtoBot's markov generation**
 
 All ProtoBot staff are careful about your privacy.
 This message contains all you need to know about how we handle your data.
@@ -131,15 +146,20 @@ We will provide as much info as possible.
 
 **Deleting your data**
 Please DM \`BadBoyHaloCat#1826\` on Discord and state what data you would like deleted.
-We will delete as much info as you would like, as long as it is **your** data.`).then(() => {
-    m.edit('Sent the privacy policy to your DM!');
-    log('i', 'Sent privacy info.');
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-}).catch((err: any) => {
-    m.edit('Failed to send privacy policy. Please enable DMs!');
-    log('e', `Failed to send privacy info: ${err}`);
-});
-        })
+We will delete as much info as you would like, as long as it is **your** data.`
+                    )
+                    .then(() => {
+                        m.edit('Sent the privacy policy to your DM!');
+                        log('i', 'Sent privacy info.');
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    })
+                    .catch((err: any) => {
+                        m.edit(
+                            'Failed to send privacy policy. Please enable DMs!'
+                        );
+                        log('e', `Failed to send privacy info: ${err}`);
+                    });
+            });
     } else {
         message.reply(`Try ${client.config.prefixes[0]}markov for help!`);
     }
@@ -150,10 +170,10 @@ export const config = {
     name: 'markov',
     description: 'Do some magic with the built-in markov chain generator!',
     enabled: true,
-    
+
     // To restrict the command, change the "false" to the following
     // format:
-    // 
+    //
     // restrict: { users: [ "array", "of", "authorized", "user", "IDs" ] }
     restrict: false
 };

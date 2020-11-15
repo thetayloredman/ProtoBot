@@ -44,15 +44,23 @@ import { exec, ExecException } from 'child_process';
 // Interfaces, owo
 interface Client extends discord.Client {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    [key: string]: any
+    [key: string]: any;
 }
 
 // Main
-export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void): void {
+export function run(
+    client: Client,
+    message: discord.Message,
+    args: string[],
+    log: (mode: 'i' | 'w' | 'e', message: string) => void
+): void {
     // Safety check
     if (message.author.id !== client.config.ownerID) {
-        log('w', `User ${message.author.tag} tried to use branch! Destination: ${args[0]}`);
-        message.reply('You don\'t have permission to do that!');
+        log(
+            'w',
+            `User ${message.author.tag} tried to use branch! Destination: ${args[0]}`
+        );
+        message.reply("You don't have permission to do that!");
         return;
     }
 
@@ -66,22 +74,36 @@ export function run(client: Client, message: discord.Message, args: string[], lo
         .addField('Status', `\`$ git branch ${args[0]}\``);
 
     message.channel.send(embed).then((m: discord.Message) => {
-        exec(`git checkout ${args[0]}`, (error: ExecException|null, stdout: string, stderr: string) => {
-           
-            embed = new discord.MessageEmbed()
-                // eslint-disable-next-line no-constant-condition
-                .setTitle(`Branch Switch [${stderr.startsWith('Switched') ? 'Complete' : 'Failed'}]`)
-                .setDescription(stderr.startsWith('Switched') ? `Switched to branch ${args[0]}` : 'Failed to switch to branch. (Does it exist?)');
-                
-            if (stderr) {
-                embed.addField('Log', `\`\`\`
-${stderr ?? '<none>'}${stdout !== '' ? `\n${stdout}` : ''}
-\`\`\``);
-            }
+        exec(
+            `git checkout ${args[0]}`,
+            (error: ExecException | null, stdout: string, stderr: string) => {
+                embed = new discord.MessageEmbed()
+                    // eslint-disable-next-line no-constant-condition
+                    .setTitle(
+                        `Branch Switch [${
+                            stderr.startsWith('Switched')
+                                ? 'Complete'
+                                : 'Failed'
+                        }]`
+                    )
+                    .setDescription(
+                        stderr.startsWith('Switched')
+                            ? `Switched to branch ${args[0]}`
+                            : 'Failed to switch to branch. (Does it exist?)'
+                    );
 
-            m.edit(embed);
-            
-        });
+                if (stderr) {
+                    embed.addField(
+                        'Log',
+                        `\`\`\`
+${stderr ?? '<none>'}${stdout !== '' ? `\n${stdout}` : ''}
+\`\`\``
+                    );
+                }
+
+                m.edit(embed);
+            }
+        );
     });
 }
 
@@ -90,10 +112,10 @@ export const config = {
     name: 'branch',
     description: 'Changes the current branch [owner only]',
     enabled: true,
-    
+
     // To restrict the command, change the "false" to the following
     // format:
-    // 
+    //
     // restrict: { users: [ "array", "of", "authorized", "user", "IDs" ] }
-    restrict: {  } // owner only
+    restrict: {} // owner only
 };

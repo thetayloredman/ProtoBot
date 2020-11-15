@@ -43,21 +43,34 @@ import chalk from 'chalk';
 // Interfaces, owo
 interface Client extends discord.Client {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    [key: string]: any
+    [key: string]: any;
 }
 
 // Main
-export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void): void {
+export function run(
+    client: Client,
+    message: discord.Message,
+    args: string[],
+    log: (mode: 'i' | 'w' | 'e', message: string) => void
+): void {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    message.channel.messages.fetch({ limit: 2 }).then((messages: discord.Collection<any, any>) => {
-        const m: discord.Message = messages.last();
-        message.reply(`Content of message ID \`${m.id}\` in channel <#${m.channel.id}>${m.content.includes('```') ? ' (**Formatting may be broken, the message contains a code fence**)' : ''}:
+    message.channel.messages
+        .fetch({ limit: 2 })
+        .then((messages: discord.Collection<any, any>) => {
+            const m: discord.Message = messages.last();
+            message.reply(`Content of message ID \`${m.id}\` in channel <#${
+                m.channel.id
+            }>${
+                m.content.includes('```')
+                    ? ' (**Formatting may be broken, the message contains a code fence**)'
+                    : ''
+            }:
 
 ${
     // @ts-ignore
     discord.escapeMarkdown(m.content)
 }`);
-    }); 
+        });
 }
 
 // Config
@@ -65,10 +78,10 @@ export const config = {
     name: 'source',
     description: 'Gets the source of the last message',
     enabled: true,
-    
+
     // To restrict the command, change the "false" to the following
     // format:
-    // 
+    //
     // restrict: { users: [ "array", "of", "authorized", "user", "IDs" ] }
     restrict: false
 };

@@ -44,11 +44,16 @@ import { Uwuifier } from 'uwuifier';
 // Interfaces, owo
 interface Client extends discord.Client {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    [key: string]: any
+    [key: string]: any;
 }
 
 // Main
-export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i'|'w'|'e', message: string) => void): void {
+export function run(
+    client: Client,
+    message: discord.Message,
+    args: string[],
+    log: (mode: 'i' | 'w' | 'e', message: string) => void
+): void {
     if (args.length === 0) {
         message.reply('**Error:** No text provided!');
         return;
@@ -62,12 +67,13 @@ export function run(client: Client, message: discord.Message, args: string[], lo
 // Config
 export const config = {
     name: 'uwuify',
-    description: 'Converts all of your text to UwU-talk!\nPowered by [Uwuifier](https://github.com/Schotsl/Uwuifier)',
+    description:
+        'Converts all of your text to UwU-talk!\nPowered by [Uwuifier](https://github.com/Schotsl/Uwuifier)',
     enabled: true,
-    
+
     // To restrict the command, change the "false" to the following
     // format:
-    // 
+    //
     // restrict: { users: [ "array", "of", "authorized", "user", "IDs" ] }
     restrict: false
 };
