@@ -75,8 +75,7 @@ client.on('ready', async () => {
             chalk.red(client.user?.tag) ?? '(error: client.user is undefined)'
         }`
     );
-    log(
-        'i',
+log('i',
         `${chalk.green('[')}${chalk.green.bold('GUILDS')}${chalk.green(
             ']'
         )} In ${chalk.red(client.guilds.cache.size)} guilds!`
