@@ -71,6 +71,15 @@ export function run(client: Client, message: discord.Message, log: (mode: 'i'|'w
             id: id,
             guild: guildID
         }, message.id);
+        let hasPrefix = false;
+        client.config.prefixes.forEach((i: string) => {
+            if (content.startsWith(i) && !hasPrefix) {
+                hasPrefix = true;
+            }
+        });
+        if (hasPrefix) {
+            log('i', `${chalk.red('[')}${chalk.red.bold('MarkovMsgListener')}${chalk.red(']')} Message has prefix, cancelling.`);
+        }
         log('i', `${chalk.red('[')}${chalk.red.bold('MarkovMsgListener')}${chalk.red(']')} Added message to markov database.`);
         if (Object.keys(client.markovMessages.get(message.guild.id)).length > 2000) {
             log('w', `${chalk.red('[')}${chalk.red.bold('MarkovMsgListener')}${chalk.red(']')} Found more than 2000 messages in guild's cache! Might be time to prune!`);
