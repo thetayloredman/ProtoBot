@@ -53,8 +53,8 @@ export function run(
             embed.addField('Name', fursona.name ?? '<unset>', true);
             embed.addField('Bio', fursona.bio ?? '<unset>', true);
             embed.addField('Type', fursona.type ?? '<unset>');
-                           
-                           message.channel.send(embed);
+
+            message.channel.send(embed);
         }
     } else if (args[0].toLowerCase() === 'set') {
         log('i', 'Setting fursona!');
@@ -68,27 +68,27 @@ ${client.config.prefixes[0]}fursona set type <type> :: Set your fursona's breed/
 \`\`\``);
         } else if (args[1].toLowerCase() === 'name') {
             client.fursonas.ensure(message.author.id, {});
-                client.fursonas.set(
-                    message.author.id,
-                    args.slice(2).join(' '),
-                    'name'
-                );
+            client.fursonas.set(
+                message.author.id,
+                args.slice(2).join(' '),
+                'name'
+            );
             message.channel.send('Set!');
         } else if (args[1].toLowerCase() === 'bio') {
             client.fursonas.ensure(message.author.id, {});
-                client.fursonas.set(
-                    message.author.id,
-                    args.slice(2).join(' '),
-                    'bio'
-                );
+            client.fursonas.set(
+                message.author.id,
+                args.slice(2).join(' '),
+                'bio'
+            );
             message.channel.send('Set!');
         } else if (args[1].toLowerCase() === 'type') {
             client.fursonas.ensure(message.author.id, {});
-                client.fursonas.set(
-                    message.author.id,
-                    args.slice(2).join(' '),
-                    'type'
-                );
+            client.fursonas.set(
+                message.author.id,
+                args.slice(2).join(' '),
+                'type'
+            );
             message.channel.send('Set!');
         }
     }
