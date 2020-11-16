@@ -2,7 +2,7 @@
 
 First of all, *thank you for considering contributing*. It helps a **lot** and helps remove some of the burden from our developer team.
 
-This file will assist you with everything you need to know about [***setting up a ProtoBot development/testing environment***](#setting-up-a-developmenttesting-environment), [***writing code that will be approved***](#writing-code-that-will-be-approved), and [***submitting your code***](#submitting-your-code).
+This file will assist you with everything you need to know about [**_setting up a ProtoBot development/testing environment_**](#setting-up-a-developmenttesting-environment), [**_writing code that will be approved_**](#writing-code-that-will-be-approved), and [**_submitting your code_**](#submitting-your-code).
 
 ## Setting up a development/testing environment
 
@@ -14,13 +14,15 @@ ProtoBot has some prerequisites that need to be met in order to test your new fe
 
 #### Node.js
 
-For ProtoBot to function, you need to install the [Node.js JavaScript Runtime](https://nodejs.org/).
+For ProtoBot to function, you need to install the 
+[Node.js JavaScript Runtime](https://nodejs.org/).
 
 Install version `12.x.x LTS`, **NOT** version `14`.
 
 #### NPM
 
-NPM comes built in with [Node.js](#nodejs), so there isn't a need to worry about it.
+NPM comes built in with [Node.js](#nodejs), so there isn't a need to worry about 
+it.
 
 #### Enmap
 
@@ -42,7 +44,7 @@ Code should be reasonable, and we think you are able to understand what that mea
 
 ### WARNING
 
-Ensure you are on your *fork* before continuing. Create one on GitHub.
+Ensure you are on your _fork_ before continuing. Create one on GitHub.
 
 ### Step 1: Commiting
 
