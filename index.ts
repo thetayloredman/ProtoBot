@@ -51,6 +51,7 @@ client.ustats = new enmap({ name: 'ustats' });
 client.uconfs = new enmap({ name: 'uconfs' });
 client.markovMessages = new enmap({ name: 'markovMessages' });
 client.gconfs = new enmap({ name: 'gconfs' });
+client.fursonas = new enmap({ name: 'fursonas' });
 
 // in memory dbs
 client.commands = new enmap();
