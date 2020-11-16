@@ -301,8 +301,11 @@ client.on('ready', async () => {
     loadMods();
 
     // Status
-    client.user?.setActivity(`with ${userTotal} furries | ${client.config.prefixes[0]}about`, { type: 'PLAYING' });
-    log('i', 'Statis refreshed!')
+    client.user?.setActivity(
+        `with ${userTotal} furries | ${client.config.prefixes[0]}about`,
+        { type: 'PLAYING' }
+    );
+    log('i', 'Status refreshed!');
 });
 
 // Message handler
@@ -412,6 +415,10 @@ setInterval(() => {
     userCountsPerGuild.forEach((item: number) => (userTotal += item));
     const userAvg = userTotal / userCountsPerGuild.length;
 
+    client.user?.setActivity(
+        `with ${userTotal} furries | ${client.config.prefixes[0]}about`,
+        { type: 'PLAYING' }
+    );
     log('i', 'Status refreshed!');
 }, 600000);
 
