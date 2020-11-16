@@ -53,7 +53,7 @@ export function run(
             embed.addField('Name', fursona.name ?? '<unset>', true);
             embed.addField('Bio', fursona.bio ?? '<unset>', true);
             embed.addField('Type', fursona.type ?? '<unset>');
-                           
+
                            message.channel.send(embed);
         }
     } else if (args[0].toLowerCase() === 'set') {
