@@ -301,10 +301,8 @@ client.on('ready', async () => {
     loadMods();
 
     // Status
-    client.user?.setActivity(
-        `with ${userTotal} furries | ${client.config.prefixes[0]}about`,
-        { type: 'PLAYING' }
-    );
+    client.user?.setActivity(`with ${userTotal} furries | ${client.config.prefixes[0]}about`, { type: 'PLAYING' });
+    log('i', 'Statis refreshed!')
 });
 
 // Message handler
@@ -403,6 +401,19 @@ client.on('message', (message: discord.Message) => {
         }
     }
 });
+
+// Handle new guilds, and new users
+setInterval(() => {
+    // Every 10 minutes, run a status refresh.
+    const userCountsPerGuild: number[] = client.guilds.cache.map(
+        (g: discord.Guild) => g.memberCount - 1
+    );
+    let userTotal = 0;
+    userCountsPerGuild.forEach((item: number) => (userTotal += item));
+    const userAvg = userTotal / userCountsPerGuild.length;
+
+    log('i', 'Status refreshed!');
+}, 600000);
 
 // Handle rate limits
 client.on('rateLimit', (data: discord.RateLimitData) => {
