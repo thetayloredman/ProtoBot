@@ -91,7 +91,7 @@ ${client.config.prefixes[0]}fursona set type <type> :: Set your fursona's breed/
             );
             message.channel.send('Set!');
         } else {
-            message.channel.send('Unknown option! Try `fursona set`.')
+            message.channel.send('Unknown option! Try `fursona set`.');
         }
     }
 }
