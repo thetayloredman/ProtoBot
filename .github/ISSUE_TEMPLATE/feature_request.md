@@ -4,7 +4,6 @@ about: Suggest an idea to be added to ProtoBot
 title: '[FEATURE] '
 labels: 'enhancement'
 assignees: ''
-
 ---
 
 **Is your feature request related to a problem? Please describe.**
