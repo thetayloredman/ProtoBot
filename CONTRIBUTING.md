@@ -2,7 +2,10 @@
 
 First of all, *thank you for considering contributing*. It helps a **lot** and helps remove some of the burden from our developer team.
 
-This file will assist you with everything you need to know about [**_setting up a ProtoBot development/testing environment_**](#setting-up-a-developmenttesting-environment), [**_writing code that will be approved_**](#writing-code-that-will-be-approved), and [**_submitting your code_**](#submitting-your-code).
+This file will assist you with everything you need to know about 
+[**_setting up a ProtoBot development/testing environment_**](#setting-up-a-developmenttesting-environment), 
+[**_writing code that will be approved_**](#writing-code-that-will-be-approved), 
+and [**_submitting your code_**](#submitting-your-code).
 
 ## Setting up a development/testing environment
 
