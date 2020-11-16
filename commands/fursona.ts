@@ -73,6 +73,7 @@ ${client.config.prefixes[0]}fursona set type <type> :: Set your fursona's breed/
                     args.slice(2).join(' '),
                     'name'
                 );
+            message.channel.send('Set!');
         } else if (args[1].toLowerCase() === 'bio') {
             client.fursonas.ensure(message.author.id, {});
                 client.fursonas.set(
@@ -80,6 +81,7 @@ ${client.config.prefixes[0]}fursona set type <type> :: Set your fursona's breed/
                     args.slice(2).join(' '),
                     'bio'
                 );
+            message.channel.send('Set!');
         } else if (args[1].toLowerCase() === 'type') {
             client.fursonas.ensure(message.author.id, {});
                 client.fursonas.set(
@@ -87,6 +89,7 @@ ${client.config.prefixes[0]}fursona set type <type> :: Set your fursona's breed/
                     args.slice(2).join(' '),
                     'type'
                 );
+            message.channel.send('Set!');
         }
     }
 }
