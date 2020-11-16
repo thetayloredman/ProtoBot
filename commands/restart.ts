@@ -50,8 +50,8 @@ export function run(
 
 // Config
 export const config = {
-    name: 'My Cool Command',
-    description: 'Does stuff',
+    name: 'restart',
+    description: 'Restart the bot!',
     enabled: true,
 
     // To restrict the command, change the "false" to the following
