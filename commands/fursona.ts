@@ -35,8 +35,8 @@ export function run(
 
 // Config
 export const config = {
-    name: 'My Cool Command',
-    description: 'Does stuff',
+    name: 'fursona',
+    description: 'See/edit your fursona details!',
     enabled: true,
 
     // To restrict the command, change the "false" to the following
