@@ -302,7 +302,7 @@ client.on('ready', async () => {
 
     // Status
     client.user?.setActivity(
-        `with ${userTotal} furries | ${client.config.prefixes[0]}about`,
+        `${client.config.prefixes[0]}about | Written for furries, by furries!`,
         { type: 'PLAYING' }
     );
 });
