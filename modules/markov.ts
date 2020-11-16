@@ -46,28 +46,6 @@ export function run(
             guild: { id: guildID }
         } = message;
         // add message to database
-<<<<<<< HEAD
-        client.markovMessages.set(message.guild.id, {
-            // Message storage structure
-            // is in this block.
-            content: content,
-            author: authorID,
-            id: id,
-            guild: guildID
-        }, message.id);
-        let hasPrefix = false;
-        client.config.prefixes.forEach((i: string) => {
-            if (content.startsWith(i) && !hasPrefix) {
-                hasPrefix = true;
-            }
-        });
-        if (hasPrefix) {
-            log('i', `${chalk.red('[')}${chalk.red.bold('MarkovMsgListener')}${chalk.red(']')} Message has prefix, cancelling.`);
-        }
-        log('i', `${chalk.red('[')}${chalk.red.bold('MarkovMsgListener')}${chalk.red(']')} Added message to markov database.`);
-        if (Object.keys(client.markovMessages.get(message.guild.id)).length > 2000) {
-            log('w', `${chalk.red('[')}${chalk.red.bold('MarkovMsgListener')}${chalk.red(']')} Found more than 2000 messages in guild's cache! Might be time to prune!`);
-=======
         client.markovMessages.set(
             message.guild.id,
             {
@@ -98,7 +76,6 @@ export function run(
                     ']'
                 )} Found more than 2000 messages in guild's cache! Might be time to prune!`
             );
->>>>>>> 660240062263327ae2afbddfecd342c9aa526f8c
         }
     } else {
         if (!message.guild) {
