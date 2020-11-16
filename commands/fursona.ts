@@ -45,7 +45,7 @@ export function run(
             const embed = new discord.MessageEmbed()
                 .setTitle('Fursona')
                 .setDescription('Here is your current fursona information.');
-            
+
             const fursona = client.fursonas.get(message.author.id);
 
             embed.addField('Name', fursona.name ?? '<unset>', true);
