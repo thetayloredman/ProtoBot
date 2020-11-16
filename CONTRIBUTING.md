@@ -1,6 +1,6 @@
 # Contributing to ProtoBot
 
-First of all, *thank you for considering contributing*. It helps a **lot** and
+First of all, _thank you for considering contributing_. It helps a **lot** and
 helps remove some of the burden from our developer team.
 
 This file will assist you with everything you need to know about
@@ -31,12 +31,15 @@ it.
 
 #### Enmap
 
-ProtoBot depends on Enmap and SQLite3 for data storage. Follow the [Enmap Prerequisites Installation](https://enmap.evie.dev/install#pre-requisites) steps and then return here.
+ProtoBot depends on Enmap and SQLite3 for data storage. Follow the
+[Enmap Prerequisites Installation](https://enmap.evie.dev/install#pre-requisites)
+steps and then return here.
 
 ### Step 2: Installing dependencies
 
 Now, run the command `npm install` in your terminal. This will install all of
-our dependencies, and build `better-sqlite3` from source. **This may take a while.**
+our dependencies, and build `better-sqlite3` from source. **This may take a
+while.**
 
 ## Writing code that will be approved
 
@@ -45,7 +48,8 @@ When you write your code, it should be fit enough to be merged.
 Your code should be formatted with Prettier after you write it, if you don't
 then a bot will detect your pull request and do that for you.
 
-Code should be reasonable, and we think you are able to understand what that means.
+Code should be reasonable, and we think you are able to understand what that
+means.
 
 ## Submitting your code
 
