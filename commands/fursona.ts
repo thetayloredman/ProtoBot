@@ -38,21 +38,23 @@ export function run(
         // If they haven't set one...
         if (!client.fursonas.get(message.author.id)) {
             log('i', 'No fursona for user!');
-            message.reply('You haven\'t set a fursona yet! To do this, run the command `fursona set`.');
+            message.reply(
+                "You haven't set a fursona yet! To do this, run the command `fursona set`."
+            );
         } else {
             // They have one!
             log('i', 'Displaying fursona!');
             const embed = new discord.MessageEmbed()
                 .setTitle('Fursona')
                 .setDescription('Here is your current fursona information.');
-            
+
             const fursona = client.fursonas.get(message.author.id);
 
             embed.addField('Name', fursona.name ?? '<unset>', true);
             embed.addField('Bio', fursona.bio ?? '<unset>', true);
             embed.addField('Type', fursona.type ?? '<unset>');
         }
-    } else if (args[0].toLowerCase() === "set") {
+    } else if (args[0].toLowerCase() === 'set') {
         log('i', 'Setting fursona!');
         if (!args[1]) {
             log('i', 'Showing set help!');
@@ -62,23 +64,35 @@ ${client.config.prefixes[0]}fursona set name <name> :: Set your fursona's name
 ${client.config.prefixes[0]}fursona set bio <bio>   :: Set your fursona's bio
 ${client.config.prefixes[0]}fursona set type <type> :: Set your fursona's breed/type
 \`\`\``);
-        } else if (args[1].toLowerCase() === "name") {
+        } else if (args[1].toLowerCase() === 'name') {
             if (!client.fursonas.get(message.author.id)) {
-                client.fursonas.set(message.author.id, { });
+                client.fursonas.set(message.author.id, {});
             } else {
-                client.fursonas.set(message.author.id, args.slice(2).join(' '), 'name');
+                client.fursonas.set(
+                    message.author.id,
+                    args.slice(2).join(' '),
+                    'name'
+                );
             }
-        } else if (args[1].toLowerCase() === "bio") {
+        } else if (args[1].toLowerCase() === 'bio') {
             if (!client.fursonas.get(message.author.id)) {
-                client.fursonas.set(message.author.id, { });
+                client.fursonas.set(message.author.id, {});
             } else {
-                client.fursonas.set(message.author.id, args.slice(2).join(' '), 'bio');
+                client.fursonas.set(
+                    message.author.id,
+                    args.slice(2).join(' '),
+                    'bio'
+                );
             }
         } else if (args[1].toLowerCase() === 'type') {
             if (!client.fursonas.get(message.author.id)) {
-                client.fursonas.set(message.author.id, { });
+                client.fursonas.set(message.author.id, {});
             } else {
-                client.fursonas.set(message.author.id, args.slice(2).join(' '), 'type');
+                client.fursonas.set(
+                    message.author.id,
+                    args.slice(2).join(' '),
+                    'type'
+                );
             }
         }
     }
