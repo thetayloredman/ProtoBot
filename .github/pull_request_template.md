@@ -1,7 +1,4 @@
 **Does this Pull Request fix an issue? If so, please mention the issue.**
-
-<!-- Yes, fixes #1 -->
-
 N/A
 
 **Describe your changes.**
