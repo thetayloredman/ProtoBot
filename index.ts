@@ -301,7 +301,8 @@ client.on('ready', async () => {
     loadMods();
 
     // Status
-    client.user?.setActivity(`${client.config.prefixes[0]}about | Written for furries, by furries!`,
+    client.user?.setActivity(
+        `${client.config.prefixes[0]}about | Written for furries, by furries!`,
         { type: 'PLAYING' }
     );
 });
