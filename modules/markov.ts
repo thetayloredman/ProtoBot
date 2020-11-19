@@ -64,19 +64,6 @@ export function run(
                 ']'
             )} Added message to markov database.`
         );
-        if (
-            Object.keys(client.markovMessages.get(message.guild.id)).length >
-            2000
-        ) {
-            log(
-                'w',
-                `${chalk.red('[')}${chalk.red.bold(
-                    'MarkovMsgListener'
-                )}${chalk.red(
-                    ']'
-                )} Found more than 2000 messages in guild's cache! Might be time to prune!`
-            );
-        }
     } else {
         if (!message.guild) {
             log(

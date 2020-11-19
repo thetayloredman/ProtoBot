@@ -9,10 +9,12 @@
     "author": "BadBoyHaloCat",
     "license": "GPL-3.0",
     "dependencies": {
+        "babel-eslint": "^10.1.0",
         "better-sqlite3": "^7.1.1",
         "chalk": "^4.1.0",
         "discord.js": "^12.4.1",
         "enmap": "^5.8.2",
+        "eslint": "^7.13.0",
         "markov-strings": "^3.0.1",
         "strip-ansi": "^6.0.0",
         "uwuifier": "^2.0.2"
