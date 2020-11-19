@@ -42,7 +42,9 @@ I'm made mostly by **@BadBoyHaloCat#1826** and my secondary developer is **@Deve
 
 My prefix is \`${client.config.prefixes[0]}\`.
 
-Feel free to send a DM to **@BadBoyHaloCat#1826** for support.`);
+Feel free to send a DM to **@BadBoyHaloCat#1826** for support.
+
+**I'm open source!** https://github.com/thetayloredman/ProtoBot`);
 }
 
 // Config
