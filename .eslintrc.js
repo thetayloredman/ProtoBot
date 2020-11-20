@@ -90,7 +90,7 @@ module.exports = {
         'no-invalid-this':                    ['error'],
         '@typescript-eslint/no-explicit-any': ['off'],
         '@typescript-eslint/ban-ts-comment':  ['off'],
-        '@typescript-eslint/no-var-requires': ['off']
+        '@typescript-eslint/no-var-requires': ['off'],
         
         /* VARIABLES --------------------------- */
         // These rules relate to variables and
