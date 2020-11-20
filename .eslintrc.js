@@ -98,5 +98,8 @@ module.exports = {
         '@typescript-eslint/no-unused-vars':  ['off'],
         'no-undef':                           ['error'],
         'no-use-before-define':               ['error']
+    },
+    globals: {
+        NodeJS: 'readonly'
     }
 };
