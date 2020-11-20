@@ -64,6 +64,7 @@ ${code}`
         } else if (code.includes('await') && message.content.includes('\n')) {
             code = `( async () => {${code}})()`;
         }
+        // eslint-disable-next-line no-eval
         response = await eval(code);
         if (typeof response !== 'string') {
             response = require('util').inspect(response, { depth: 3 });

@@ -65,6 +65,7 @@ client.on('ready', async () => {
         (g: discord.Guild) => g.memberCount - 1
     );
     let userTotal = 0;
+    // eslint-disable-next-line no-extra-parens
     userCountsPerGuild.forEach((item: number) => (userTotal += item));
     const userAvg = userTotal / userCountsPerGuild.length;
     log('i', 'Ready!');
