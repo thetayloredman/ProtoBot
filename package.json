@@ -4,7 +4,8 @@
     "description": "A Discord furry bot",
     "main": "index.js",
     "scripts": {
-        "start": "chmod u+x ./start.sh; ./start.sh"
+        "start": "chmod u+x ./start.sh; ./start.sh",
+        "lint": "eslint ."
     },
     "author": "BadBoyHaloCat",
     "license": "GPL-3.0",
