@@ -114,7 +114,10 @@ ${error}`;
             } else {
                 message.delete().catch(() => {
                     // delete silent msg
-                    log('e', 'Failed to delete command message with silent exec!');
+                    log(
+                        'e',
+                        'Failed to delete command message with silent exec!'
+                    );
                 });
                 log(e ? 'e' : 'i', 'Silent eval output:');
                 log(e ? 'e' : 'i', `Error: ${e ? 'Yes' : 'No'}`);
