@@ -16,6 +16,7 @@
         "discord.js": "^12.4.1",
         "enmap": "^5.8.2",
         "markov-strings": "^3.0.1",
+        "source-map-support": "^0.5.19",
         "strip-ansi": "^6.0.0",
         "uwuifier": "^2.0.2"
     },

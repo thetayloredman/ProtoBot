@@ -1,6 +1,7 @@
 /config.ts
 /node_modules/
 *.js
+*.js.map
 /data/
 !.prettierrc.js
 /logs/
