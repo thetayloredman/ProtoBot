@@ -16,12 +16,12 @@
 
 name: Prettier
 
-# This action works with pull requests and pushes
 on:
-  pull_request:
-  push:
-    branches:
-    - main
+    push:
+        branches: [main]
+    pull_request:
+        # The branches below must be a subset of the branches above
+        branches: [main]
 
 jobs:
   prettier:

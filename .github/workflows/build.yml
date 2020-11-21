@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-name: 'ESLint'
+name: 'build'
 
 on:
     push:
@@ -24,13 +24,13 @@ on:
         branches: [main]
 
 jobs:
-  lint:
+  build:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
         node-version: [12.x]
-
+    
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -46,5 +46,5 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    - name: Lint
-      run: npm run lint
+    - name: Build
+      run: npm run build
