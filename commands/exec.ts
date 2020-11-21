@@ -62,24 +62,31 @@ ${code}`
                 e = true;
             }
 
-            let parsed = `STDOUT:
-${stdout}`;
             if (stderr) {
-                parsed += `
-STDERR:
-${stderr}`;
+                embed.addField('STDERR', `${stderr.substr(0, 2042)}`);
+            }
+
+            if (stdout) {
+                embed.addField('STDOUT', `${stdout.substr(0, 2042)}`);
             }
 
             if (error) {
-                parsed += `
-EXEC ERROR:
-${error}`;
+                embed.addField(
+                    'ExecError',
+                    `${error.toString().substr(0, 2042)}`
+                );
             }
+
+            const parsed = [
+                (error ?? { toString: () => '' }).toString(),
+                stderr,
+                stdout
+            ].reduce((a, b) => (a.length > b.length ? a : b));
 
             embed
                 .setTitle(e ? '**Error**' : '**Success**')
                 .setColor(e ? 'RED' : 'GREEN')
-                .setDescription(`\`\`\`${parsed.substr(0, 2042)}\`\`\``);
+                .setDescription('Here is your output!');
 
             if (parsed.length >= 2049 && !silent) {
                 // dont do this on silent items
@@ -89,12 +96,30 @@ ${error}`;
                 );
                 log(e ? 'e' : 'i', `Error: ${e ? 'Yes' : 'No'}`);
                 log(e ? 'e' : 'i', 'Output:');
-                parsed.split('\n').forEach((b: string) => {
-                    log(e ? 'e' : 'i', b);
-                });
+                if (error) {
+                    log(e ? 'e' : 'i', 'ExecError:');
+                    error
+                        .toString()
+                        .split('\n')
+                        .forEach((b: string) => {
+                            log(e ? 'e' : 'i', b);
+                        });
+                }
+                if (stderr) {
+                    log(e ? 'e' : 'i', 'STDERR:');
+                    stderr.split('\n').forEach((b: string) => {
+                        log(e ? 'e' : 'i', b);
+                    });
+                }
+                if (stdout) {
+                    log(e ? 'e' : 'i', 'STDOUT:');
+                    stdout.split('\n').forEach((b: string) => {
+                        log(e ? 'e' : 'i', b);
+                    });
+                }
                 embed.addField(
                     'Note:',
-                    `The response was too long with a length of \`${parsed.length}/2048\` characters. it was logged to the console. `
+                    `The response was too long with a length of \`${parsed.length}/2048\` characters. it was logged to the console.`
                 );
             } else if (!silent) {
                 // use different log for silent items
@@ -104,9 +129,27 @@ ${error}`;
                 );
                 log(e ? 'e' : 'i', `Error: ${e ? 'Yes' : 'No'}`);
                 log(e ? 'e' : 'i', 'Output:');
-                parsed.split('\n').forEach((b: string) => {
-                    log(e ? 'e' : 'i', b);
-                });
+                if (error) {
+                    log(e ? 'e' : 'i', 'ExecError:');
+                    error
+                        .toString()
+                        .split('\n')
+                        .forEach((b: string) => {
+                            log(e ? 'e' : 'i', b);
+                        });
+                }
+                if (stderr) {
+                    log(e ? 'e' : 'i', 'STDERR:');
+                    stderr.split('\n').forEach((b: string) => {
+                        log(e ? 'e' : 'i', b);
+                    });
+                }
+                if (stdout) {
+                    log(e ? 'e' : 'i', 'STDOUT:');
+                    stdout.split('\n').forEach((b: string) => {
+                        log(e ? 'e' : 'i', b);
+                    });
+                }
             }
 
             if (!silent) {
