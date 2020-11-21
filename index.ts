@@ -205,6 +205,8 @@ client.on('ready', async () => {
                             );
                             client.commands.set(cmdName, commandData);
                             l('i', `Finished loading command "${cmdName}"!`);
+                        } else if (path.endsWith('.map')) {
+                            return;
                         } else {
                             // unknown ext
                             l(
@@ -291,6 +293,8 @@ client.on('ready', async () => {
                             l('i', `Loading module "${modName}"...`);
                             client.modules.set(modName, moduleData);
                             l('i', `Finished loading module "${modName}"!`);
+                        } else if (path.endsWith('.map')) {
+                            return;
                         } else {
                             // unknown ext
                             l(
