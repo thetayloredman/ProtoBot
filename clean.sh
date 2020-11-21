@@ -52,8 +52,12 @@ case "$isSure" in
         rm -fv ./header.js.map;
         echo "All cleaned! Have a nice day!";
         ;;
-    *)
-        echo "You need to type 'y'!";
+    [nN][oO]|[nN])
+        echo "You rejected.";
         exit 1;
+        ;;
+    *)
+        echo "Unknown input $isSure";
+        exit 2;
         ;;
 esac
