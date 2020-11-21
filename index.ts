@@ -16,6 +16,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+// Support source maps
+import 'source-map-support/register';
+
 // Modules
 import discord from 'discord.js';
 import enmap from 'enmap';
