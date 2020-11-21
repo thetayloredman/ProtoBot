@@ -55,7 +55,7 @@ export function run(
         tops[9]
     ];
     // @ts-ignore
-    const t10ids: string[] = t10.map((item: [number | string] | undefined) =>
+    const t10ids: string[] = t10.map((item: [number, string] | undefined) =>
         item ? item[1] : undefined
     );
 

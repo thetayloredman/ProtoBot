@@ -66,9 +66,10 @@ ${client.config.prefixes[0]}markov generate :: Generate a markov chain.
         )
     ) {
         const chain = new Markov({ stateSize: 2 });
-        // @ts-ignore
         const data = Object.entries(
+            // @ts-ignore
             client.markovMessages.get(message.guild.id)
+            // @ts-ignore
         ).map((i) => i[1].content);
         chain.addData(data);
         let out: string | MarkovResult = '';
