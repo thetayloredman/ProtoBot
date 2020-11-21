@@ -39,6 +39,6 @@ jobs:
       with:
         # This part is also where you can pass other options, for example:
         prettier_options: "--write *"
-        commit_message: "Reformatted with Prettier" 
+        dry: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
