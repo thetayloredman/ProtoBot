@@ -39,7 +39,7 @@ export function run(
         args.shift();
         silent = true;
     }
-    let code: string = args.join(' ');
+    const code: string = args.join(' ');
     if (message.author.id !== client.config.ownerID) {
         log(
             'w',
@@ -63,17 +63,17 @@ ${code}`
             }
 
             if (stderr) {
-                embed.addField('STDERR', `${stderr.substr(0, 2042)}`);
+                embed.addField('STDERR', `\`\`\`${stderr.substr(0, 2042)}\`\`\``);
             }
 
             if (stdout) {
-                embed.addField('STDOUT', `${stdout.substr(0, 2042)}`);
+                embed.addField('STDOUT', `\`\`\`${stdout.substr(0, 2042)}\`\`\``);
             }
 
             if (error) {
                 embed.addField(
                     'ExecError',
-                    `${error.toString().substr(0, 2042)}`
+                    `\`\`\`${error.toString().substr(0, 2042)}\`\`\``
                 );
             }
 
@@ -81,6 +81,7 @@ ${code}`
                 (error ?? { toString: () => '' }).toString(),
                 stderr,
                 stdout
+                // eslint-disable-next-line no-extra-parens
             ].reduce((a, b) => (a.length > b.length ? a : b));
 
             embed
