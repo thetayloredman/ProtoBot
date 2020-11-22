@@ -26,11 +26,7 @@ interface Client extends discord.Client {
 }
 
 // Main
-function fireStats(
-    userID: string,
-    message: discord.Message,
-    client: Client
-): void {
+function fireStats(userID: string, message: discord.Message, client: Client): void {
     const uData: any = client.ustats.get(userID);
     message.reply(`**User info for \`${userID}\`:**
 Hugs: ${uData.hugs}
@@ -39,12 +35,7 @@ owos: ${client.owos.get(userID) ?? 0}
 Tildes: ${client.tildes.get(userID) ?? 0}`);
 }
 
-export function run(
-    client: Client,
-    message: discord.Message,
-    args: string[],
-    log: (mode: 'i' | 'w' | 'e', message: string) => void
-): void {
+export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
     let userID: string | undefined;
     if (!args[0]) {
         userID = message.author.id;

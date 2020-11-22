@@ -26,11 +26,7 @@ interface Client extends discord.Client {
 }
 
 // Main
-export function run(
-    client: Client,
-    message: discord.Message,
-    log: (mode: 'i' | 'w' | 'e', message: string) => void
-): void {}
+export function run(client: Client, message: discord.Message, log: (mode: 'i' | 'w' | 'e', message: string) => void): void {}
 
 // Config
 export const config = {

@@ -26,19 +26,12 @@ interface Client extends discord.Client {
 }
 
 // Main
-export function run(
-    client: Client,
-    message: discord.Message,
-    log: (mode: 'i' | 'w' | 'e', message: string) => void
-): void {
+export function run(client: Client, message: discord.Message, log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
     // Get the user's current cooldowns (in timestamps)
     const cooldowns = client.cooldowns.ensure(message.author.id, 0, 'owos');
 
     // Check cooldown
-    if (
-        !cooldowns ||
-        cooldowns + client.config.cooldowns.owos - Date.now() < 1
-    ) {
+    if (!cooldowns || cooldowns + client.config.cooldowns.owos - Date.now() < 1) {
         let hasPrefix = false;
         client.config.prefixes.forEach((prefix: string) => {
             if (!hasPrefix && message.content.startsWith(prefix)) {
@@ -52,19 +45,15 @@ export function run(
 
             log(
                 'i',
-                `${chalk.green('[')}${chalk.green.bold(
-                    'OwOHandler'
-                )}${chalk.green(']')} ${chalk.red('[')}${chalk.red.bold(
-                    '+'
-                )}${chalk.red(']')} Added owo!`
+                `${chalk.green('[')}${chalk.green.bold('OwOHandler')}${chalk.green(']')} ${chalk.red('[')}${chalk.red.bold('+')}${chalk.red(
+                    ']'
+                )} Added owo!`
             );
         }
     } else {
         log(
             'i',
-            `${chalk.green('[')}${chalk.green.bold('OwOHandler')}${chalk.green(
-                ']'
-            )} User still on cooldown! ${chalk.red(
+            `${chalk.green('[')}${chalk.green.bold('OwOHandler')}${chalk.green(']')} User still on cooldown! ${chalk.red(
                 cooldowns + client.config.cooldowns.owos - Date.now()
             )} ms remaining!`
         );

@@ -27,12 +27,7 @@ interface Client extends discord.Client {
 }
 
 // Main
-export function run(
-    client: Client,
-    message: discord.Message,
-    args: string[],
-    log: (mode: 'i' | 'w' | 'e', message: string) => void
-): void {
+export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
     // Safety check
     let silent = false;
     if (args[0] === '-s') {
@@ -50,134 +45,108 @@ ${code}`
         return;
     }
 
-    const embed = new discord.MessageEmbed()
-        .setFooter(`Exec command executed by ${message.author.username}`)
-        .setTimestamp();
+    const embed = new discord.MessageEmbed().setFooter(`Exec command executed by ${message.author.username}`).setTimestamp();
     let e = false;
 
-    exec(
-        code,
-        (error: ExecException | null, stdout: string, stderr: string) => {
-            if (error || stderr) {
-                e = true;
-            }
+    exec(code, (error: ExecException | null, stdout: string, stderr: string) => {
+        if (error || stderr) {
+            e = true;
+        }
 
-            if (stderr) {
-                embed.addField(
-                    'STDERR',
-                    `\`\`\`${stderr.substr(0, 2042)}\`\`\``
-                );
-            }
+        if (stderr) {
+            embed.addField('STDERR', `\`\`\`${stderr.substr(0, 2042)}\`\`\``);
+        }
 
-            if (stdout) {
-                embed.addField(
-                    'STDOUT',
-                    `\`\`\`${stdout.substr(0, 2042)}\`\`\``
-                );
-            }
+        if (stdout) {
+            embed.addField('STDOUT', `\`\`\`${stdout.substr(0, 2042)}\`\`\``);
+        }
 
+        if (error) {
+            embed.addField('ExecError', `\`\`\`${error.toString().substr(0, 2042)}\`\`\``);
+        }
+
+        const parsed = [
+            (error ?? { toString: () => '' }).toString(),
+            stderr,
+            stdout
+            // eslint-disable-next-line no-extra-parens
+        ].reduce((a, b) => (a.length > b.length ? a : b));
+
+        embed
+            .setTitle(e ? '**Error**' : '**Success**')
+            .setColor(e ? 'RED' : 'GREEN')
+            .setDescription('Here is your output!');
+
+        if (parsed.length >= 2049 && !silent) {
+            // dont do this on silent items
+            log(e ? 'e' : 'i', `An exec command executed by ${message.author.username}'s response was too long (${parsed.length}/2048).`);
+            log(e ? 'e' : 'i', `Error: ${e ? 'Yes' : 'No'}`);
+            log(e ? 'e' : 'i', 'Output:');
             if (error) {
-                embed.addField(
-                    'ExecError',
-                    `\`\`\`${error.toString().substr(0, 2042)}\`\`\``
-                );
+                log(e ? 'e' : 'i', 'ExecError:');
+                error
+                    .toString()
+                    .split('\n')
+                    .forEach((b: string) => {
+                        log(e ? 'e' : 'i', b);
+                    });
             }
-
-            const parsed = [
-                (error ?? { toString: () => '' }).toString(),
-                stderr,
-                stdout
-                // eslint-disable-next-line no-extra-parens
-            ].reduce((a, b) => (a.length > b.length ? a : b));
-
-            embed
-                .setTitle(e ? '**Error**' : '**Success**')
-                .setColor(e ? 'RED' : 'GREEN')
-                .setDescription('Here is your output!');
-
-            if (parsed.length >= 2049 && !silent) {
-                // dont do this on silent items
-                log(
-                    e ? 'e' : 'i',
-                    `An exec command executed by ${message.author.username}'s response was too long (${parsed.length}/2048).`
-                );
-                log(e ? 'e' : 'i', `Error: ${e ? 'Yes' : 'No'}`);
-                log(e ? 'e' : 'i', 'Output:');
-                if (error) {
-                    log(e ? 'e' : 'i', 'ExecError:');
-                    error
-                        .toString()
-                        .split('\n')
-                        .forEach((b: string) => {
-                            log(e ? 'e' : 'i', b);
-                        });
-                }
-                if (stderr) {
-                    log(e ? 'e' : 'i', 'STDERR:');
-                    stderr.split('\n').forEach((b: string) => {
-                        log(e ? 'e' : 'i', b);
-                    });
-                }
-                if (stdout) {
-                    log(e ? 'e' : 'i', 'STDOUT:');
-                    stdout.split('\n').forEach((b: string) => {
-                        log(e ? 'e' : 'i', b);
-                    });
-                }
-                embed.addField(
-                    'Note:',
-                    `The response was too long with a length of \`${parsed.length}/2048\` characters. it was logged to the console.`
-                );
-            } else if (!silent) {
-                // use different log for silent items
-                log(
-                    e ? 'e' : 'i',
-                    `An exec command has been executed by ${message.author.username}!`
-                );
-                log(e ? 'e' : 'i', `Error: ${e ? 'Yes' : 'No'}`);
-                log(e ? 'e' : 'i', 'Output:');
-                if (error) {
-                    log(e ? 'e' : 'i', 'ExecError:');
-                    error
-                        .toString()
-                        .split('\n')
-                        .forEach((b: string) => {
-                            log(e ? 'e' : 'i', b);
-                        });
-                }
-                if (stderr) {
-                    log(e ? 'e' : 'i', 'STDERR:');
-                    stderr.split('\n').forEach((b: string) => {
-                        log(e ? 'e' : 'i', b);
-                    });
-                }
-                if (stdout) {
-                    log(e ? 'e' : 'i', 'STDOUT:');
-                    stdout.split('\n').forEach((b: string) => {
-                        log(e ? 'e' : 'i', b);
-                    });
-                }
-            }
-
-            if (!silent) {
-                message.channel.send(embed);
-            } else {
-                message.delete().catch(() => {
-                    // delete silent msg
-                    log(
-                        'e',
-                        'Failed to delete command message with silent exec!'
-                    );
+            if (stderr) {
+                log(e ? 'e' : 'i', 'STDERR:');
+                stderr.split('\n').forEach((b: string) => {
+                    log(e ? 'e' : 'i', b);
                 });
-                log(e ? 'e' : 'i', 'Silent exec output:');
-                log(e ? 'e' : 'i', `Error: ${e ? 'Yes' : 'No'}`);
-                log(e ? 'e' : 'i', 'Output:');
-                parsed.split('\n').forEach((b: string) => {
+            }
+            if (stdout) {
+                log(e ? 'e' : 'i', 'STDOUT:');
+                stdout.split('\n').forEach((b: string) => {
+                    log(e ? 'e' : 'i', b);
+                });
+            }
+            embed.addField('Note:', `The response was too long with a length of \`${parsed.length}/2048\` characters. it was logged to the console.`);
+        } else if (!silent) {
+            // use different log for silent items
+            log(e ? 'e' : 'i', `An exec command has been executed by ${message.author.username}!`);
+            log(e ? 'e' : 'i', `Error: ${e ? 'Yes' : 'No'}`);
+            log(e ? 'e' : 'i', 'Output:');
+            if (error) {
+                log(e ? 'e' : 'i', 'ExecError:');
+                error
+                    .toString()
+                    .split('\n')
+                    .forEach((b: string) => {
+                        log(e ? 'e' : 'i', b);
+                    });
+            }
+            if (stderr) {
+                log(e ? 'e' : 'i', 'STDERR:');
+                stderr.split('\n').forEach((b: string) => {
+                    log(e ? 'e' : 'i', b);
+                });
+            }
+            if (stdout) {
+                log(e ? 'e' : 'i', 'STDOUT:');
+                stdout.split('\n').forEach((b: string) => {
                     log(e ? 'e' : 'i', b);
                 });
             }
         }
-    );
+
+        if (!silent) {
+            message.channel.send(embed);
+        } else {
+            message.delete().catch(() => {
+                // delete silent msg
+                log('e', 'Failed to delete command message with silent exec!');
+            });
+            log(e ? 'e' : 'i', 'Silent exec output:');
+            log(e ? 'e' : 'i', `Error: ${e ? 'Yes' : 'No'}`);
+            log(e ? 'e' : 'i', 'Output:');
+            parsed.split('\n').forEach((b: string) => {
+                log(e ? 'e' : 'i', b);
+            });
+        }
+    });
 }
 
 // Config

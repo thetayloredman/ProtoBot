@@ -27,12 +27,7 @@ interface Client extends discord.Client {
 }
 
 // Main
-export function run(
-    client: Client,
-    message: discord.Message,
-    args: string[],
-    log: (mode: 'i' | 'w' | 'e', message: string) => void
-): void {
+export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
     // Safety check
     if (message.author.id !== client.config.ownerID) {
         log('w', `User ${message.author.tag} tried to use "update"!`);
@@ -48,60 +43,72 @@ export function run(
         .addField('Status', '`$ git status`');
 
     function l(mode: 'i' | 'w' | 'e', message: string): void {
-        return log(
-            mode,
-            `${chalk.green('[')}${chalk.green.bold('Updater')}${chalk.green(
-                ']'
-            )} ${message}`
-        );
+        return log(mode, `${chalk.green('[')}${chalk.green.bold('Updater')}${chalk.green(']')} ${message}`);
     }
 
     l('i', 'Getting git status...');
 
     message.channel.send(embed).then((m: discord.Message) => {
-        exec(
-            'git status',
-            (error: ExecException | null, stdout: string, stderr: string) => {
-                if (error) {
-                    l('e', `Failed to update: ${error}`);
-                    m.edit(`Failed to update: ${error}`);
-                } else {
-                    l('i', 'Got git status!');
-                    embed = new discord.MessageEmbed()
-                        .setTitle('Update')
-                        .setDescription(
-                            'Here is your live progress report on the update!'
-                        )
-                        .addField(
-                            'Git Status',
-                            `\`\`\`
+        exec('git status', (error: ExecException | null, stdout: string, stderr: string) => {
+            if (error) {
+                l('e', `Failed to update: ${error}`);
+                m.edit(`Failed to update: ${error}`);
+            } else {
+                l('i', 'Got git status!');
+                embed = new discord.MessageEmbed()
+                    .setTitle('Update')
+                    .setDescription('Here is your live progress report on the update!')
+                    .addField(
+                        'Git Status',
+                        `\`\`\`
 $ git status
 
 ${stdout === '' ? stderr : stdout}
 \`\`\``
-                        )
-                        .addField('Status', '`$ git add .`');
+                    )
+                    .addField('Status', '`$ git add .`');
 
-                    m.edit(embed);
+                m.edit(embed);
 
-                    l('i', 'Adding files...');
-                    exec(
-                        'git add .',
-                        (
-                            error2: ExecException | null,
-                            stdout2: string,
-                            stderr2: string
-                        ) => {
-                            if (error2) {
-                                l('e', `Failed to update: ${error2}`);
-                                m.edit(`Failed to update: ${error2}`);
-                            } else {
-                                l('i', 'Added files!');
+                l('i', 'Adding files...');
+                exec('git add .', (error2: ExecException | null, stdout2: string, stderr2: string) => {
+                    if (error2) {
+                        l('e', `Failed to update: ${error2}`);
+                        m.edit(`Failed to update: ${error2}`);
+                    } else {
+                        l('i', 'Added files!');
+                        embed = new discord.MessageEmbed()
+                            .setTitle('Update')
+                            .setDescription('Here is your live progress report on the update!')
+                            .addField(
+                                'Git Status',
+                                `\`\`\`
+$ git status
+
+${stdout === '' ? stderr : stdout}
+\`\`\``
+                            )
+                            .addField(
+                                'Git Add Result',
+                                `\`\`\`
+$ git add .
+
+${stdout2 === '' ? stderr2 : stdout2}
+\`\`\``
+                            )
+                            .addField('Status', '`$ git commit -m "ProtoBot -- Update (Found uncommitted changes)"`');
+
+                        m.edit(embed);
+
+                        l('i', 'Committing...');
+
+                        exec(
+                            'git commit -m "ProtoBot -- Update (Found uncommitted changes)"',
+                            (error3: ExecException | null, stderr3: string, stdout3: string) => {
+                                l('i', 'Committed!');
                                 embed = new discord.MessageEmbed()
                                     .setTitle('Update')
-                                    .setDescription(
-                                        'Here is your live progress report on the update!'
-                                    )
+                                    .setDescription('Here is your live progress report on the update!')
                                     .addField(
                                         'Git Status',
                                         `\`\`\`
@@ -119,139 +126,80 @@ ${stdout2 === '' ? stderr2 : stdout2}
 \`\`\``
                                     )
                                     .addField(
-                                        'Status',
-                                        '`$ git commit -m "ProtoBot -- Update (Found uncommitted changes)"`'
-                                    );
+                                        'Git Commit Result',
+                                        `\`\`\`
+$ git commit -m "ProtoBot -- Update (Found uncommitted changes)"
+
+${stdout3 === '' ? stderr3 : stdout3}
+\`\`\``
+                                    )
+                                    .addField('Status', '`$ git fetch && git pull --rebase && git push`');
 
                                 m.edit(embed);
 
-                                l('i', 'Committing...');
+                                l('i', 'Syncing...');
 
                                 exec(
-                                    'git commit -m "ProtoBot -- Update (Found uncommitted changes)"',
-                                    (
-                                        error3: ExecException | null,
-                                        stderr3: string,
-                                        stdout3: string
-                                    ) => {
-                                        l('i', 'Committed!');
-                                        embed = new discord.MessageEmbed()
-                                            .setTitle('Update')
-                                            .setDescription(
-                                                'Here is your live progress report on the update!'
-                                            )
-                                            .addField(
-                                                'Git Status',
-                                                `\`\`\`
+                                    'git fetch && git pull --no-rebase && git push',
+                                    (error4: ExecException | null, stderr4: string, stdout4: string) => {
+                                        if (error4) {
+                                            l('e', `Failed to update: ${error4}`);
+                                            m.edit(`Failed to update: ${error4}`);
+                                        } else {
+                                            l('i', 'Synced!');
+                                            embed = new discord.MessageEmbed()
+                                                .setTitle('Update [Complete]')
+                                                .setDescription('Here is the update log!')
+                                                .addField(
+                                                    'Git Status',
+                                                    `\`\`\`
 $ git status
 
 ${stdout === '' ? stderr : stdout}
 \`\`\``
-                                            )
-                                            .addField(
-                                                'Git Add Result',
-                                                `\`\`\`
+                                                )
+                                                .addField(
+                                                    'Git Add Result',
+                                                    `\`\`\`
 $ git add .
 
 ${stdout2 === '' ? stderr2 : stdout2}
 \`\`\``
-                                            )
-                                            .addField(
-                                                'Git Commit Result',
-                                                `\`\`\`
+                                                )
+                                                .addField(
+                                                    'Git Commit Result',
+                                                    `\`\`\`
 $ git commit -m "ProtoBot -- Update (Found uncommitted changes)"
 
 ${stdout3 === '' ? stderr3 : stdout3}
 \`\`\``
-                                            )
-                                            .addField(
-                                                'Status',
-                                                '`$ git fetch && git pull --rebase && git push`'
-                                            );
-
-                                        m.edit(embed);
-
-                                        l('i', 'Syncing...');
-
-                                        exec(
-                                            'git fetch && git pull --no-rebase && git push',
-                                            (
-                                                error4: ExecException | null,
-                                                stderr4: string,
-                                                stdout4: string
-                                            ) => {
-                                                if (error4) {
-                                                    l(
-                                                        'e',
-                                                        `Failed to update: ${error4}`
-                                                    );
-                                                    m.edit(
-                                                        `Failed to update: ${error4}`
-                                                    );
-                                                } else {
-                                                    l('i', 'Synced!');
-                                                    embed = new discord.MessageEmbed()
-                                                        .setTitle(
-                                                            'Update [Complete]'
-                                                        )
-                                                        .setDescription(
-                                                            'Here is the update log!'
-                                                        )
-                                                        .addField(
-                                                            'Git Status',
-                                                            `\`\`\`
-$ git status
-
-${stdout === '' ? stderr : stdout}
-\`\`\``
-                                                        )
-                                                        .addField(
-                                                            'Git Add Result',
-                                                            `\`\`\`
-$ git add .
-
-${stdout2 === '' ? stderr2 : stdout2}
-\`\`\``
-                                                        )
-                                                        .addField(
-                                                            'Git Commit Result',
-                                                            `\`\`\`
-$ git commit -m "ProtoBot -- Update (Found uncommitted changes)"
-
-${stdout3 === '' ? stderr3 : stdout3}
-\`\`\``
-                                                        )
-                                                        .addField(
-                                                            'Git Sync (fetch -> pull -> push) Result',
-                                                            `\`\`\`
+                                                )
+                                                .addField(
+                                                    'Git Sync (fetch -> pull -> push) Result',
+                                                    `\`\`\`
 $ git fetch && git pull --no-rebase && git push
 
 ${stdout4 === '' ? stderr4 : stdout4}
 \`\`\``
-                                                        )
-                                                        .addField(
-                                                            'Status',
-                                                            '**Complete.**'
-                                                        )
-                                                        .addField(
-                                                            'Restart to apply changes',
-                                                            `To apply the update, run ${client.config.prefixes[0]}restart.`
-                                                        );
+                                                )
+                                                .addField('Status', '**Complete.**')
+                                                .addField(
+                                                    'Restart to apply changes',
+                                                    `To apply the update, run ${client.config.prefixes[0]}restart.`
+                                                );
 
-                                                    m.edit(embed);
+                                            m.edit(embed);
 
-                                                    l('i', 'Update completed!');
-                                                }
-                                            }
-                                        );
+                                            l('i', 'Update completed!');
+                                        }
                                     }
                                 );
                             }
-                        }
-                    );
-                }
+                        );
+                    }
+                });
             }
-        );
+        });
     });
 }
 

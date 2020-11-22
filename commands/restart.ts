@@ -26,12 +26,7 @@ interface Client extends discord.Client {
 }
 
 // Main
-export function run(
-    client: Client,
-    message: discord.Message,
-    args: string[],
-    log: (mode: 'i' | 'w' | 'e', message: string) => void
-): void {
+export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
     // Safety check
     if (message.author.id !== client.config.ownerID) {
         console.log('w', `User ${message.author.tag} tried to use "restart"!`);

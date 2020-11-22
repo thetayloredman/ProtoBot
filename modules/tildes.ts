@@ -26,31 +26,19 @@ interface Client extends discord.Client {
 }
 
 // Main
-export function run(
-    client: Client,
-    message: discord.Message,
-    log: (mode: 'i' | 'w' | 'e', message: string) => void
-): void {
+export function run(client: Client, message: discord.Message, log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
     // Get the user's current cooldowns (in timestamps)
     const cooldowns = client.cooldowns.ensure(message.author.id, 0, 'tildes');
 
     // Check cooldown
-    if (
-        !cooldowns ||
-        cooldowns + client.config.cooldowns.tildes - Date.now() < 1
-    ) {
+    if (!cooldowns || cooldowns + client.config.cooldowns.tildes - Date.now() < 1) {
         let hasPrefix = false;
         client.config.prefixes.forEach((prefix: string) => {
             if (!hasPrefix && message.content.startsWith(prefix)) {
                 hasPrefix = true;
             }
         });
-        if (
-            message.content.endsWith('~') &&
-            !/~~+/.test(message.content) &&
-            message.content !== '~' &&
-            !hasPrefix
-        ) {
+        if (message.content.endsWith('~') && !/~~+/.test(message.content) && message.content !== '~' && !hasPrefix) {
             //                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
             //                           Don't flag strikethrough
             //                           markdown as a valid tilde!
@@ -61,19 +49,15 @@ export function run(
 
             log(
                 'i',
-                `${chalk.green('[')}${chalk.green.bold(
-                    'TildeHandler'
-                )}${chalk.green(']')} ${chalk.red('[')}${chalk.red.bold(
-                    '+'
-                )}${chalk.red(']')} Added tilde!`
+                `${chalk.green('[')}${chalk.green.bold('TildeHandler')}${chalk.green(']')} ${chalk.red('[')}${chalk.red.bold('+')}${chalk.red(
+                    ']'
+                )} Added tilde!`
             );
         }
     } else {
         log(
             'i',
-            `${chalk.green('[')}${chalk.green.bold(
-                'TildeHandler'
-            )}${chalk.green(']')} User still on cooldown! ${chalk.red(
+            `${chalk.green('[')}${chalk.green.bold('TildeHandler')}${chalk.green(']')} User still on cooldown! ${chalk.red(
                 cooldowns + client.config.cooldowns.tildes - Date.now()
             )} ms remaining!`
         );

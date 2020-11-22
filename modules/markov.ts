@@ -27,11 +27,7 @@ interface Client extends discord.Client {
 }
 
 // Main
-export function run(
-    client: Client,
-    message: discord.Message,
-    log: (mode: 'i' | 'w' | 'e', message: string) => void
-): void {
+export function run(client: Client, message: discord.Message, log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
     //                                                      To be safe we will not perform
     //                                                      generation without the guild.
     //                                                      vvvvvvvvvvvvvvvvv
@@ -58,29 +54,12 @@ export function run(
             },
             message.id
         );
-        log(
-            'i',
-            `${chalk.red('[')}${chalk.red.bold('MarkovMsgListener')}${chalk.red(
-                ']'
-            )} Added message to markov database.`
-        );
+        log('i', `${chalk.red('[')}${chalk.red.bold('MarkovMsgListener')}${chalk.red(']')} Added message to markov database.`);
     } else {
         if (!message.guild) {
-            log(
-                'e',
-                `${chalk.red('[')}${chalk.red.bold(
-                    'MarkovMsgListener'
-                )}${chalk.red(']')} ${chalk.blue(
-                    'message.guild'
-                )} was not present!`
-            );
+            log('e', `${chalk.red('[')}${chalk.red.bold('MarkovMsgListener')}${chalk.red(']')} ${chalk.blue('message.guild')} was not present!`);
         } else {
-            log(
-                'i',
-                `${chalk.red('[')}${chalk.red.bold(
-                    'MarkovMsgListener'
-                )}${chalk.red(']')} User not opted-in for markov generation.`
-            );
+            log('i', `${chalk.red('[')}${chalk.red.bold('MarkovMsgListener')}${chalk.red(']')} User not opted-in for markov generation.`);
         }
     }
 }
@@ -88,6 +67,5 @@ export function run(
 // Config
 export const config = {
     name: 'markov',
-    description:
-        'Generate a markov chain from the current mood in the chat. [Message Collector]'
+    description: 'Generate a markov chain from the current mood in the chat. [Message Collector]'
 };

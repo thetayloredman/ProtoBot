@@ -26,12 +26,7 @@ interface Client extends discord.Client {
 }
 
 // Main
-export function run(
-    client: Client,
-    message: discord.Message,
-    args: string[],
-    log: (mode: 'i' | 'w' | 'e', message: string) => void
-): void {
+export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
     log('i', 'Giving help command info!');
     const embed = new discord.MessageEmbed()
         .setTitle('ProtoBot Help')
@@ -40,22 +35,13 @@ export function run(
         .setFooter(`Requested by ${message.author.tag}`)
         .setDescription('Here are all of my commands!');
 
-    client.commandsConfig.forEach(
-        (command: {
-            name: string;
-            description: string;
-            enabled: boolean;
-            restrict: boolean | { users: string[] };
-        }) => {
-            embed.addField(
-                command.name,
-                `${command.description}${
-                    command.enabled ? '' : ' **[Disabled]**'
-                }${command.restrict ? ' **[Restricted]**' : ''}`,
-                true
-            );
-        }
-    );
+    client.commandsConfig.forEach((command: { name: string; description: string; enabled: boolean; restrict: boolean | { users: string[] } }) => {
+        embed.addField(
+            command.name,
+            `${command.description}${command.enabled ? '' : ' **[Disabled]**'}${command.restrict ? ' **[Restricted]**' : ''}`,
+            true
+        );
+    });
 
     message.channel.send(embed);
 }

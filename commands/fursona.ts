@@ -26,27 +26,18 @@ interface Client extends discord.Client {
 }
 
 // Main
-export function run(
-    client: Client,
-    message: discord.Message,
-    args: string[],
-    log: (mode: 'i' | 'w' | 'e', message: string) => void
-): void {
+export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
     log('i', 'Fursona command fired!');
     // Get their fursona
     if (!args[0]) {
         // If they haven't set one...
         if (!client.fursonas.get(message.author.id)) {
             log('i', 'No fursona for user!');
-            message.reply(
-                "You haven't set a fursona yet! To do this, run the command `fursona set`."
-            );
+            message.reply("You haven't set a fursona yet! To do this, run the command `fursona set`.");
         } else {
             // They have one!
             log('i', 'Displaying fursona!');
-            const embed = new discord.MessageEmbed()
-                .setTitle('Fursona')
-                .setDescription('Here is your current fursona information.');
+            const embed = new discord.MessageEmbed().setTitle('Fursona').setDescription('Here is your current fursona information.');
 
             const fursona = client.fursonas.get(message.author.id);
 
@@ -68,27 +59,15 @@ ${client.config.prefixes[0]}fursona set type <type> :: Set your fursona's breed/
 \`\`\``);
         } else if (args[1].toLowerCase() === 'name') {
             client.fursonas.ensure(message.author.id, {});
-            client.fursonas.set(
-                message.author.id,
-                args.slice(2).join(' '),
-                'name'
-            );
+            client.fursonas.set(message.author.id, args.slice(2).join(' '), 'name');
             message.channel.send('Set!');
         } else if (args[1].toLowerCase() === 'bio') {
             client.fursonas.ensure(message.author.id, {});
-            client.fursonas.set(
-                message.author.id,
-                args.slice(2).join(' '),
-                'bio'
-            );
+            client.fursonas.set(message.author.id, args.slice(2).join(' '), 'bio');
             message.channel.send('Set!');
         } else if (args[1].toLowerCase() === 'type') {
             client.fursonas.ensure(message.author.id, {});
-            client.fursonas.set(
-                message.author.id,
-                args.slice(2).join(' '),
-                'type'
-            );
+            client.fursonas.set(message.author.id, args.slice(2).join(' '), 'type');
             message.channel.send('Set!');
         } else {
             message.channel.send('Unknown option! Try `fursona set`.');
