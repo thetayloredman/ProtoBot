@@ -283,13 +283,11 @@ client.on('rateLimit', (data: discord.RateLimitData) => {
 // When the process exits, wrap up.
 process.on('exit', (code) => {
     client.destroy(); // Kill the client
-    log('w', 'Process exiting!');
-    log('w', `Exit code ${code}`);
-    log('CLOSE_STREAMS');
+    // NOTE: you can't log here
 });
 
 // If we get an uncaught exception, close ASAP.
-process.on('uncaughtException', (error: Error) => {
+process.on('uncaughtException', async (error: Error) => {
     client.destroy();
     log('e', 'An uncaught exception occured!');
     log('e', `Error thrown was:`);
@@ -306,6 +304,9 @@ process.on('uncaughtException', (error: Error) => {
         log('e', `${item}`);
     });
     log('e', 'Process exiting.');
+    log('e', 'Exit code 5.');
+    log('e', 'Goodbye!');
+    await log('CLOSE_STREAMS');
     process.exit(5);
 });
 

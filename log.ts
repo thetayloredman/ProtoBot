@@ -81,13 +81,19 @@ function writeItem(mode: 'i' | 'w' | 'e', message: string): void {
 }
 
 // Main
-export default function log(mode: 'CLOSE_STREAMS'): void;
+export default function log(mode: 'CLOSE_STREAMS'): Promise<void>;
 export default function log(mode: 'i' | 'w' | 'e', message: string): void;
-export default function log(mode: 'i' | 'w' | 'e' | 'CLOSE_STREAMS', message?: string): void {
+export default function log(mode: 'i' | 'w' | 'e' | 'CLOSE_STREAMS', message?: string): void | Promise<void> {
     if (mode === 'CLOSE_STREAMS') {
-        errStr?.end();
-        warnStr?.end();
-        allStr?.end();
+        return new Promise((resolve, reject) => {
+            errStr?.end(() => {
+                warnStr?.end(() => {
+                    allStr?.end(() => {
+                        resolve();
+                    });
+                });
+            });
+        });
     } else {
         let msg = '';
         let preparsedDate: any = new Date(Date.now()).toLocaleDateString('en-US', {
@@ -133,5 +139,7 @@ export default function log(mode: 'i' | 'w' | 'e' | 'CLOSE_STREAMS', message?: s
         console.log(msg);
         // @ts-ignore
         writeItem(mode, msg);
+
+        return undefined;
     }
 }
