@@ -72,6 +72,7 @@ export const config = {
     name: 'owos',
     description: 'Shows a leaderboard of the messages containing "owo"!',
     enabled: true,
+    aliases: [],
 
     // To restrict the command, change the "false" to the following
     // format:

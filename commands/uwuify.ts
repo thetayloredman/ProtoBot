@@ -43,6 +43,7 @@ export const config = {
     name: 'uwuify',
     description: 'Converts all of your text to UwU-talk!\nPowered by [Uwuifier](https://github.com/Schotsl/Uwuifier)',
     enabled: true,
+    aliases: ['uwu'],
 
     // To restrict the command, change the "false" to the following
     // format:

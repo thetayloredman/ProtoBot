@@ -208,6 +208,7 @@ export const config = {
     name: 'update',
     description: 'Update the bot!',
     enabled: true,
+    aliases: ['upd'],
 
     // To restrict the command, change the "false" to the following
     // format:

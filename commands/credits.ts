@@ -94,6 +94,7 @@ export const config = {
     name: 'My Cool Command',
     description: 'Does stuff',
     enabled: true,
+    aliases: [],
 
     // To restrict the command, change the "false" to the following
     // format:

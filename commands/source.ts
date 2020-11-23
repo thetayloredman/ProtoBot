@@ -45,6 +45,7 @@ export const config = {
     name: 'source',
     description: 'Gets the source of the last message',
     enabled: true,
+    aliases: ['src'],
 
     // To restrict the command, change the "false" to the following
     // format:

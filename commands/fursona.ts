@@ -80,6 +80,7 @@ export const config = {
     name: 'fursona',
     description: 'See/edit your fursona details!',
     enabled: true,
+    aliases: ['sona'],
 
     // To restrict the command, change the "false" to the following
     // format:

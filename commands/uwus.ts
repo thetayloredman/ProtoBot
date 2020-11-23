@@ -72,6 +72,7 @@ export const config = {
     name: 'uwus',
     description: 'Shows a leaderboard of the messages containing "uwu"!',
     enabled: true,
+    aliases: [],
 
     // To restrict the command, change the "false" to the following
     // format:
