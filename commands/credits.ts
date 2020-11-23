@@ -28,7 +28,6 @@ interface Client extends discord.Client {
 // Main
 interface CreditedUser {
     tag: string; // full tag "BadBoyHaloCat#1826"
-    userID: string;
 }
 
 interface CreditItem {
@@ -43,23 +42,19 @@ export function run(client: Client, message: discord.Message, args: string[], lo
     const credits: Credits = [
         {
             item: 'Writing the core of ProtoBot',
-            users: [{ tag: 'BadBoyHaloCat#1826', userID: '302878998692757514' }]
+            users: [{ tag: 'BadBoyHaloCat#1826' }]
         },
         {
             item: 'Offering to rewrite all of ProtoBot',
-            users: [{ tag: 'antemortem#0110', userID: '730159185517477900' }]
+            users: [{ tag: 'antemortem#0110' }]
         },
         {
             item: 'Inspiration',
-            users: [{ tag: 'DeveloperUmbreon#3344', userID: '679145795714416661' }]
+            users: [{ tag: 'DeveloperUmbreon#3344' }]
         },
         {
             item: 'Just existing idk',
-            users: [
-                { tag: 'boa#1665', userID: '251105781867347969' },
-                { tag: 'ElectricLeAluki#9621', userID: '388157815136452609' },
-                { tag: 'charmines#1522', userID: '588110067656687740' }
-            ]
+            users: [{ tag: 'boa#1665' }, { tag: 'ElectricLeAluki#9621' }, { tag: 'charmines#1522' }]
         }
     ];
 
@@ -73,12 +68,12 @@ export function run(client: Client, message: discord.Message, args: string[], lo
         let str = '';
         item.users.forEach((user: CreditedUser, index: number) => {
             if (str.length === 0) {
-                str += `Thank you, ${user.tag} (\`${user.userID}\`)`;
+                str += `Thank you, ${user.tag}`;
             } else {
                 if (index !== item.users.length - 1) {
-                    str += `, ${user.tag} (\`${user.userID}\`)`;
+                    str += `, ${user.tag}`;
                 } else {
-                    str += ` and ${user.tag} (\`${user.userID}\`)`;
+                    str += `, and ${user.tag}`;
                 }
             }
         });
