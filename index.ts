@@ -59,6 +59,7 @@ client.fursonas = new enmap({ name: 'fursonas' });
 // in memory dbs
 client.commands = new enmap();
 client.commandsConfig = new enmap();
+client.commandsRefs = new enmap(); // Refs are basically aliases that "link" to the actual command
 client.modules = new enmap();
 
 // Ready event
@@ -129,6 +130,14 @@ client.on('ready', async () => {
                         l('i', `Loading command "${cmdName}"...`);
                         client.commandsConfig.set(cmdName, commandData.config);
                         client.commands.set(cmdName, commandData);
+                        // Load aliases into the refs along with the base command
+                        l('i', `Loading command aliases for ${cmdName}...`);
+                        l('i', 'Loaded base alias!');
+                        client.commandsRefs.set(cmdName, cmdName); // base
+                        (commandData.config.aliases ?? []).forEach((alias: string) => {
+                            l('i', `Loaded alias ${alias}!`);
+                            client.commandsRefs.set(alias, cmdName);
+                        });
                         l('i', `Finished loading command "${cmdName}"!`);
                     } else if (path.endsWith('.map')) {
                         return;

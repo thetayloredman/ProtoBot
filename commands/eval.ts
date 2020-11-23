@@ -132,6 +132,7 @@ export const config = {
     name: 'eval',
     description: 'Execute code!',
     enabled: true,
+    aliases: ['e'],
 
     // To restrict the command, change the "false" to the following
     // format:

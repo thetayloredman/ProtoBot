@@ -33,6 +33,7 @@ export const config = {
     name: 'My Cool Command',
     description: 'Does stuff',
     enabled: true,
+    aliases: [], // command aliases to load
 
     // To restrict the command, change the "false" to the following
     // format:
