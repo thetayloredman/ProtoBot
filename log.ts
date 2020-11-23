@@ -83,7 +83,7 @@ function writeItem(mode: 'i' | 'w' | 'e', message: string): void {
 // Main
 export default function log(mode: 'CLOSE_STREAMS'): void;
 export default function log(mode: 'i' | 'w' | 'e', message: string): void;
-export default function log(mode?: 'i' | 'w' | 'e' | 'CLOSE_STREAMS', message?: string): void {
+export default function log(mode: 'i' | 'w' | 'e' | 'CLOSE_STREAMS', message?: string): void {
     if (mode === 'CLOSE_STREAMS') {
         errStr?.end();
         warnStr?.end();
