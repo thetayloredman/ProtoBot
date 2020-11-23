@@ -29,7 +29,7 @@ module.exports = {
         'no-empty-character-class': ['error'],
         'no-ex-assign': ['error'],
         'no-extra-boolean-cast': ['error', { enforceForLogicalOperands: true }],
-        'no-extra-parens': ['error', 'all'],
+        'no-extra-parens': ['off'],
         'no-extra-semi': ['error'],
         'no-func-assign': ['error'],
         'no-import-assign': ['error'],
