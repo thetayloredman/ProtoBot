@@ -69,6 +69,7 @@ export const config = {
     name: 'branch',
     description: 'Changes the current branch [owner only]',
     enabled: true,
+    aliases: [],
 
     // To restrict the command, change the "false" to the following
     // format:

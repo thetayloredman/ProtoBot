@@ -71,6 +71,7 @@ export const config = {
     name: 'tildes',
     description: 'Shows a leaderboard of the messages ending in "~"!',
     enabled: true,
+    aliases: [],
 
     // To restrict the command, change the "false" to the following
     // format:

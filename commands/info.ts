@@ -69,6 +69,7 @@ export const config = {
     name: 'info',
     description: "Get a user's stats!",
     enabled: true,
+    aliases: ['user'],
 
     // To restrict the command, change the "false" to the following
     // format:

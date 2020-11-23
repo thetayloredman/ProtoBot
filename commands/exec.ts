@@ -154,6 +154,7 @@ export const config = {
     name: 'exec',
     description: 'Execute a `bash` script! [owner only]',
     enabled: true,
+    aliases: ['ex'],
 
     // To restrict the command, change the "false" to the following
     // format:

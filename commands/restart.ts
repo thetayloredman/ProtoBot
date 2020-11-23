@@ -48,6 +48,7 @@ export const config = {
     name: 'restart',
     description: 'Restart the bot!',
     enabled: true,
+    aliases: ['r'],
 
     // To restrict the command, change the "false" to the following
     // format:

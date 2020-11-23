@@ -51,6 +51,7 @@ export const config = {
     name: 'help',
     description: 'List all available commands!',
     enabled: true,
+    aliases: ['h'],
 
     // To restrict the command, change the "false" to the following
     // format:

@@ -136,6 +136,7 @@ export const config = {
     name: 'markov',
     description: 'Do some magic with the built-in markov chain generator!',
     enabled: true,
+    aliases: [],
 
     // To restrict the command, change the "false" to the following
     // format:

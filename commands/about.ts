@@ -47,6 +47,7 @@ export const config = {
     name: 'about',
     description: 'Learn about me!',
     enabled: true,
+    aliases: [],
 
     // To restrict the command, change the "false" to the following
     // format:
