@@ -280,5 +280,28 @@ client.on('rateLimit', (data: discord.RateLimitData) => {
     log('w', 'Operations have been paused until the ratelimit is lifted!');
 });
 
+// When the process exits, wrap up.
+process.on('exit', (code) => {
+    client.destroy(); // Kill the client
+    log('w', 'Process exiting!');
+    log('w', `Exit code ${code}`);
+});
+
+// If we get an uncaught exception, close ASAP.
+process.on('uncaughtException', (error: Error) => {
+    client.destroy();
+    log('e', 'An uncaught exception occured!');
+    log('e', `Error thrown was: ${error}`);
+    error.stack?.split('\n').forEach((item: string) => {
+        log('e', `    ${item}`);
+    });
+    log('e', 'Stack trace dump:');
+    new Error().stack?.split('\n').forEach((item: string) => {
+        log('e', `    ${item}`);
+    });
+    log('e', 'Process exiting.');
+    process.abort();
+});
+
 // Log in
 client.login(client.config.token);
