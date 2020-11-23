@@ -75,7 +75,7 @@ export function run(client: Client, message: discord.Message, args: string[], lo
             if (str.length === 0) {
                 str += `Thank you, ${user.tag} (\`${user.userID}\`)`;
             } else {
-                if (index !== item.users.length) {
+                if (index !== item.users.length - 1) {
                     str += `, ${user.tag} (\`${user.userID}\`)`;
                 } else {
                     str += ` and ${user.tag} (\`${user.userID}\`)`;
