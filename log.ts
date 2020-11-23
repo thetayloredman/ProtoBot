@@ -81,48 +81,57 @@ function writeItem(mode: 'i' | 'w' | 'e', message: string): void {
 }
 
 // Main
-export default function log(mode: 'i' | 'w' | 'e', message: string): void {
-    let msg = '';
-    let preparsedDate: any = new Date(Date.now()).toLocaleDateString('en-US', {
-        weekday: 'short',
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric'
-    });
-    preparsedDate = preparsedDate.split(', ');
-    preparsedDate[1] = preparsedDate[1].split(' ');
-    let preparsedTime: any = new Date(Date.now()).toLocaleTimeString('en-US' /* no opts needed */);
-    preparsedTime = preparsedTime.split(' ');
-    preparsedTime[0] = preparsedTime[0].split(':');
+export default function log(mode: 'CLOSE_STREAMS'): void;
+export default function log(mode: 'i' | 'w' | 'e', message: string): void;
+export default function log(mode?: 'i' | 'w' | 'e' | 'CLOSE_STREAMS', message?: string): void {
+    if (mode === 'CLOSE_STREAMS') {
+        errStr?.end();
+        warnStr?.end();
+        allStr?.end();
+    } else {
+        let msg = '';
+        let preparsedDate: any = new Date(Date.now()).toLocaleDateString('en-US', {
+            weekday: 'short',
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+        preparsedDate = preparsedDate.split(', ');
+        preparsedDate[1] = preparsedDate[1].split(' ');
+        let preparsedTime: any = new Date(Date.now()).toLocaleTimeString('en-US' /* no opts needed */);
+        preparsedTime = preparsedTime.split(' ');
+        preparsedTime[0] = preparsedTime[0].split(':');
 
-    // Parse date/time
-    const parsedDate = `${chalk.green(preparsedDate[0])} ${chalk.yellow(preparsedDate[1][0])} ${chalk.yellow.bold(
-        preparsedDate[1][1]
-    )} ${chalk.green.bold(preparsedDate[2])}`;
-    const sep: string = chalk.yellow(':');
-    const parsedTime = `${chalk.yellow.bold(preparsedTime[0][0])}${sep}${chalk.yellow.bold(preparsedTime[0][1])}${sep}${chalk.yellow.bold(
-        preparsedTime[0][2]
-    )} ${chalk.red(preparsedTime[1])}`;
+        // Parse date/time
+        const parsedDate = `${chalk.green(preparsedDate[0])} ${chalk.yellow(preparsedDate[1][0])} ${chalk.yellow.bold(
+            preparsedDate[1][1]
+        )} ${chalk.green.bold(preparsedDate[2])}`;
+        const sep: string = chalk.yellow(':');
+        const parsedTime = `${chalk.yellow.bold(preparsedTime[0][0])}${sep}${chalk.yellow.bold(preparsedTime[0][1])}${sep}${chalk.yellow.bold(
+            preparsedTime[0][2]
+        )} ${chalk.red(preparsedTime[1])}`;
 
-    switch (mode) {
-        case 'i':
-            msg = `${chalk.blue('[')}${chalk.blue.bold('INFO')}${chalk.blue(']')} ${message}`;
-            break;
-        case 'w':
-            msg = `${chalk.yellow('[')}${chalk.yellow.bold('WARN')}${chalk.yellow(']')} ${message}`;
-            break;
-        case 'e':
-            msg = `${chalk.red('[')}${chalk.red.bold('ERR')}${chalk.red(']')} ${message}`;
-            break;
-        default:
-            msg = `${chalk.blue('[')}${chalk.blue.bold('INFO')}${chalk.blue(']')} ${message}`;
-            break;
+        switch (mode) {
+            case 'i':
+                msg = `${chalk.blue('[')}${chalk.blue.bold('INFO')}${chalk.blue(']')} ${message}`;
+                break;
+            case 'w':
+                msg = `${chalk.yellow('[')}${chalk.yellow.bold('WARN')}${chalk.yellow(']')} ${message}`;
+                break;
+            case 'e':
+                msg = `${chalk.red('[')}${chalk.red.bold('ERR')}${chalk.red(']')} ${message}`;
+                break;
+            default:
+                msg = `${chalk.blue('[')}${chalk.blue.bold('INFO')}${chalk.blue(']')} ${message}`;
+                break;
+        }
+
+        const brackets: string[] = [chalk.yellow('['), chalk.yellow(']')];
+
+        msg = `${brackets[0]}${parsedDate} ${parsedTime}${brackets[1]} ${msg}`;
+
+        console.log(msg);
+        // @ts-ignore
+        writeItem(mode, msg);
     }
-
-    const brackets: string[] = [chalk.yellow('['), chalk.yellow(']')];
-
-    msg = `${brackets[0]}${parsedDate} ${parsedTime}${brackets[1]} ${msg}`;
-
-    console.log(msg);
-    writeItem(mode, msg);
 }

@@ -285,22 +285,28 @@ process.on('exit', (code) => {
     client.destroy(); // Kill the client
     log('w', 'Process exiting!');
     log('w', `Exit code ${code}`);
+    log('CLOSE_STREAMS');
 });
 
 // If we get an uncaught exception, close ASAP.
 process.on('uncaughtException', (error: Error) => {
     client.destroy();
     log('e', 'An uncaught exception occured!');
-    log('e', `Error thrown was: ${error}`);
+    log('e', `Error thrown was:`);
     error.stack?.split('\n').forEach((item: string) => {
-        log('e', `    ${item}`);
+        log('e', `${item}`);
     });
     log('e', 'Stack trace dump:');
-    new Error().stack?.split('\n').forEach((item: string) => {
-        log('e', `    ${item}`);
+    let stack = new Error().stack?.split('\n')
+    stack?.shift();
+    if (!stack) {
+        stack = [];
+    }
+    stack.forEach((item: string) => {
+        log('e', `${item}`);
     });
     log('e', 'Process exiting.');
-    process.abort();
+    process.exit(5);
 });
 
 // Log in
