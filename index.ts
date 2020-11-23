@@ -300,7 +300,7 @@ process.on('uncaughtException', (error: Error) => {
         log('e', `    ${item}`);
     });
     log('e', 'Process exiting.');
-    process.abort();
+    process.abort(); // FIXME: we can't exit until log is done!
 });
 
 // Log in
