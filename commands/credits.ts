@@ -42,8 +42,24 @@ export function run(client: Client, message: discord.Message, args: string[], lo
     // Add credits data here
     const credits: Credits = [
         {
+            item: 'Writing the core of ProtoBot',
+            users: [{ tag: 'BadBoyHaloCat#1826', userID: '302878998692757514' }]
+        },
+        {
             item: 'Offering to rewrite all of ProtoBot',
             users: [{ tag: 'antemortem#0110', userID: '730159185517477900' }]
+        },
+        {
+            item: 'Inspiration',
+            users: [{ tag: 'DeveloperUmbreon#3344', userID: '679145795714416661' }]
+        },
+        {
+            item: 'Just existing idk',
+            users: [
+                { tag: 'boa#1665', userID: '251105781867347969' },
+                { tag: 'ElectricLeAluki#9621', userID: '388157815136452609' },
+                { tag: 'charmines#1522', userID: '588110067656687740' }
+            ]
         }
     ];
 
