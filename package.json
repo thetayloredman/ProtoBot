@@ -13,7 +13,7 @@
     "dependencies": {
         "better-sqlite3": "^7.1.1",
         "chalk": "^4.1.0",
-        "discord.js": "^12.4.1",
+        "discord.js": "^12.5.0",
         "enmap": "^5.8.2",
         "markov-strings": "^3.0.1",
         "source-map-support": "^0.5.19",
