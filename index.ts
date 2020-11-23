@@ -227,7 +227,7 @@ client.on('message', (message: discord.Message) => {
     });
     if (msgIsCommand) {
         const args: string[] = message.content.slice(prefixLen).split(/ +/g);
-        const command: string | undefined = args.shift()?.toLowerCase() ?? '';
+        let command: string | undefined = args.shift()?.toLowerCase() ?? '';
         if (!command) {
             // exit
             return;
@@ -240,6 +240,10 @@ client.on('message', (message: discord.Message) => {
                 message.channel?.id ?? 'unknown'
             }) => ${message.id}`
         );
+
+        log('i', 'Resolving alias...');
+        command = client.commandsRefs.get(command);
+        log('i', `Alias resolved to "${command}"!`);
 
         const commandExec: (
             client: discord.Client,
