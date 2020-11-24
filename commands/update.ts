@@ -102,7 +102,8 @@ ${stdout3 === '' ? stderr3 : stdout3}
                                             m.edit(`Failed to update: ${error4}`);
                                         } else {
                                             l('i', 'Synced!');
-                                            embed.addField(
+                                            embed
+                                                .addField(
                                                     'Git Sync (fetch -> pull -> push) Result',
                                                     `\`\`\`
 $ git fetch && git pull --no-rebase && git push
