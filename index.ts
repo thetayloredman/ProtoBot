@@ -308,7 +308,7 @@ process.on('uncaughtException', async (error: Error) => {
         log('e', `${item}`);
     });
     log('e', 'Stack trace dump:');
-    let stack = new Error().stack?.split('\n')
+    let stack = new Error().stack?.split('\n');
     stack?.shift();
     if (!stack) {
         stack = [];
