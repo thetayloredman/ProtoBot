@@ -37,10 +37,7 @@ export function run(client: Client, message: discord.Message, args: string[], lo
 
     log('i', `User "${message.author.tag}" has triggered an update!`);
 
-    let embed: discord.MessageEmbed = new discord.MessageEmbed()
-        .setTitle('Update')
-        .setDescription('Here is your live progress report on the update!')
-        .addField('Status', '`$ git status`');
+    const embed: discord.MessageEmbed = new discord.MessageEmbed().setTitle('Update').setDescription('Updating the bot... This may take a while...');
 
     function l(mode: 'i' | 'w' | 'e', message: string): void {
         return log(mode, `${chalk.green('[')}${chalk.green.bold('Updater')}${chalk.green(']')} ${message}`);
@@ -55,20 +52,14 @@ export function run(client: Client, message: discord.Message, args: string[], lo
                 m.edit(`Failed to update: ${error}`);
             } else {
                 l('i', 'Got git status!');
-                embed = new discord.MessageEmbed()
-                    .setTitle('Update')
-                    .setDescription('Here is your live progress report on the update!')
-                    .addField(
-                        'Git Status',
-                        `\`\`\`
+                embed.addField(
+                    'Git Status',
+                    `\`\`\`
 $ git status
 
 ${stdout === '' ? stderr : stdout}
 \`\`\``
-                    )
-                    .addField('Status', '`$ git add .`');
-
-                m.edit(embed);
+                );
 
                 l('i', 'Adding files...');
                 exec('git add .', (error2: ExecException | null, stdout2: string, stderr2: string) => {
@@ -77,28 +68,14 @@ ${stdout === '' ? stderr : stdout}
                         m.edit(`Failed to update: ${error2}`);
                     } else {
                         l('i', 'Added files!');
-                        embed = new discord.MessageEmbed()
-                            .setTitle('Update')
-                            .setDescription('Here is your live progress report on the update!')
-                            .addField(
-                                'Git Status',
-                                `\`\`\`
-$ git status
-
-${stdout === '' ? stderr : stdout}
-\`\`\``
-                            )
-                            .addField(
-                                'Git Add Result',
-                                `\`\`\`
+                        embed.addField(
+                            'Git Add Result',
+                            `\`\`\`
 $ git add .
 
 ${stdout2 === '' ? stderr2 : stdout2}
 \`\`\``
-                            )
-                            .addField('Status', '`$ git commit -m "ProtoBot -- Update (Found uncommitted changes)"`');
-
-                        m.edit(embed);
+                        );
 
                         l('i', 'Committing...');
 
@@ -106,36 +83,14 @@ ${stdout2 === '' ? stderr2 : stdout2}
                             'git commit -m "ProtoBot -- Update (Found uncommitted changes)"',
                             (error3: ExecException | null, stderr3: string, stdout3: string) => {
                                 l('i', 'Committed!');
-                                embed = new discord.MessageEmbed()
-                                    .setTitle('Update')
-                                    .setDescription('Here is your live progress report on the update!')
-                                    .addField(
-                                        'Git Status',
-                                        `\`\`\`
-$ git status
-
-${stdout === '' ? stderr : stdout}
-\`\`\``
-                                    )
-                                    .addField(
-                                        'Git Add Result',
-                                        `\`\`\`
-$ git add .
-
-${stdout2 === '' ? stderr2 : stdout2}
-\`\`\``
-                                    )
-                                    .addField(
-                                        'Git Commit Result',
-                                        `\`\`\`
+                                embed.addField(
+                                    'Git Commit Result',
+                                    `\`\`\`
 $ git commit -m "ProtoBot -- Update (Found uncommitted changes)"
 
 ${stdout3 === '' ? stderr3 : stdout3}
 \`\`\``
-                                    )
-                                    .addField('Status', '`$ git fetch && git pull --rebase && git push`');
-
-                                m.edit(embed);
+                                );
 
                                 l('i', 'Syncing...');
 
@@ -147,33 +102,7 @@ ${stdout3 === '' ? stderr3 : stdout3}
                                             m.edit(`Failed to update: ${error4}`);
                                         } else {
                                             l('i', 'Synced!');
-                                            embed = new discord.MessageEmbed()
-                                                .setTitle('Update [Complete]')
-                                                .setDescription('Here is the update log!')
-                                                .addField(
-                                                    'Git Status',
-                                                    `\`\`\`
-$ git status
-
-${stdout === '' ? stderr : stdout}
-\`\`\``
-                                                )
-                                                .addField(
-                                                    'Git Add Result',
-                                                    `\`\`\`
-$ git add .
-
-${stdout2 === '' ? stderr2 : stdout2}
-\`\`\``
-                                                )
-                                                .addField(
-                                                    'Git Commit Result',
-                                                    `\`\`\`
-$ git commit -m "ProtoBot -- Update (Found uncommitted changes)"
-
-${stdout3 === '' ? stderr3 : stdout3}
-\`\`\``
-                                                )
+                                            embed
                                                 .addField(
                                                     'Git Sync (fetch -> pull -> push) Result',
                                                     `\`\`\`
