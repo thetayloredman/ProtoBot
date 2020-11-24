@@ -55,6 +55,10 @@ export function run(client: Client, message: discord.Message, args: string[], lo
         {
             item: 'Just existing idk',
             users: [{ tag: 'boa#1665' }, { tag: 'ElectricLeAluki#9621' }, { tag: 'charmines#1522' }]
+        },
+        {
+            item: 'Adding taco command o3o',
+            users: [{ tag: 'Mr. El#2628' }]
         }
     ];
 
@@ -86,8 +90,8 @@ export function run(client: Client, message: discord.Message, args: string[], lo
 
 // Config
 export const config = {
-    name: 'My Cool Command',
-    description: 'Does stuff',
+    name: 'credits',
+    description: 'See the bot credits!',
     enabled: true,
     aliases: [],
 
