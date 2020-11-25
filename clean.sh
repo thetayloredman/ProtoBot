@@ -17,16 +17,12 @@ case "$isSure" in
         echo "Copying out important data...";
         mkdir DATA_BKP;
         mkdir DATA_BKP/data;
-        mkdir DATA_BKP/logs;
         cp -rv ./dist/data/* ./DATA_BKP/data/
-        cp -rv ./dist/logs/* ./DATA_BKP/logs/
         echo "Clearing dist..."
         rm -rfv ./dist/*
         echo "Replacing data..."
         mkdir dist/data;
-        mkdir dist/logs;
         cp -rv ./DATA_BKP/data/* ./dist/data/
-        cp -rv ./DATA_BKP/logs/* ./dist/logs/
         echo "Cleaning up...";
         rm -rfv ./DATA_BKP/
         echo "Done.";
