@@ -16,6 +16,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+// Aliases go brrrr
+import moduleAlias from 'module-alias';
+
+moduleAlias.addAliases({});
+
 // Support source maps
 import 'source-map-support/register';
 

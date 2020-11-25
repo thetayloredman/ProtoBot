@@ -16,11 +16,13 @@
         "discord.js": "^12.5.0",
         "enmap": "^5.8.2",
         "markov-strings": "^3.0.1",
+        "module-alias": "^2.2.2",
         "source-map-support": "^0.5.19",
         "strip-ansi": "^6.0.0",
         "uwuifier": "^2.0.2"
     },
     "devDependencies": {
+        "@types/module-alias": "^2.0.0",
         "@types/node": "^14.14.9",
         "@typescript-eslint/eslint-plugin": "^4.8.2",
         "@typescript-eslint/parser": "^4.8.2",
