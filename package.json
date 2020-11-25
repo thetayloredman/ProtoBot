@@ -2,7 +2,7 @@
     "name": "protobot",
     "version": "1.0.0",
     "description": "A Discord furry bot",
-    "main": "index.js",
+    "main": "dist/index.js",
     "scripts": {
         "start": "chmod u+x ./start.sh; ./start.sh",
         "lint": "eslint .",

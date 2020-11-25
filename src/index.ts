@@ -19,7 +19,9 @@
 // Aliases go brrrr
 import moduleAlias from 'module-alias';
 
-moduleAlias.addAliases({});
+moduleAlias.addAliases({
+    '@lib': __dirname + '/lib'
+});
 
 // Support source maps
 import 'source-map-support/register';
@@ -36,8 +38,10 @@ import log from './log';
 // Config import
 import config, { ProtoBotConfig } from './config';
 
-// Client interface import
-import { Client } from './Client';
+// Client interface
+interface Client extends discord.Client {
+    [key: string]: any;
+}
 
 // Initialize client
 const client: Client = new discord.Client();
@@ -104,24 +108,7 @@ client.on('ready', async () => {
                 l('e', err);
             } else {
                 files.forEach((path: string) => {
-                    if (path.endsWith('.ts')) {
-                        if (!files.includes(path.replace('.ts', '.js'))) {
-                            l('e', `UncompiledCommandWarning: Found a .ts file: ${path}, that wasn't paired with a compiled .js file!`);
-                            l('e', `${chalk.blue('[')}${chalk.blue.bold('HINT')}${chalk.blue(']')} Did you forget to run ${chalk.inverse('tsc')}?`);
-                            l('e', `Failed to load command ${path.replace('.ts', '')}.`);
-                        }
-                    } else if (path.endsWith('.js')) {
-                        // show scrapped cmd warning
-                        if (!files.includes(path.replace('.js', '.ts'))) {
-                            l('w', `CommandScrapWarning: Found a .js file: ${path}, that wasn't paired with a .ts file!`);
-                            l('w', 'Still loading scrapped command!');
-                            l(
-                                'w',
-                                `${chalk.blue('[')}${chalk.blue.bold('HINT')}${chalk.blue(
-                                    ']'
-                                )} Did you delete a command without deleting the .js file?`
-                            );
-                        }
+                    if (path.endsWith('.js')) {
                         if (path.replace('.js', '').toLowerCase() !== path.replace('.js', '')) {
                             l('w', `CommandCasedWarning: Command at ${path} has a name with a capital letter!`);
                             l('w', `Will be loaded as "${path.replace('.js', '').toLowerCase()}"!`);
@@ -167,24 +154,7 @@ client.on('ready', async () => {
                 l('e', err);
             } else {
                 files.forEach((path: string) => {
-                    if (path.endsWith('.ts')) {
-                        if (!files.includes(path.replace('.ts', '.js'))) {
-                            l('e', `UncompiledModuleWarning: Found a .ts file: ${path}, that wasn't paired with a compiled .js file!`);
-                            l('e', `${chalk.blue('[')}${chalk.blue.bold('HINT')}${chalk.blue(']')} Did you forget to run ${chalk.inverse('tsc')}?`);
-                            l('e', `Failed to load module ${path.replace('.ts', '')}.`);
-                        }
-                    } else if (path.endsWith('.js')) {
-                        // show scrapped cmd warning
-                        if (!files.includes(path.replace('.js', '.ts'))) {
-                            l('w', `ModuleScrapWarning: Found a .js file: ${path}, that wasn't paired with a .ts file!`);
-                            l('w', 'Still loading scrapped module!');
-                            l(
-                                'w',
-                                `${chalk.blue('[')}${chalk.blue.bold('HINT')}${chalk.blue(
-                                    ']'
-                                )} Did you delete a module without deleting the .js file?`
-                            );
-                        }
+                    if (path.endsWith('.js')) {
                         // normal load
                         const moduleData = require(client.config.dirs.modules.endsWith('/')
                             ? client.config.dirs.modules + path
