@@ -48,7 +48,7 @@ jobs:
             # we'll get an error if we don't make an (empty)
             # config file.
             - name: Set up empty config file
-              run: cp ./config.rename-me.ts ./config.ts
+              run: cp ./src/config.rename-me.ts ./src/config.ts
 
             # run the build
             - name: Build
