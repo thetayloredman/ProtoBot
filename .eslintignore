@@ -1,0 +1,6 @@
+/dist/
+/data/
+/node_modules/
+*.js
+!.eslintrc.js
+/template*.ts

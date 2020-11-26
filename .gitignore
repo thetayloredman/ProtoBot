@@ -1,0 +1,7 @@
+/src/config.ts
+/node_modules/
+/dist/
+/data/
+!.prettierrc.js
+!.eslintrc.js
+/logs/
