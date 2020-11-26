@@ -49,8 +49,8 @@ export function run(client: Client, message: discord.Message, args: string[], lo
             cloud_bolt: '🌩️'
         };
         // Move to local scope
-        const { cloud, bolt, cloud_bolt     } = emotes;
-        message.reply(`**SMITE!**
+        const { cloud, bolt, cloud_bolt } = emotes;
+        message.channel.send(`Hehe, <@${userID}> **SMITTEN** by <@${message.author.id}>!
 \`\`\`
 ${cloud}${cloud}${cloud}${cloud_bolt}${cloud}
       ${bolt}
@@ -58,6 +58,9 @@ ${cloud}${cloud}${cloud}${cloud_bolt}${cloud}
     ${bolt}
    ${bolt}
 \`\`\``);
+        message.delete().catch(() => {
+            log('w', 'Failed to delete smite cmd message!');
+        });
     }
 }
 
