@@ -19,11 +19,7 @@
 // Modules
 import discord from 'discord.js';
 import chalk from 'chalk';
-
-// Interfaces, owo
-interface Client extends discord.Client {
-    [key: string]: any;
-}
+import Client from '@lib/Client';
 
 // Types
 type FetchedUser = discord.User | null;

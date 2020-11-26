@@ -36,27 +36,10 @@ import Client from '@lib/Client';
 
 // Log import
 import log from './log';
-
-// Config import
-import config from './config';
+import CommandConfig from '@lib/interfaces/CommandConfig';
 
 // Initialize client
 const client: Client = new Client();
-
-// Set config in
-client.config = config;
-
-// Defaults
-client.defaults = {
-    USER_STATS: { hugs: 0 },
-    USER_CONFS: { markov_optin: false }
-};
-
-// in memory dbs
-client.commands = new enmap();
-client.commandsConfig = new enmap();
-client.commandsRefs = new enmap(); // Refs are basically aliases that "link" to the actual command
-client.modules = new enmap();
 
 // Ready event
 client.on('ready', async () => {
@@ -189,7 +172,7 @@ client.on('message', (message: discord.Message) => {
     });
     if (msgIsCommand) {
         const args: string[] = message.content.slice(prefixLen).split(/ +/g);
-        let command: string | undefined = args.shift()?.toLowerCase() ?? '';
+        let command: string = args.shift()?.toLowerCase() ?? '';
         if (!command) {
             // exit
             return;
@@ -204,16 +187,16 @@ client.on('message', (message: discord.Message) => {
         );
 
         log('i', 'Resolving alias...');
-        command = client.commandsRefs.get(command);
+        command = client.commandsRefs.get(command) ?? '';
         log('i', `Alias resolved to "${command}"!`);
 
         const commandExec: (
-            client: discord.Client,
+            client: Client,
             message: discord.Message,
             args: string[],
             log: (mode: 'i' | 'w' | 'e', message: string) => void
         ) => void | undefined = client.commands.get(command)?.run;
-        const commandConfig: any = client.commands.get(command)?.config;
+        const commandConfig: CommandConfig = client.commands.get(command)?.config;
         if (!commandExec) {
             // exit
             log('i', `Failed to find command "${command}", exiting handler.`);

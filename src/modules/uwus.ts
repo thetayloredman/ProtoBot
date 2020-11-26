@@ -19,16 +19,16 @@
 // Modules
 import discord from 'discord.js';
 import chalk from 'chalk';
-
-// Interfaces, uwu
-interface Client extends discord.Client {
-    [key: string]: any;
-}
+import Client from '@lib/Client';
 
 // Main
 export function run(client: Client, message: discord.Message, log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
     // Get the user's current cooldowns (in timestamps)
-    const cooldowns = client.cooldowns.ensure(message.author.id, 0, 'uwus');
+
+    // FIXME: Enmap returning bad types
+    // Because of this we cast to "number" --------------------------------vvvvvvvvvv
+    // @ts-ignore
+    const cooldowns = client.cooldowns.ensure(message.author.id, 0, 'uwus') as number;
 
     // Check cooldown
     if (!cooldowns || cooldowns + client.config.cooldowns.uwus - Date.now() < 1) {

@@ -18,12 +18,7 @@
 
 // Modules
 import discord from 'discord.js';
-import { Server } from 'http';
-
-// Interfaces, owo
-interface Client extends discord.Client {
-    [key: string]: any;
-}
+import Client from '@lib/Client';
 
 // Main
 // ===== COMMAND MADE BY Mr. EL =====

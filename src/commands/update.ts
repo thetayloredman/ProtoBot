@@ -20,11 +20,7 @@
 import discord from 'discord.js';
 import chalk from 'chalk';
 import { exec, ExecException } from 'child_process';
-
-// Interfaces, owo
-interface Client extends discord.Client {
-    [key: string]: any;
-}
+import Client from '@lib/Client';
 
 // Main
 export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
