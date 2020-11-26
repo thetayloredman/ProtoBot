@@ -16,8 +16,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export default interface Fursona {
-    name?: string;
-    bio?: string;
-    type?: string;
+export default interface CommandConfig {
+    name: string;
+    description: string;
+    enabled: boolean;
+    aliases: string[];
+
+    // To restrict the command, change the "false" to the following
+    // format:
+    //
+    // restrict: { users: [ "array", "of", "authorized", "user", "IDs" ] }
+    restrict: false | { users: string[] };
 }

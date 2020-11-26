@@ -23,6 +23,9 @@ import Fursona from '@lib/interfaces/Fursona';
 import UserConfig from '@lib/interfaces/UserConfig';
 import UserStats from '@lib/interfaces/UserStats';
 import Cooldowns from '@lib/interfaces/Cooldowns';
+import Command from '@lib/interfaces/Command';
+import CommandConfig from '@lib/interfaces/CommandConfig';
+import Module from '@lib/interfaces/Module';
 
 // Discord.js
 declare module 'discord.js' {
@@ -40,5 +43,11 @@ declare module 'discord.js' {
         uconfs: Enmap<string, UserConfig>;
         markovMessages: Enmap<string, { [key: string]: any }>;
         fursonas: Enmap<string, Fursona>;
+
+        // In memory
+        commands: Enmap<string, any>;
+        commandsConfig: Enmap<string, any>;
+        commandsRefs: Enmap<string, string>
+        modules: Enmap<string,any>
     }
 }

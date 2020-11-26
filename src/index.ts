@@ -32,6 +32,7 @@ import discord from 'discord.js';
 import enmap from 'enmap';
 import chalk from 'chalk';
 import * as fs from 'fs';
+import Client from '@lib/Client';
 
 // Log import
 import log from './log';
@@ -39,13 +40,8 @@ import log from './log';
 // Config import
 import config from './config';
 
-// Client interface
-interface Client extends discord.Client {
-    [key: string]: any;
-}
-
 // Initialize client
-const client: Client = new discord.Client();
+const client: Client = new Client();
 
 // Set config in
 client.config = config;
@@ -55,17 +51,6 @@ client.defaults = {
     USER_STATS: { hugs: 0 },
     USER_CONFS: { markov_optin: false }
 };
-
-// dbs
-client.cooldowns = new enmap({ name: 'cooldowns' });
-client.tildes = new enmap({ name: 'tildes' });
-client.owos = new enmap({ name: 'owos' });
-client.uwus = new enmap({ name: 'uwus' });
-client.ustats = new enmap({ name: 'ustats' });
-client.uconfs = new enmap({ name: 'uconfs' });
-client.markovMessages = new enmap({ name: 'markovMessages' });
-client.gconfs = new enmap({ name: 'gconfs' });
-client.fursonas = new enmap({ name: 'fursonas' });
 
 // in memory dbs
 client.commands = new enmap();

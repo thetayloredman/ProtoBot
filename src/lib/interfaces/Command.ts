@@ -16,8 +16,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export default interface Fursona {
-    name?: string;
-    bio?: string;
-    type?: string;
+import CommandConfig from '@lib/interfaces/CommandConfig';
+
+export default interface Command {
+    config: CommandConfig;
 }

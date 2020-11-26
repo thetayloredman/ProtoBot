@@ -22,7 +22,7 @@ import { ClientOptions } from 'discord.js';
 import config from '@root/config';
 
 export default class Client extends _Client {
-    public constructor(options: ClientOptions) {
+    public constructor(options?: ClientOptions) {
         super(options);
         this.config = config;
         this.defaults = {
@@ -37,5 +37,11 @@ export default class Client extends _Client {
         this.uconfs = new enmap({ name: 'uconfs' });
         this.markovMessages = new enmap({ name: 'markovMessages' });
         this.fursonas = new enmap({ name: 'fursonas' });
+
+        // In memory items
+        this.commands = new enmap();
+        this.commandsConfig = new enmap();
+        this.commandsRefs = new enmap(); // Refs are basically aliases that "link" to the actual command
+        this.modules = new enmap();
     }
 }
