@@ -47,7 +47,7 @@ declare module 'discord.js' {
         // In memory
         commands: Enmap<string, any>;
         commandsConfig: Enmap<string, any>;
-        commandsRefs: Enmap<string, string>
-        modules: Enmap<string,any>
+        commandsRefs: Enmap<string, string>;
+        modules: Enmap<string, any>;
     }
 }
