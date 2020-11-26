@@ -17,7 +17,10 @@
  */
 
 import CommandConfig from '@lib/interfaces/CommandConfig';
+import * as discord from 'discord.js';
+import Client from '@lib/Client';
 
 export default interface Command {
     config: CommandConfig;
+    run: (client: Client, message: discord.Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void) => void;
 }
