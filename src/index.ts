@@ -20,7 +20,8 @@
 import moduleAlias from 'module-alias';
 
 moduleAlias.addAliases({
-    '@lib': __dirname + '/lib'
+    '@lib': __dirname + '/lib',
+    '@root': __dirname + '/'
 });
 
 // Support source maps
@@ -36,7 +37,7 @@ import * as fs from 'fs';
 import log from './log';
 
 // Config import
-import config, { ProtoBotConfig } from './config';
+import config from './config';
 
 // Client interface
 interface Client extends discord.Client {
@@ -50,9 +51,10 @@ const client: Client = new discord.Client();
 client.config = config;
 
 // Defaults
-client.defaults = {};
-client.defaults.USER_STATS = { hugs: 0 };
-client.defaults.USER_CONFS = { markov_optin: false };
+client.defaults = {
+    USER_STATS: { hugs: 0 },
+    USER_CONFS: { markov_optin: false }
+};
 
 // dbs
 client.cooldowns = new enmap({ name: 'cooldowns' });
