@@ -1,0 +1,47 @@
+"use strict";
+/**
+ * ProtoBot -- A Discord furry bot
+ * Copyright (C) 2020  BadBoyHaloCat
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+// Ms conversion functions
+function seconds(count) {
+    return 1000 * count;
+}
+function minutes(count) {
+    return seconds(60) * count;
+}
+// Main
+const config = {
+    token: 'your-super-cool-token',
+    dirs: {
+        commands: './commands/',
+        modules: './modules/'
+    },
+    // The first prefix listed here will
+    // be the "primary prefix", the one
+    // displayed in most places.
+    //          vvv
+    prefixes: ['~', 'proto, ', 'proto,', 'proto ', 'pb, ', 'pb,', 'pb ', 'protobot, ', 'protobot,', 'protobot '],
+    cooldowns: {
+        tildes: minutes(1),
+        owos: seconds(30),
+        uwus: seconds(30)
+    },
+    ownerID: 'your-user-id'
+};
+exports.default = config;
+//# sourceMappingURL=config.rename-me.js.map
