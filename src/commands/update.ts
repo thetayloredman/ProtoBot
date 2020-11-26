@@ -62,7 +62,7 @@ ${stdout === '' ? stderr : stdout}
                 );
 
                 l('i', 'Adding files...');
-                exec('git add .', (error2: ExecException | null, stdout2: string, stderr2: string) => {
+                exec('git add ..', (error2: ExecException | null, stdout2: string, stderr2: string) => {
                     if (error2) {
                         l('e', `Failed to update: ${error2}`);
                         m.edit(`Failed to update: ${error2}`);
@@ -71,7 +71,7 @@ ${stdout === '' ? stderr : stdout}
                         embed.addField(
                             'Git Add Result',
                             `\`\`\`
-$ git add .
+$ git add ..
 
 ${stdout2 === '' ? stderr2 : stdout2}
 \`\`\``
