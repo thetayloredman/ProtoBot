@@ -27,7 +27,7 @@ export function run(client: Client, message: discord.Message, args: string[], lo
     // Get their fursona
     if (!args[0]) {
         // If they haven't set one...
-        const fursona = client.fursonas.get(message.author.id)
+        const fursona = client.fursonas.get(message.author.id);
         if (!fursona) {
             log('i', 'No fursona for user!');
             message.reply("You haven't set a fursona yet! To do this, run the command `fursona set`.");
