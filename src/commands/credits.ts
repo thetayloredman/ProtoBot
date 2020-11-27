@@ -18,12 +18,7 @@
 
 // Modules
 import discord from 'discord.js';
-import chalk from 'chalk';
-
-// Interfaces, owo
-interface Client extends discord.Client {
-    [key: string]: any;
-}
+import type { Client, Message } from 'discord.js';
 
 // Main
 interface CreditedUser {
@@ -37,7 +32,7 @@ interface CreditItem {
 
 type Credits = CreditItem[];
 
-export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
+export function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
     // Add credits data here
     const credits: Credits = [
         {

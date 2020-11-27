@@ -17,17 +17,11 @@
  */
 
 // Modules
-import discord from 'discord.js';
 import chalk from 'chalk';
-import Markov from 'markov-strings';
-
-// Interfaces, owo
-interface Client extends discord.Client {
-    [key: string]: any;
-}
+import type { Client, Message } from 'discord.js';
 
 // Main
-export function run(client: Client, message: discord.Message, log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
+export function run(client: Client, message: Message, log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
     //                                                      To be safe we will not perform
     //                                                      generation without the guild.
     //                                                      vvvvvvvvvvvvvvvvv

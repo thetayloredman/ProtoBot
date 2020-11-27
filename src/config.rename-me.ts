@@ -16,21 +16,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-// Interface
-interface ProtoBotConfig {
-    token: string;
-    dirs: {
-        commands: string;
-        modules: string;
-    };
-    prefixes: string[];
-    cooldowns: {
-        tildes: number;
-        owos: number;
-        uwus: number;
-    };
-    ownerID: string;
-}
+// Config types
+import Config from '@lib/interfaces/Config';
 
 // Ms conversion functions
 function seconds(count: number): number {
@@ -41,7 +28,7 @@ function minutes(count: number): number {
 }
 
 // Main
-const config: ProtoBotConfig = {
+const config: Config = {
     token: 'your-super-cool-token',
     dirs: {
         commands: './commands/',
@@ -61,5 +48,4 @@ const config: ProtoBotConfig = {
 };
 
 // Export
-export { ProtoBotConfig };
 export default config;

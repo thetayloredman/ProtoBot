@@ -17,13 +17,7 @@
  */
 
 // Modules
-import discord from 'discord.js';
-import chalk from 'chalk';
-
-// Interfaces, owo
-interface Client extends discord.Client {
-    [key: string]: any;
-}
+import type { Client, Message } from 'discord.js';
 
 // Main
 interface IEmoteData {
@@ -31,9 +25,9 @@ interface IEmoteData {
     bolt: string;
     cloud_bolt: string;
 }
-export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
+export function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
     if (!args[0]) {
-        message.reply('Who..?').then((m: discord.Message) => {
+        message.reply('Who..?').then((m) => {
             setTimeout(async () => {
                 await m.delete();
                 await message.delete().catch(() => {

@@ -17,18 +17,14 @@
  */
 
 // Modules
-import discord from 'discord.js';
 import chalk from 'chalk';
-
-// Interfaces, owo
-interface Client extends discord.Client {
-    [key: string]: any;
-}
+import type { Client, Message } from 'discord.js';
 
 // Main
-export function run(client: Client, message: discord.Message, log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
+export function run(client: Client, message: Message, log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
     // Get the user's current cooldowns (in timestamps)
-    const cooldowns = client.cooldowns.ensure(message.author.id, 0, 'owos');
+
+    const cooldowns = client.cooldowns.ensure(message.author.id, client.defaults.COOLDOWNS).owos;
 
     // Check cooldown
     if (!cooldowns || cooldowns + client.config.cooldowns.owos - Date.now() < 1) {

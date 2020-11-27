@@ -18,28 +18,22 @@
 
 // Modules
 import discord from 'discord.js';
-import chalk from 'chalk';
-
-// Interfaces, owo
-interface Client extends discord.Client {
-    [key: string]: any;
-}
+import type { Client, Message } from 'discord.js';
 
 // Main
-export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
+export function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
     log('i', 'Fursona command fired!');
-    // Get their fursona
+    // Get their fursona, PLS GIB I WANT AAAA >w<
     if (!args[0]) {
         // If they haven't set one...
-        if (!client.fursonas.get(message.author.id)) {
+        const fursona = client.fursonas.get(message.author.id);
+        if (!fursona) {
             log('i', 'No fursona for user!');
             message.reply("You haven't set a fursona yet! To do this, run the command `fursona set`.");
         } else {
             // They have one!
             log('i', 'Displaying fursona!');
             const embed = new discord.MessageEmbed().setTitle('Fursona').setDescription('Here is your current fursona information.');
-
-            const fursona = client.fursonas.get(message.author.id);
 
             embed.addField('Name', fursona.name ?? '<unset>', true);
             embed.addField('Bio', fursona.bio ?? '<unset>', true);

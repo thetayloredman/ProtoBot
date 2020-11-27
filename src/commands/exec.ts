@@ -18,17 +18,12 @@
 
 // Modules
 import discord from 'discord.js';
-import chalk from 'chalk';
+import type { Client, Message } from 'discord.js';
 import { exec, ExecException } from 'child_process';
 
-// Interfaces, owo
-interface Client extends discord.Client {
-    [key: string]: any;
-}
-
 // Main
-export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
-    // Safety check
+export function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
+    // Safety check, because we don't want those hax0rs in
     let silent = false;
     if (args[0] === '-s') {
         args.shift();
@@ -65,12 +60,7 @@ ${code}`
             embed.addField('ExecError', `\`\`\`${error.toString().substr(0, 2042)}\`\`\``);
         }
 
-        const parsed = [
-            (error ?? { toString: () => '' }).toString(),
-            stderr,
-            stdout
-            // eslint-disable-next-line no-extra-parens
-        ].reduce((a, b) => (a.length > b.length ? a : b));
+        const parsed = [(error ?? { toString: () => '' }).toString(), stderr, stdout].reduce((a, b) => (a.length > b.length ? a : b));
 
         embed
             .setTitle(e ? '**Error**' : '**Success**')
