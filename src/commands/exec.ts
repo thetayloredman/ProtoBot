@@ -23,7 +23,7 @@ import { exec, ExecException } from 'child_process';
 
 // Main
 export function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
-    // Safety check
+    // Safety check, because we don't want those hax0rs in
     let silent = false;
     if (args[0] === '-s') {
         args.shift();
@@ -64,7 +64,6 @@ ${code}`
             (error ?? { toString: () => '' }).toString(),
             stderr,
             stdout
-            // eslint-disable-next-line no-extra-parens
         ].reduce((a, b) => (a.length > b.length ? a : b));
 
         embed

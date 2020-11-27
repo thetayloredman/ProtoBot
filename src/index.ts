@@ -24,7 +24,7 @@ moduleAlias.addAliases({
     '@root': __dirname + '/'
 });
 
-// Support source maps
+// Support source maps - source map much uwu
 import 'source-map-support/register';
 
 // Modules
@@ -45,7 +45,6 @@ client.on('ready', async () => {
     console.clear();
     const userCountsPerGuild: number[] = client.guilds.cache.map((g: discord.Guild) => g.memberCount - 1);
     let userTotal = 0;
-    // eslint-disable-next-line no-extra-parens
     userCountsPerGuild.forEach((item: number) => (userTotal += item));
     const userAvg = userTotal / userCountsPerGuild.length;
     log('i', 'Ready!');
