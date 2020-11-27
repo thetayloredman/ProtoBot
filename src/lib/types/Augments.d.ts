@@ -17,16 +17,16 @@
  */
 
 // Imports
-import Enmap from 'enmap';
-import Config from '@lib/interfaces/Config';
-import Fursona from '@lib/interfaces/Fursona';
-import UserConfig from '@lib/interfaces/UserConfig';
-import UserStats from '@lib/interfaces/UserStats';
-import Cooldowns from '@lib/interfaces/Cooldowns';
 import Command from '@lib/interfaces/Command';
 import CommandConfig from '@lib/interfaces/CommandConfig';
-import Module from '@lib/interfaces/Module';
+import Config from '@lib/interfaces/Config';
+import Cooldowns from '@lib/interfaces/Cooldowns';
+import Enmap from 'enmap';
+import Fursona from '@lib/interfaces/Fursona';
 import MarkovData from '@lib/interfaces/MarkovData';
+import Module from '@lib/interfaces/Module';
+import UserConfig from '@lib/interfaces/UserConfig';
+import UserStats from '@lib/interfaces/UserStats';
 
 // Discord.js
 declare module 'discord.js' {
