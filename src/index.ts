@@ -28,15 +28,14 @@ moduleAlias.addAliases({
 import 'source-map-support/register';
 
 // Modules
-import discord, { Message } from 'discord.js';
-import enmap from 'enmap';
+import discord from 'discord.js';
 import chalk from 'chalk';
 import * as fs from 'fs';
 import Client from '@lib/Client';
+import type Command from '@lib/interfaces/Command';
 
 // Log import
 import log from './log';
-import CommandConfig from '@lib/interfaces/CommandConfig';
 
 // Initialize client
 const client = new Client();
@@ -191,40 +190,38 @@ client.on('message', (message: discord.Message) => {
         command = client.commandsRefs.get(command) ?? '';
         log('i', `Alias resolved to "${command}"!`);
 
-        const commandExec:
-            | ((client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void) => void)
-            | undefined = client.commands.get(command)?.run;
-        const commandConfig: CommandConfig | undefined = client.commands.get(command)?.config;
-        if (!commandExec || !commandConfig) {
+        const commandData: Command | undefined = client.commands.get(command);
+        if (!commandData) {
             // exit
             log('i', `Failed to find command "${command}", exiting handler.`);
             return;
-        } else {
-            // Now we check for specific things to prevent the command from running
-            // in it's configuration.
-            if (!commandConfig.enabled) {
-                log('i', 'Command is disabled!');
-                message.reply('That command is disabled!');
-                return;
-            }
-            if (commandConfig.restrict !== false && commandConfig.restrict !== undefined) {
-                // Command is restricted!
-                if (!(commandConfig.restrict.users ?? []).includes(message.author.id) && client.config.ownerID !== message.author.id) {
-                    if (client.config.ownerID !== message.author.id) {
-                        // User isn't authorized.
-                        //
-                        // Reasoning for this:
-                        // - Command is restricted
-                        // - They aren't one of the allowed users
-                        // - They aren't the owner
-                        log('i', 'User unauthorized!');
-                        message.reply("You aren't authorized to do that!");
-                        return;
-                    }
+        }
+
+        const { run: commandExec, config: commandConfig } = commandData;
+        // Now we check for specific things to prevent the command from running
+        // in it's configuration.
+        if (!commandConfig.enabled) {
+            log('i', 'Command is disabled!');
+            message.reply('That command is disabled!');
+            return;
+        }
+        if (commandConfig.restrict !== false && commandConfig.restrict !== undefined) {
+            // Command is restricted!
+            if (!(commandConfig.restrict.users ?? []).includes(message.author.id) && client.config.ownerID !== message.author.id) {
+                if (client.config.ownerID !== message.author.id) {
+                    // User isn't authorized.
+                    //
+                    // Reasoning for this:
+                    // - Command is restricted
+                    // - They aren't one of the allowed users
+                    // - They aren't the owner
+                    log('i', 'User unauthorized!');
+                    message.reply("You aren't authorized to do that!");
+                    return;
                 }
             }
-            commandExec(client, message, args, log);
         }
+        commandExec(client, message, args, log);
     }
 });
 
