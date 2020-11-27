@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Client, Message } from 'discord.js';
+import type{ Client, Message } from 'discord.js';
 
 export default interface Module {
     config: { name: string; description: string };
