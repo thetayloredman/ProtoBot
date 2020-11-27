@@ -18,18 +18,13 @@
 
 // Modules
 import discord from 'discord.js';
-import { Server } from 'http';
-
-// Interfaces, owo
-interface Client extends discord.Client {
-    [key: string]: any;
-}
+import type { Client, Message } from 'discord.js';
 
 // Main
 // ===== COMMAND MADE BY Mr. EL =====
-export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
+export function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
     // If it's FurDevs, we can ping mr. el:
-    if (message?.guild?.id === '731520035717251142') {
+    if (message.guild?.id === '731520035717251142') {
         const embed = new discord.MessageEmbed()
             .setTitle('🌮 El is taco')
             .setDescription('Indeed, <@326394970002948096> is a taco. o3o')

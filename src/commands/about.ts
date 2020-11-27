@@ -17,16 +17,10 @@
  */
 
 // Modules
-import discord from 'discord.js';
-import chalk from 'chalk';
-
-// Interfaces, owo
-interface Client extends discord.Client {
-    [key: string]: any;
-}
+import type { Client, Message } from 'discord.js';
 
 // Main
-export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
+export function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
     message.channel.send(`**Oh hewwo there <@${message.author.id}>!**
 
 **I'm ProtoBot.**

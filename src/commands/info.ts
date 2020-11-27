@@ -17,16 +17,10 @@
  */
 
 // Modules
-import discord from 'discord.js';
-import chalk from 'chalk';
-
-// Interfaces, owo
-interface Client extends discord.Client {
-    [key: string]: any;
-}
+import type { Client, Message } from 'discord.js';
 
 // Main
-function fireStats(userID: string, message: discord.Message, client: Client): void {
+function fireStats(userID: string, message: Message, client: Client): void {
     const uData: any = client.ustats.get(userID);
     message.reply(`**User info for \`${userID}\`:**
 Hugs: ${uData.hugs}
@@ -35,7 +29,7 @@ owos: ${client.owos.get(userID) ?? 0}
 Tildes: ${client.tildes.get(userID) ?? 0}`);
 }
 
-export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
+export function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
     let userID: string | undefined;
     if (!args[0]) {
         userID = message.author.id;
@@ -48,7 +42,7 @@ export function run(client: Client, message: discord.Message, args: string[], lo
     if (!client.ustats.get(userID)) {
         client.users
             .fetch(userID)
-            .then((user: discord.User) => {
+            .then((user) => {
                 client.ustats.ensure(user.id, client.defaults.USER_STATS);
                 // @ts-ignore
                 fireStats(userID, message, client);

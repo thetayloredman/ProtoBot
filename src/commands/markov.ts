@@ -16,19 +16,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+// NOTE: Depreciated later maybe
+
 // Modules
 import discord from 'discord.js';
-import chalk from 'chalk';
 import Markov, { MarkovResult } from 'markov-strings';
-import * as fs from 'fs';
-
-// Interfaces, owo
-interface Client extends discord.Client {
-    [key: string]: any;
-}
+import type { Client, Message } from 'discord.js';
 
 // Main
-export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
+export function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
     if (!args[0]) {
         message.reply(`**Markov Chain Generation**
 
@@ -121,7 +117,7 @@ We will delete as much info as you would like, as long as it is **your** data.`
                     m.edit('Sent the privacy policy to your DM!');
                     log('i', 'Sent privacy info.');
                 })
-                .catch((err: any) => {
+                .catch((err: unknown) => {
                     m.edit('Failed to send privacy policy. Please enable DMs!');
                     log('e', `Failed to send privacy info: ${err}`);
                 });

@@ -20,63 +20,31 @@
 import moduleAlias from 'module-alias';
 
 moduleAlias.addAliases({
-    '@lib': __dirname + '/lib'
+    '@lib': __dirname + '/lib',
+    '@root': __dirname + '/'
 });
 
-// Support source maps
+// Support source maps - source map much uwu
 import 'source-map-support/register';
 
 // Modules
 import discord from 'discord.js';
-import enmap from 'enmap';
 import chalk from 'chalk';
 import * as fs from 'fs';
+import Client from '@lib/Client';
+import type Command from '@lib/interfaces/Command';
 
 // Log import
 import log from './log';
 
-// Config import
-import config, { ProtoBotConfig } from './config';
-
-// Client interface
-interface Client extends discord.Client {
-    [key: string]: any;
-}
-
 // Initialize client
-const client: Client = new discord.Client();
-
-// Set config in
-client.config = config;
-
-// Defaults
-client.defaults = {};
-client.defaults.USER_STATS = { hugs: 0 };
-client.defaults.USER_CONFS = { markov_optin: false };
-
-// dbs
-client.cooldowns = new enmap({ name: 'cooldowns' });
-client.tildes = new enmap({ name: 'tildes' });
-client.owos = new enmap({ name: 'owos' });
-client.uwus = new enmap({ name: 'uwus' });
-client.ustats = new enmap({ name: 'ustats' });
-client.uconfs = new enmap({ name: 'uconfs' });
-client.markovMessages = new enmap({ name: 'markovMessages' });
-client.gconfs = new enmap({ name: 'gconfs' });
-client.fursonas = new enmap({ name: 'fursonas' });
-
-// in memory dbs
-client.commands = new enmap();
-client.commandsConfig = new enmap();
-client.commandsRefs = new enmap(); // Refs are basically aliases that "link" to the actual command
-client.modules = new enmap();
+const client = new Client();
 
 // Ready event
 client.on('ready', async () => {
     console.clear();
     const userCountsPerGuild: number[] = client.guilds.cache.map((g: discord.Guild) => g.memberCount - 1);
     let userTotal = 0;
-    // eslint-disable-next-line no-extra-parens
     userCountsPerGuild.forEach((item: number) => (userTotal += item));
     const userAvg = userTotal / userCountsPerGuild.length;
     log('i', 'Ready!');
@@ -183,6 +151,7 @@ client.on('ready', async () => {
 client.on('message', (message: discord.Message) => {
     client.ustats.ensure(message.author.id, client.defaults.USER_STATS);
     client.uconfs.ensure(message.author.id, client.defaults.USER_CONFS);
+    client.cooldowns.ensure(message.author.id, client.defaults.COOLDOWNS);
     if (message.author.bot || message.channel.type === 'dm') {
         // exit
         return;
@@ -194,7 +163,7 @@ client.on('message', (message: discord.Message) => {
     });
     let msgIsCommand = false;
     let prefixLen = 0;
-    client.config.prefixes.forEach((item: string) => {
+    client.config.prefixes.forEach((item) => {
         if (!msgIsCommand && message.content.toLowerCase().startsWith(item)) {
             msgIsCommand = true;
             prefixLen = item.length;
@@ -202,7 +171,7 @@ client.on('message', (message: discord.Message) => {
     });
     if (msgIsCommand) {
         const args: string[] = message.content.slice(prefixLen).split(/ +/g);
-        let command: string | undefined = args.shift()?.toLowerCase() ?? '';
+        let command = args.shift()?.toLowerCase() ?? '';
         if (!command) {
             // exit
             return;
@@ -217,46 +186,31 @@ client.on('message', (message: discord.Message) => {
         );
 
         log('i', 'Resolving alias...');
-        command = client.commandsRefs.get(command);
+        command = client.commandsRefs.get(command) ?? '';
         log('i', `Alias resolved to "${command}"!`);
 
-        const commandExec: (
-            client: discord.Client,
-            message: discord.Message,
-            args: string[],
-            log: (mode: 'i' | 'w' | 'e', message: string) => void
-        ) => void | undefined = client.commands.get(command)?.run;
-        const commandConfig: any = client.commands.get(command)?.config;
-        if (!commandExec) {
+        const commandData: Command | undefined = client.commands.get(command);
+        if (!commandData) {
             // exit
             log('i', `Failed to find command "${command}", exiting handler.`);
             return;
-        } else {
-            // Now we check for specific things to prevent the command from running
-            // in it's configuration.
-            if (!commandConfig.enabled) {
-                log('i', 'Command is disabled!');
-                message.reply('That command is disabled!');
-                return;
-            }
-            if (commandConfig.restrict !== false && commandConfig.restrict !== undefined) {
-                // Command is restricted!
-                if (!(commandConfig.restrict.users ?? []).includes(message.author.id) && client.config.ownerID !== message.author.id) {
-                    if (client.config.ownerID !== message.author.id) {
-                        // User isn't authorized.
-                        //
-                        // Reasoning for this:
-                        // - Command is restricted
-                        // - They aren't one of the allowed users
-                        // - They aren't the owner
-                        log('i', 'User unauthorized!');
-                        message.reply("You aren't authorized to do that!");
-                        return;
-                    }
-                }
-            }
-            commandExec(client, message, args, log);
         }
+
+        const { run: commandExec, config: commandConfig } = commandData;
+        // Now we check for specific things to prevent the command from running
+        // in it's configuration.
+        if (!commandConfig.enabled) {
+            log('i', 'Command is disabled!');
+            message.reply('That command is disabled!');
+            return;
+        }
+        if (commandConfig.restrict && !commandConfig.restrict.users.includes(message.author.id)) {
+            // User isn't authorised; the user is either not whitelisted to use the command and/or they're not an owner.
+            log('i', 'User unauthorized!');
+            message.reply("You aren't authorized to do that!");
+            return;
+        }
+        commandExec(client, message, args, log);
     }
 });
 

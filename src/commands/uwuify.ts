@@ -17,17 +17,11 @@
  */
 
 // Modules
-import discord from 'discord.js';
-import chalk from 'chalk';
+import type { Client, Message } from 'discord.js';
 import { Uwuifier } from 'uwuifier';
 
-// Interfaces, owo
-interface Client extends discord.Client {
-    [key: string]: any;
-}
-
 // Main
-export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
+export function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
     if (args.length === 0) {
         message.reply('**Error:** No text provided!');
         return;

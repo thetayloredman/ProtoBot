@@ -16,36 +16,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-// Modules
-import * as discord from 'discord.js';
-import type { Client, Message } from 'discord.js';
-
-// Main
-export function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
-    message.channel.messages.fetch({ limit: 2 }).then((messages) => {
-        // @ts-ignore *temporary
-        const m: Message = messages.last();
-        message.reply(`Content of message ID \`${m.id}\` in channel <#${m.channel.id}>${
-            m.content.includes('```') ? ' (**Formatting may be broken, the message contains a code fence**)' : ''
-        }:
-
-${
-    // @ts-ignore
-    discord.escapeMarkdown(m.content)
-}`);
-    });
-}
-
-// Config
-export const config = {
-    name: 'source',
-    description: 'Gets the source of the last message',
-    enabled: true,
-    aliases: ['src'],
+export default interface CommandConfig {
+    name: string;
+    description: string;
+    enabled: boolean;
+    aliases: string[];
 
     // To restrict the command, change the "false" to the following
     // format:
     //
     // restrict: { users: [ "array", "of", "authorized", "user", "IDs" ] }
-    restrict: false
-};
+    restrict: false | { users: string[] };
+}
