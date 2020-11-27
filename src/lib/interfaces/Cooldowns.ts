@@ -17,7 +17,7 @@
  */
 
 export default interface Cooldowns {
-    owos?: number;
-    uwus?: number;
-    tildes?: number;
+    owos: number;
+    uwus: number;
+    tildes: number;
 }

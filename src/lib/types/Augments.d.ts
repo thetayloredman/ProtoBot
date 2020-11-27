@@ -35,6 +35,7 @@ declare module 'discord.js' {
         defaults: {
             USER_CONFS: UserConfig;
             USER_STATS: UserStats;
+            COOLDOWNS: { owos: number; uwus: number; tildes: number };
         };
         cooldowns: Enmap<string, Cooldowns>;
         tildes: Enmap<string, number>;

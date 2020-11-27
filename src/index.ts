@@ -153,6 +153,7 @@ client.on('ready', async () => {
 client.on('message', (message: discord.Message) => {
     client.ustats.ensure(message.author.id, client.defaults.USER_STATS);
     client.uconfs.ensure(message.author.id, client.defaults.USER_CONFS);
+    client.cooldowns.ensure(message.author.id, client.defaults.COOLDOWNS);
     if (message.author.bot || message.channel.type === 'dm') {
         // exit
         return;

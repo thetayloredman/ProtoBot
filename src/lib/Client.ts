@@ -26,7 +26,8 @@ export default class Client extends BaseClient {
         this.config = config;
         this.defaults = {
             USER_CONFS: { markov_optin: false },
-            USER_STATS: { hugs: 0 }
+            USER_STATS: { hugs: 0 },
+            COOLDOWNS: { owos: 0, uwus: 0, tildes: 0 }
         };
         this.cooldowns = new enmap({ name: 'cooldowns' });
         this.tildes = new enmap({ name: 'tildes' });
