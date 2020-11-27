@@ -23,7 +23,7 @@ import type { Client, Message } from 'discord.js';
 // Main
 export function run(client: Client, message: Message, log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
     // Get the user's current cooldowns (in timestamps)
-    
+
     const cooldowns = client.cooldowns.ensure(message.author.id, client.defaults.COOLDOWNS).owos;
 
     // Check cooldown
