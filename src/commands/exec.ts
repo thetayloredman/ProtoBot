@@ -60,11 +60,7 @@ ${code}`
             embed.addField('ExecError', `\`\`\`${error.toString().substr(0, 2042)}\`\`\``);
         }
 
-        const parsed = [
-            (error ?? { toString: () => '' }).toString(),
-            stderr,
-            stdout
-        ].reduce((a, b) => (a.length > b.length ? a : b));
+        const parsed = [(error ?? { toString: () => '' }).toString(), stderr, stdout].reduce((a, b) => (a.length > b.length ? a : b));
 
         embed
             .setTitle(e ? '**Error**' : '**Success**')
