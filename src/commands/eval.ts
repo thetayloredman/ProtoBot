@@ -18,16 +18,10 @@
 
 // Modules
 import discord from 'discord.js';
-import chalk from 'chalk';
-import Client from '@lib/Client';
+import type { Client, Message } from 'discord.js';
 
 // Main
-export async function run(
-    client: Client,
-    message: discord.Message,
-    args: string[],
-    log: (mode: 'i' | 'w' | 'e', message: string) => void
-): Promise<void> {
+export async function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): Promise<void> {
     /**
      * Credit to WilsonTheWolf for some of this eval code!
      */

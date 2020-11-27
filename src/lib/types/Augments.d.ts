@@ -26,6 +26,7 @@ import Cooldowns from '@lib/interfaces/Cooldowns';
 import Command from '@lib/interfaces/Command';
 import CommandConfig from '@lib/interfaces/CommandConfig';
 import Module from '@lib/interfaces/Module';
+import MarkovData from '@lib/interfaces/MarkovData';
 
 // Discord.js
 declare module 'discord.js' {
@@ -41,13 +42,14 @@ declare module 'discord.js' {
         uwus: Enmap<string, number>;
         ustats: Enmap<string, UserStats>;
         uconfs: Enmap<string, UserConfig>;
-        markovMessages: Enmap<string, { [key: string]: any }>;
+        // might remove markovs soon its taking a lot of space
+        markovMessages: Enmap<string, MarkovData>;
         fursonas: Enmap<string, Fursona>;
 
         // In memory
-        commands: Enmap<string, any>;
-        commandsConfig: Enmap<string, any>;
+        commands: Enmap<string, Command>;
+        commandsConfig: Enmap<string, CommandConfig>; // NOTE: is this redundant?
         commandsRefs: Enmap<string, string>;
-        modules: Enmap<string, any>;
+        modules: Enmap<string, Module>;
     }
 }

@@ -18,12 +18,12 @@
 
 // Modules
 import discord from 'discord.js';
+import type { Client, Message } from 'discord.js';
 import chalk from 'chalk';
 import { exec, ExecException } from 'child_process';
-import Client from '@lib/Client';
 
 // Main
-export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
+export function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
     // Safety check
     if (message.author.id !== client.config.ownerID) {
         log('w', `User ${message.author.tag} tried to use "update"!`);

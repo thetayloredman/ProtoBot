@@ -16,12 +16,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import Cooldowns from '@lib/interfaces/Cooldowns';
+import { Client, Message } from 'discord.js';
 
-export default interface Config {
-    token: string;
-    dirs: { commands: string; modules: string };
-    prefixes: string[];
-    cooldowns: { [key in keyof Cooldowns]: number /* (ms) */ };
-    ownerID: string;
+export default interface Module {
+    config: { name: string; description: string };
+    run: (client: Client, message: Message, log: (mode: 'i' | 'w' | 'e', message: string) => void) => void;
 }

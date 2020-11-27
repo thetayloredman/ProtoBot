@@ -17,14 +17,14 @@
  */
 
 // Modules
-import discord from 'discord.js';
-import chalk from 'chalk';
-import Client from '@lib/Client';
+import * as discord from 'discord.js';
+import type { Client, Message } from 'discord.js';
 
 // Main
-export function run(client: Client, message: discord.Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
-    message.channel.messages.fetch({ limit: 2 }).then((messages: discord.Collection<any, any>) => {
-        const m: discord.Message = messages.last();
+export function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
+    message.channel.messages.fetch({ limit: 2 }).then((messages) => {
+        // @ts-ignore *temporary
+        const m: Message = messages.last();
         message.reply(`Content of message ID \`${m.id}\` in channel <#${m.channel.id}>${
             m.content.includes('```') ? ' (**Formatting may be broken, the message contains a code fence**)' : ''
         }:

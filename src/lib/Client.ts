@@ -16,12 +16,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Client as _Client } from 'discord.js';
-import enmap from 'enmap';
-import { ClientOptions } from 'discord.js';
 import config from '@root/config';
+import { Client as BaseClient, ClientOptions } from 'discord.js';
+import enmap from 'enmap';
 
-export default class Client extends _Client {
+export default class Client extends BaseClient {
     public constructor(options?: ClientOptions) {
         super(options);
         this.config = config;

@@ -28,7 +28,7 @@ moduleAlias.addAliases({
 import 'source-map-support/register';
 
 // Modules
-import discord from 'discord.js';
+import discord, { Message } from 'discord.js';
 import enmap from 'enmap';
 import chalk from 'chalk';
 import * as fs from 'fs';
@@ -39,7 +39,7 @@ import log from './log';
 import CommandConfig from '@lib/interfaces/CommandConfig';
 
 // Initialize client
-const client: Client = new Client();
+const client = new Client();
 
 // Ready event
 client.on('ready', async () => {
@@ -164,7 +164,7 @@ client.on('message', (message: discord.Message) => {
     });
     let msgIsCommand = false;
     let prefixLen = 0;
-    client.config.prefixes.forEach((item: string) => {
+    client.config.prefixes.forEach((item) => {
         if (!msgIsCommand && message.content.toLowerCase().startsWith(item)) {
             msgIsCommand = true;
             prefixLen = item.length;
@@ -172,7 +172,7 @@ client.on('message', (message: discord.Message) => {
     });
     if (msgIsCommand) {
         const args: string[] = message.content.slice(prefixLen).split(/ +/g);
-        let command: string = args.shift()?.toLowerCase() ?? '';
+        let command = args.shift()?.toLowerCase() ?? '';
         if (!command) {
             // exit
             return;
@@ -190,14 +190,11 @@ client.on('message', (message: discord.Message) => {
         command = client.commandsRefs.get(command) ?? '';
         log('i', `Alias resolved to "${command}"!`);
 
-        const commandExec: (
-            client: Client,
-            message: discord.Message,
-            args: string[],
-            log: (mode: 'i' | 'w' | 'e', message: string) => void
-        ) => void | undefined = client.commands.get(command)?.run;
-        const commandConfig: CommandConfig = client.commands.get(command)?.config;
-        if (!commandExec) {
+        const commandExec:
+            | ((client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void) => void)
+            | undefined = client.commands.get(command)?.run;
+        const commandConfig: CommandConfig | undefined = client.commands.get(command)?.config;
+        if (!commandExec || !commandConfig) {
             // exit
             log('i', `Failed to find command "${command}", exiting handler.`);
             return;
