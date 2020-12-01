@@ -204,7 +204,12 @@ client.on('message', (message: discord.Message) => {
             message.reply('That command is disabled!');
             return;
         }
-        if (commandConfig.restrict && commandConfig.restrict.users && !commandConfig.restrict.users.includes(message.author.id) && message.author.id !== client.config.ownerID) {
+        if (
+            commandConfig.restrict &&
+            commandConfig.restrict.users &&
+            !commandConfig.restrict.users.includes(message.author.id) &&
+            message.author.id !== client.config.ownerID
+        ) {
             // User isn't authorised; the user is either not whitelisted to use the command and/or they're not an owner.
             log('i', 'User unauthorized!');
             message.reply("You aren't authorized to do that!");
