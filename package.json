@@ -6,7 +6,8 @@
     "scripts": {
         "start": "chmod u+x ./start.sh; ./start.sh",
         "lint": "eslint .",
-        "build": "tsc"
+        "build": "tsc",
+        "CI_prettier": "prettier . --list-different"
     },
     "author": "BadBoyHaloCat",
     "license": "GPL-3.0",

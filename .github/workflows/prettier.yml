@@ -48,9 +48,12 @@ jobs:
               run: npm ci
 
             - name: Run prettier
-              run: prettier . --list-different
+              run: npm run CI_prettier
+
+            - name: Run actual reformat if bad
+              run: npm run CI_prettier -- -w
+              if: ${{ failure() }}
 
             - name: Show diff
               run: git diff
               if: ${{ failure() }}
-              
