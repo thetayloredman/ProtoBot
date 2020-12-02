@@ -18,6 +18,7 @@
         "enmap": "^5.8.2",
         "markov-strings": "^3.0.1",
         "module-alias": "^2.2.2",
+        "prettier": "^2.2.1",
         "source-map-support": "^0.5.19",
         "strip-ansi": "^6.0.0",
         "uwuifier": "^2.0.2"
