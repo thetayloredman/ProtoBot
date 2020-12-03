@@ -43,7 +43,7 @@ export function run(client: Client, message: Message, args: string[], log: (mode
 
     message.channel.send(`**HUG!**
 <@${message.author.id}> huggles <@${userID}> tightly.`);
-    message.delete().catch(err => {
+    message.delete().catch((err) => {
         log('w', `Failed to delete command message for "hug"!: ${err}`);
     });
 }
