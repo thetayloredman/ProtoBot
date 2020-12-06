@@ -22,15 +22,15 @@ import { MessageEmbed } from 'discord.js';
 import fetch from 'node-fetch';
 
 export async function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): Promise<void> {
-    const msg = await message.channel.send("Fetching a dog picture...");
-    fetch("https://some-random-api.ml/img/dog")
+    const msg = await message.channel.send('Fetching a dog picture...');
+    fetch('https://some-random-api.ml/img/dog')
         .then((res) => res.json())
         .then((body) => {
             let embed = new MessageEmbed()
                 .setTitle(`Dog for ${message.author.username}`)
                 .setImage(body.link)
                 .setTimestamp(Date.now())
-                .setColor("RANDOM");
+                .setColor('RANDOM');
             msg.edit(embed);
         });
 }

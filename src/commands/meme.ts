@@ -23,14 +23,14 @@ import fetch from "node-fetch";
 
 export function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
     fetch("https://meme-api.herokuapp.com/gimme")
-            .then((res) => res.json())
-            .then((body) => {
-                let embed = new MessageEmbed()
-                    .setColor("RANDOM")
-                    .setTitle(body.title)
-                    .setURL(body.postLink)
-                    .setImage(body.url)
-                    .setFooter(`From r/${body.subreddit}`)
-                message.channel.send(embed)
+        .then((res) => res.json())
+        .then((body) => {
+            let embed = new MessageEmbed()
+                .setColor("RANDOM")
+                .setTitle(body.title)
+                .setURL(body.postLink)
+                .setImage(body.url)
+                .setFooter(`From r/${body.subreddit}`);
+            message.channel.send(embed);
     })
 }
