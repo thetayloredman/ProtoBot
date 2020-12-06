@@ -17,9 +17,9 @@
  */
 
 // Imports
-import type { Client, Message } from "discord.js";
-import { MessageEmbed } from "discord.js";
-import fetch from "node-fetch";
+import type { Client, Message } from 'discord.js';
+import { MessageEmbed } from 'discord.js';
+import fetch from 'node-fetch';
 
 export async function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): Promise<void> {
     const msg = await message.channel.send("Fetching a koala picture...")
