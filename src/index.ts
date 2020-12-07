@@ -83,10 +83,10 @@ client.on('ready', async () => {
                             path = path.toLowerCase();
                         }
                         // normal load
-                        const commandData = require(client.config.dirs.commands.endsWith('/')
+                        const commandData = <Command>require(client.config.dirs.commands.endsWith('/')
                             ? client.config.dirs.commands + path
                             : `${client.config.dirs.commands}/${path}`);
-                        const cmdName: string = path.replace('.js', '');
+                        const cmdName = path.replace('.js', '');
                         l('i', `Loading command "${cmdName}"...`);
                         client.commandsConfig.set(cmdName, commandData.config);
                         client.commands.set(cmdName, commandData);
