@@ -20,16 +20,17 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
 import fetch from 'node-fetch';
 
+interface CatData {
+    link: string;
+}
+
 export async function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): Promise<void> {
     const msg = await message.channel.send('Fetching a cat picture...');
-    fetch('https://some-random-api.ml/img/cat')
-        .then((res) => res.json())
-        .then((body) => {
-            let embed = new MessageEmbed()
-                .setTitle(`Cat for ${message.author.username}`)
-                .setImage(body.link)
-                .setTimestamp(Date.now())
-                .setColor('RANDOM');
-            msg.edit(embed);
-        });
+    const body = <CatData>await fetch('https://some-random-api.ml/img/cat').then((res) => res.json());
+    let embed = new MessageEmbed()
+        .setTitle(`Cat for ${message.author.username}`)
+        .setImage(body.link)
+        .setTimestamp(Date.now())
+        .setColor('RANDOM');
+    msg.edit(embed);
 }
