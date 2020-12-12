@@ -35,5 +35,5 @@ export async function run(client: Client, message: Message, args: string[], log:
         .setURL(body.postLink)
         .setImage(body.url)
         .setFooter(`From r/${body.subreddit}`);
-    message.channel.send(embed)
+    message.channel.send(embed);
 }
