@@ -27,6 +27,20 @@ interface DogData {
 export async function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): Promise<void> {
     const msg = await message.channel.send('Fetching a dog picture...');
     const body = <DogData>await fetch('https://some-random-api.ml/img/dog').then((res) => res.json());
-    let embed = new MessageEmbed().setTitle(`Dog for ${message.author.username}`).setImage(body.link).setTimestamp(Date.now()).setColor('RANDOM');
+    const embed = new MessageEmbed().setTitle(`Dog for ${message.author.username}`).setImage(body.link).setTimestamp(Date.now()).setColor('RANDOM');
     msg.edit(embed);
 }
+
+// Config
+export const config = {
+    name: 'dog',
+    description: 'Get a dog picture!',
+    enabled: true,
+    aliases: ['woof','puppy','doggo'], // command aliases to load
+
+    // To restrict the command, change the "false" to the following
+    // format:
+    //
+    // restrict: { users: [ "array", "of", "authorized", "user", "IDs" ] }
+    restrict: false
+};

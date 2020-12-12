@@ -29,7 +29,7 @@ interface MemeData {
 
 export async function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
     const body = <MemeData>await fetch('https://meme-api.herokuapp.com/gimme').then((res) => res.json());
-    let embed = new MessageEmbed()
+    const embed = new MessageEmbed()
         .setColor('RANDOM')
         .setTitle(body.title)
         .setURL(body.postLink)
@@ -37,3 +37,17 @@ export async function run(client: Client, message: Message, args: string[], log:
         .setFooter(`From r/${body.subreddit}`);
     message.channel.send(embed);
 }
+
+// Config
+export const config = {
+    name: 'meme',
+    description: 'Get a fresh meme!',
+    enabled: true,
+    aliases: [], // command aliases to load
+
+    // To restrict the command, change the "false" to the following
+    // format:
+    //
+    // restrict: { users: [ "array", "of", "authorized", "user", "IDs" ] }
+    restrict: false
+};

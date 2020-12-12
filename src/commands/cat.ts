@@ -27,6 +27,20 @@ interface CatData {
 export async function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): Promise<void> {
     const msg = await message.channel.send('Fetching a cat picture...');
     const body = <CatData>await fetch('https://some-random-api.ml/img/cat').then((res) => res.json());
-    let embed = new MessageEmbed().setTitle(`Cat for ${message.author.username}`).setImage(body.link).setTimestamp(Date.now()).setColor('RANDOM');
+    const embed = new MessageEmbed().setTitle(`Cat for ${message.author.username}`).setImage(body.link).setTimestamp(Date.now()).setColor('RANDOM');
     msg.edit(embed);
 }
+
+// Config
+export const config = {
+    name: 'cat',
+    description: 'Get a cat picture~',
+    enabled: true,
+    aliases: ['meow','kitty'], // command aliases to load
+
+    // To restrict the command, change the "false" to the following
+    // format:
+    //
+    // restrict: { users: [ "array", "of", "authorized", "user", "IDs" ] }
+    restrict: false
+};
