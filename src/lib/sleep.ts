@@ -16,22 +16,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-// Modules
-import type { Client, Message } from 'discord.js';
-
-// Main
-export function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {}
-
-// Config
-export const config = {
-    name: 'My Cool Command',
-    description: 'Does stuff',
-    enabled: true,
-    aliases: [], // command aliases to load
-
-    // To restrict the command, change the "false" to the following
-    // format:
-    //
-    // restrict: { users: [ "array", "of", "authorized", "user", "IDs" ] }
-    restrict: false
-};
+/**
+ * Sleep a specific number of ms
+ * @param ms How many milliseconds to sleep
+ * @returns Promise that resolves after `ms` ms.
+ */
+export default async function sleep(ms: number): Promise<void> {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve();
+        }, ms);
+    });
+}
