@@ -27,9 +27,9 @@ interface MemeData {
     subreddit: string;
 }
 
-export async function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
+export async function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): Promise<void> {
     const body = <MemeData>await fetch('https://meme-api.herokuapp.com/gimme').then((res) => res.json());
-    let embed = new MessageEmbed()
+    const embed = new MessageEmbed()
         .setColor('RANDOM')
         .setTitle(body.title)
         .setURL(body.postLink)
