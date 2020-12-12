@@ -27,6 +27,6 @@ interface DogData {
 export async function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): Promise<void> {
     const msg = await message.channel.send('Fetching a dog picture...');
     const body = <DogData>await fetch('https://some-random-api.ml/img/dog').then((res) => res.json());
-    let embed = new MessageEmbed().setTitle(`Dog for ${message.author.username}`).setImage(body.link).setTimestamp(Date.now()).setColor('RANDOM');
+    const embed = new MessageEmbed().setTitle(`Dog for ${message.author.username}`).setImage(body.link).setTimestamp(Date.now()).setColor('RANDOM');
     msg.edit(embed);
 }
