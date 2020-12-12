@@ -27,7 +27,7 @@ interface CutieData {
 }
 
 // Main
-export async function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void)): Promise<void> {
+export async function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): Promise<void> {
     const cuties: CutieData[] = [
         { username: 'Foxley Affection', tag: '6969', id: '701951512410062858' },
         { username: 'CJ_Sever', tag: '6531', id: '699773917577084948' },
