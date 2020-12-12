@@ -20,17 +20,18 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
 import fetch from 'node-fetch';
 
+interface KoalaData {
+    link: string;
+}
+
 export async function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): Promise<void> {
     const msg = await message.channel.send('Fetching a koala picture...');
-    fetch('https://some-random-api.ml/img/koala')
-        .then((res) => res.json())
-        .then((body) => {
-            let embed = new MessageEmbed()
-                .setTitle(`Koala for ${message.author.username}`)
-                .setImage(body.link)
-                .setTimestamp(Date.now())
-                .setColor('RANDOM');
-            msg.delete();
-            message.channel.send(embed);
-        });
+    const body = <KoalaData>await fetch('https://some-random-api.ml/img/koala').then((res) => res.json());
+    let embed = new MessageEmbed()
+        .setTitle(`Koala for ${message.author.username}`)
+        .setImage(body.link)
+        .setTimestamp(Date.now())
+        .setColor('RANDOM');
+    msg.delete();
+    message.channel.send(embed);
 }
