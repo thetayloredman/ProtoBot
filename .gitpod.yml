@@ -14,8 +14,7 @@ image:
     file: .gitpod.Dockerfile
 
 tasks:
-    - init: npm install
-      prebuild: tsc
+    - init: npm install && cp ./src/config.rename-me.ts ./src/config.ts && tsc
 
 github:
     prebuilds:
