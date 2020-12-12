@@ -31,3 +31,17 @@ export async function run(client: Client, message: Message, args: string[], log:
     msg.delete();
     message.channel.send(embed);
 }
+
+// Config
+export const config = {
+    name: 'koala',
+    description: 'Get a koala picture!',
+    enabled: true,
+    aliases: [], // command aliases to load
+
+    // To restrict the command, change the "false" to the following
+    // format:
+    //
+    // restrict: { users: [ "array", "of", "authorized", "user", "IDs" ] }
+    restrict: false
+};

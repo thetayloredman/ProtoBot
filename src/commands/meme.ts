@@ -37,3 +37,17 @@ export async function run(client: Client, message: Message, args: string[], log:
         .setFooter(`From r/${body.subreddit}`);
     message.channel.send(embed);
 }
+
+// Config
+export const config = {
+    name: 'meme',
+    description: 'Get a fresh meme!',
+    enabled: true,
+    aliases: [], // command aliases to load
+
+    // To restrict the command, change the "false" to the following
+    // format:
+    //
+    // restrict: { users: [ "array", "of", "authorized", "user", "IDs" ] }
+    restrict: false
+};

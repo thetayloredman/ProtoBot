@@ -30,3 +30,17 @@ export async function run(client: Client, message: Message, args: string[], log:
     let embed = new MessageEmbed().setTitle(`Cat for ${message.author.username}`).setImage(body.link).setTimestamp(Date.now()).setColor('RANDOM');
     msg.edit(embed);
 }
+
+// Config
+export const config = {
+    name: 'cat',
+    description: 'Get a cat picture~',
+    enabled: true,
+    aliases: ['meow','kitty'], // command aliases to load
+
+    // To restrict the command, change the "false" to the following
+    // format:
+    //
+    // restrict: { users: [ "array", "of", "authorized", "user", "IDs" ] }
+    restrict: false
+};
