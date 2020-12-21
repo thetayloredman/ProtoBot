@@ -44,7 +44,7 @@ const client = new Client();
 // Ready event
 client.on('ready', async () => {
     console.clear();
-    const userCountsPerGuild = client.guilds.cache.map((g: discord.Guild) => g.memberCount - 1);
+    const userCountsPerGuild = client.guilds.cache.map((g) => g.memberCount - 1);
     let userTotal = 0;
     userCountsPerGuild.forEach((item) => (userTotal += item));
     const userAvg = userTotal / userCountsPerGuild.length;
@@ -75,7 +75,7 @@ client.on('ready', async () => {
                 l('e', `Failed to read directory ${client.config.dirs.commands}:`);
                 l('e', err);
             } else {
-                files.forEach((path: string) => {
+                files.forEach((path) => {
                     if (path.endsWith('.js')) {
                         if (path.replace('.js', '').toLowerCase() !== path.replace('.js', '')) {
                             l('w', `CommandCasedWarning: Command at ${path} has a name with a capital letter!`);
@@ -96,7 +96,7 @@ client.on('ready', async () => {
                         l('i', `Loading command aliases for ${cmdName}...`);
                         l('i', 'Loaded base alias!');
                         client.commandsRefs.set(cmdName, cmdName); // base
-                        (commandData.config.aliases ?? []).forEach((alias: string) => {
+                        (commandData.config.aliases ?? []).forEach((alias) => {
                             l('i', `Loaded alias ${alias}!`);
                             client.commandsRefs.set(alias, cmdName);
                         });
@@ -128,7 +128,7 @@ client.on('ready', async () => {
                         const moduleData = require(client.config.dirs.modules.endsWith('/')
                             ? client.config.dirs.modules + path
                             : `${client.config.dirs.modules}/${path}`);
-                        const modName: string = path.replace('.js', '');
+                        const modName = path.replace('.js', '');
                         l('i', `Loading module "${modName}"...`);
                         client.modules.set(modName, moduleData);
                         l('i', `Finished loading module "${modName}"!`);
