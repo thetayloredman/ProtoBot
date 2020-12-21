@@ -44,21 +44,21 @@ try {
     console.error(e);
     process.exit(1);
 }
-let allStr: fs.WriteStream | null = null;
+let allStr: fs.WriteStream;
 try {
     allStr = fs.createWriteStream(`../logs/${logInitTime}/all.log`);
 } catch (e) {
     console.error(e);
     process.exit(1);
 }
-let warnStr: fs.WriteStream | null = null;
+let warnStr: fs.WriteStream;
 try {
     warnStr = fs.createWriteStream(`../logs/${logInitTime}/warn.log`);
 } catch (e) {
     console.error(e);
     process.exit(1);
 }
-let errStr: fs.WriteStream | null = null;
+let errStr: fs.WriteStream;
 try {
     errStr = fs.createWriteStream(`../logs/${logInitTime}/err.log`);
 } catch (e) {
@@ -69,14 +69,14 @@ try {
 // Log to file func
 function writeItem(mode: 'i' | 'w' | 'e', message: string): void {
     if (mode === 'e') {
-        errStr?.write(`${strip(message)}\n`);
-        warnStr?.write(`${strip(message)}\n`);
-        allStr?.write(`${strip(message)}\n`);
+        errStr.write(`${strip(message)}\n`);
+        warnStr.write(`${strip(message)}\n`);
+        allStr.write(`${strip(message)}\n`);
     } else if (mode === 'w') {
-        warnStr?.write(`${strip(message)}\n`);
-        allStr?.write(`${strip(message)}\n`);
+        warnStr.write(`${strip(message)}\n`);
+        allStr.write(`${strip(message)}\n`);
     } else if (mode === 'i') {
-        allStr?.write(`${strip(message)}\n`);
+        allStr.write(`${strip(message)}\n`);
     }
 }
 
@@ -86,9 +86,9 @@ export default function log(mode: 'i' | 'w' | 'e', message: string): void;
 export default function log(mode: 'i' | 'w' | 'e' | 'CLOSE_STREAMS', message?: string): void | Promise<void> {
     if (mode === 'CLOSE_STREAMS') {
         return new Promise((resolve, reject) => {
-            errStr?.end(() => {
-                warnStr?.end(() => {
-                    allStr?.end(() => {
+            errStr.end(() => {
+                warnStr.end(() => {
+                    allStr.end(() => {
                         resolve();
                     });
                 });
