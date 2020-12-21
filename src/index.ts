@@ -171,7 +171,7 @@ client.on('message', (message: discord.Message) => {
             break;
         }
     }
-    
+
     // if it's a command, we handle it.
     if (msgIsCommand) {
         const args: string[] = message.content.slice(prefixLen).split(/ +/g);

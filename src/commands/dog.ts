@@ -36,7 +36,7 @@ export const config = {
     name: 'dog',
     description: 'Get a dog picture!',
     enabled: true,
-    aliases: ['woof','puppy','doggo'], // command aliases to load
+    aliases: ['woof', 'puppy', 'doggo'], // command aliases to load
 
     // To restrict the command, change the "false" to the following
     // format:
