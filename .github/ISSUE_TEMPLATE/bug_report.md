@@ -6,6 +6,15 @@ labels: 'bug'
 assignees: ''
 ---
 
+<!--
+    Thanks for reporting a bug here!
+
+    First, please check and make sure that someone
+    else hasn't reported a bug.
+
+    If nobody else has reported it, fill this out!
+-->
+
 **Describe the bug**
 A clear and concise description of what the bug is.
 

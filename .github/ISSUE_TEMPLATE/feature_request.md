@@ -6,6 +6,15 @@ labels: 'enhancement'
 assignees: ''
 ---
 
+<!--
+    Thanks for making a feature request here!
+
+    First, please check and make sure that someone
+    else hasn't already suggested your idea.
+
+    If nobody else has suggested it, fill this out!
+-->
+
 **Is your feature request related to a problem? Please describe.**
 A clear and concise description of what the problem is. Ex. I'm always frustrated when (...)
 
