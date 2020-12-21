@@ -38,15 +38,18 @@ export function run(client: Client, message: Message, args: string[], log: (mode
         );
     });
 
-    message.author.send(embed).then(() => {
-        message.reply('Sent the help menu to your DM!');
-    }).catch((e) => {
-        message.reply(`**ERROR**: I failed to send the help menu to your DMs.
+    message.author
+        .send(embed)
+        .then(() => {
+            message.reply('Sent the help menu to your DM!');
+        })
+        .catch((e) => {
+            message.reply(`**ERROR**: I failed to send the help menu to your DMs.
 
 The error was: \`${e}\``);
-        log('w', `Failed to send embed to user DMs for help: ${e}`);
-        message.channel.send(embed);
-    });
+            log('w', `Failed to send embed to user DMs for help: ${e}`);
+            message.channel.send(embed);
+        });
 }
 
 // Config
