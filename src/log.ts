@@ -20,6 +20,7 @@
 import chalk from 'chalk';
 import * as fs from 'fs';
 import strip from 'strip-ansi';
+import * as util from 'util';
 
 // Create logging streams
 const logInitTime: number = Date.now();
@@ -82,10 +83,11 @@ function writeItem(mode: 'i' | 'w' | 'e', message: string): void {
 
 // Main
 export default function log(mode: 'CLOSE_STREAMS'): Promise<void>;
-export default function log(mode: 'i' | 'w' | 'e', message: string): void;
-export default function log(mode: 'i' | 'w' | 'e' | 'CLOSE_STREAMS', message?: string): void | Promise<void> {
+export default function log(mode: 'i' | 'w' | 'e', message: any): void;
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export default function log(mode: 'i' | 'w' | 'e' | 'CLOSE_STREAMS', message?: any): void | Promise<void> {
     if (mode === 'CLOSE_STREAMS') {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             errStr.end(() => {
                 warnStr.end(() => {
                     allStr.end(() => {
@@ -95,6 +97,9 @@ export default function log(mode: 'i' | 'w' | 'e' | 'CLOSE_STREAMS', message?: s
             });
         });
     } else {
+        if (typeof message !== 'string') {
+            message = util.inspect(message, undefined, undefined, true);
+        }
         let msg = '';
         let preparsedDate: any = new Date(Date.now()).toLocaleDateString('en-US', {
             weekday: 'short',

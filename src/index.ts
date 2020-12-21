@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-// Aliases go brrrr
+// Aliases
 import moduleAlias from 'module-alias';
 
 moduleAlias.addAliases({
@@ -24,14 +24,15 @@ moduleAlias.addAliases({
     '@root': __dirname + '/'
 });
 
-// Support source maps - source map much uwu
+// Support source maps
+// source map much uwu
 import 'source-map-support/register';
 
 // Modules
-import discord from 'discord.js';
-import chalk from 'chalk';
 import * as fs from 'fs';
+import chalk from 'chalk';
 import Client from '@lib/Client';
+import discord from 'discord.js';
 import type Command from '@lib/interfaces/Command';
 
 // Log import
@@ -43,9 +44,9 @@ const client = new Client();
 // Ready event
 client.on('ready', async () => {
     console.clear();
-    const userCountsPerGuild: number[] = client.guilds.cache.map((g: discord.Guild) => g.memberCount - 1);
+    const userCountsPerGuild = client.guilds.cache.map((g: discord.Guild) => g.memberCount - 1);
     let userTotal = 0;
-    userCountsPerGuild.forEach((item: number) => (userTotal += item));
+    userCountsPerGuild.forEach((item) => (userTotal += item));
     const userAvg = userTotal / userCountsPerGuild.length;
     log('i', 'Ready!');
     log(
@@ -65,14 +66,13 @@ client.on('ready', async () => {
     log('i', `${chalk.green('[')}${chalk.green.bold('USERAVG')}${chalk.green(']')} Average user count per guilds: ${chalk.red(Math.round(userAvg))}`);
     log('i', `${chalk.green('[')}${chalk.green.bold('PREFIXES')}${chalk.green(']')} Loaded ${chalk.red(client.config.prefixes.length)} prefixes!`);
     function loadCmds(): void {
-        function l(type: 'i' | 'w' | 'e', message: string) {
+        function l(type: 'i' | 'w' | 'e', message: any) {
             log(type, `${chalk.yellow('[')}${chalk.yellow.bold('CMDLOAD')}${chalk.yellow(']')} ${message}`);
         }
         l('i', 'Beginning initial command load...');
-        fs.readdir(client.config.dirs.commands, (err: NodeJS.ErrnoException | null, files: string[]) => {
+        fs.readdir(client.config.dirs.commands, (err, files) => {
             if (err) {
                 l('e', `Failed to read directory ${client.config.dirs.commands}:`);
-                // @ts-ignore
                 l('e', err);
             } else {
                 files.forEach((path: string) => {
@@ -111,14 +111,13 @@ client.on('ready', async () => {
     }
     loadCmds();
     function loadMods(): void {
-        function l(type: 'i' | 'w' | 'e', message: string) {
+        function l(type: 'i' | 'w' | 'e', message: any) {
             log(type, `${chalk.yellow('[')}${chalk.yellow.bold('MODLOAD')}${chalk.yellow(']')} ${message}`);
         }
         l('i', 'Beginning initial module load...');
-        fs.readdir(client.config.dirs.modules, (err: NodeJS.ErrnoException | null, files: string[]) => {
+        fs.readdir(client.config.dirs.modules, (err, files) => {
             if (err) {
                 l('e', `Failed to read directory ${client.config.dirs.modules}:`);
-                // @ts-ignore
                 l('e', err);
             } else {
                 files.forEach((path: string) => {
@@ -163,20 +162,27 @@ client.on('message', (message: discord.Message) => {
     });
     let msgIsCommand = false;
     let prefixLen = 0;
-    client.config.prefixes.forEach((item) => {
-        if (!msgIsCommand && message.content.toLowerCase().startsWith(item)) {
+    let prefixUsed;
+    for (const prefix of client.config.prefixes) {
+        if (message.content.toLowerCase().startsWith(prefix)) {
             msgIsCommand = true;
-            prefixLen = item.length;
+            prefixLen = prefix.length;
+            prefixUsed = prefix;
+            break;
         }
-    });
+    }
+    
+    // if it's a command, we handle it.
     if (msgIsCommand) {
         const args: string[] = message.content.slice(prefixLen).split(/ +/g);
         let command = args.shift()?.toLowerCase() ?? '';
+
+        // quit if the command couldn't be fetched
         if (!command) {
-            // exit
             return;
         }
 
+        // verbose info
         log('i', `Running command "${command}" for "${message.author.tag}" with args "${args.join(' ')}"!`);
         log(
             'i',
@@ -220,7 +226,7 @@ client.on('message', (message: discord.Message) => {
 });
 
 // Handle rate limits
-client.on('rateLimit', (data: discord.RateLimitData) => {
+client.on('rateLimit', (data) => {
     log('w', 'Got hit with a ratelimit!');
     log('w', `Ratelimited when performing ${data.method} ${data.path}`);
     log('w', `API route was ${data.route} and limit hit was ${data.limit}/${data.timeout}ms (${data.timeout / 1000} seconds).`);
@@ -234,11 +240,11 @@ process.on('exit', (code) => {
 });
 
 // If we get an uncaught exception, close ASAP.
-process.on('uncaughtException', async (error: Error) => {
+process.on('uncaughtException', async (error) => {
     client.destroy();
     log('e', 'An uncaught exception occured!');
     log('e', `Error thrown was:`);
-    error.stack?.split('\n').forEach((item: string) => {
+    error.stack?.split('\n').forEach((item) => {
         log('e', `${item}`);
     });
     log('e', 'Stack trace dump:');
@@ -247,7 +253,7 @@ process.on('uncaughtException', async (error: Error) => {
     if (!stack) {
         stack = [];
     }
-    stack.forEach((item: string) => {
+    stack.forEach((item) => {
         log('e', `${item}`);
     });
     log('e', 'Process exiting.');
