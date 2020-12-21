@@ -1,0 +1,5 @@
+{
+    // When opening documents, we use a default
+    // tab size of 4 spaces.
+    "editor.tabSize": 4
+}
