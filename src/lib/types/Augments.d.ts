@@ -43,8 +43,7 @@ declare module 'discord.js' {
         uwus: Enmap<string, number>;
         ustats: Enmap<string, UserStats>;
         uconfs: Enmap<string, UserConfig>;
-        // might remove markovs soon its taking a lot of space
-        markovMessages: Enmap<string, MarkovData>;
+        markovMessages: Enmap<string, MarkovData>; // NOTE: remove markovs in the future perhaps?
         fursonas: Enmap<string, Fursona>;
 
         // In memory
