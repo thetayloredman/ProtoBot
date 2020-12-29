@@ -48,22 +48,25 @@ client.on('ready', async () => {
     let userTotal = 0;
     userCountsPerGuild.forEach((item) => (userTotal += item));
     const userAvg = userTotal / userCountsPerGuild.length;
-    log('i', 'PPPPPPPPPPPPPPPPP                                                 tttt                           BBBBBBBBBBBBBBBBB                             tttt');
-    log('i', 'P::::::::::::::::P                                             ttt:::t                           B::::::::::::::::B                         ttt:::t');
-    log('i', 'P::::::PPPPPP:::::P                                            t:::::t                           B::::::BBBBBB:::::B                        t:::::t');
-    log('i', 'PP:::::P     P:::::P                                           t:::::t                           BB:::::B     B:::::B                       t:::::t');
-    log('i', '  P::::P     P:::::Prrrrr   rrrrrrrrr      ooooooooooo   ttttttt:::::ttttttt       ooooooooooo     B::::B     B:::::B   ooooooooooo   ttttttt:::::ttttttt');
-    log('i', '  P::::P     P:::::Pr::::rrr:::::::::r   oo:::::::::::oo t:::::::::::::::::t     oo:::::::::::oo   B::::B     B:::::B oo:::::::::::oo t:::::::::::::::::t');
-    log('i', '  P::::PPPPPP:::::P r:::::::::::::::::r o:::::::::::::::ot:::::::::::::::::t    o:::::::::::::::o  B::::BBBBBB:::::B o:::::::::::::::ot:::::::::::::::::t');
-    log('i', '  P:::::::::::::PP  rr::::::rrrrr::::::ro:::::ooooo:::::otttttt:::::::tttttt    o:::::ooooo:::::o  B:::::::::::::BB  o:::::ooooo:::::otttttt:::::::tttttt');
-    log('i', '  P::::PPPPPPPPP     r:::::r     r:::::ro::::o     o::::o      t:::::t          o::::o     o::::o  B::::BBBBBB:::::B o::::o     o::::o      t:::::t');
-    log('i', '  P::::P             r:::::r     rrrrrrro::::o     o::::o      t:::::t          o::::o     o::::o  B::::B     B:::::Bo::::o     o::::o      t:::::t');
-    log('i', '  P::::P             r:::::r            o::::o     o::::o      t:::::t          o::::o     o::::o  B::::B     B:::::Bo::::o     o::::o      t:::::t');
-    log('i', '  P::::P             r:::::r            o::::o     o::::o      t:::::t    tttttto::::o     o::::o  B::::B     B:::::Bo::::o     o::::o      t:::::t    tttttt');
-    log('i', 'PP::::::PP           r:::::r            o:::::ooooo:::::o      t::::::tttt:::::to:::::ooooo:::::oBB:::::BBBBBB::::::Bo:::::ooooo:::::o      t::::::tttt:::::t');
-    log('i', 'P::::::::P           r:::::r            o:::::::::::::::o      tt::::::::::::::to:::::::::::::::oB:::::::::::::::::B o:::::::::::::::o      tt::::::::::::::t');
-    log('i', 'P::::::::P           r:::::r             oo:::::::::::oo         tt:::::::::::tt oo:::::::::::oo B::::::::::::::::B   oo:::::::::::oo         tt:::::::::::tt');
-    log('i', 'PPPPPPPPPP           rrrrrrr               ooooooooooo             ttttttttttt     ooooooooooo   BBBBBBBBBBBBBBBBB      ooooooooooo             ttttttttttt');
+    // prettier-ignore
+    (() => {
+        log('i', 'PPPPPPPPPPPPPPPPP                                                 tttt                           BBBBBBBBBBBBBBBBB                             tttt');
+        log('i', 'P::::::::::::::::P                                             ttt:::t                           B::::::::::::::::B                         ttt:::t');
+        log('i', 'P::::::PPPPPP:::::P                                            t:::::t                           B::::::BBBBBB:::::B                        t:::::t');
+        log('i', 'PP:::::P     P:::::P                                           t:::::t                           BB:::::B     B:::::B                       t:::::t');
+        log('i', '  P::::P     P:::::Prrrrr   rrrrrrrrr      ooooooooooo   ttttttt:::::ttttttt       ooooooooooo     B::::B     B:::::B   ooooooooooo   ttttttt:::::ttttttt');
+        log('i', '  P::::P     P:::::Pr::::rrr:::::::::r   oo:::::::::::oo t:::::::::::::::::t     oo:::::::::::oo   B::::B     B:::::B oo:::::::::::oo t:::::::::::::::::t');
+        log('i', '  P::::PPPPPP:::::P r:::::::::::::::::r o:::::::::::::::ot:::::::::::::::::t    o:::::::::::::::o  B::::BBBBBB:::::B o:::::::::::::::ot:::::::::::::::::t');
+        log('i', '  P:::::::::::::PP  rr::::::rrrrr::::::ro:::::ooooo:::::otttttt:::::::tttttt    o:::::ooooo:::::o  B:::::::::::::BB  o:::::ooooo:::::otttttt:::::::tttttt');
+        log('i', '  P::::PPPPPPPPP     r:::::r     r:::::ro::::o     o::::o      t:::::t          o::::o     o::::o  B::::BBBBBB:::::B o::::o     o::::o      t:::::t');
+        log('i', '  P::::P             r:::::r     rrrrrrro::::o     o::::o      t:::::t          o::::o     o::::o  B::::B     B:::::Bo::::o     o::::o      t:::::t');
+        log('i', '  P::::P             r:::::r            o::::o     o::::o      t:::::t          o::::o     o::::o  B::::B     B:::::Bo::::o     o::::o      t:::::t');
+        log('i', '  P::::P             r:::::r            o::::o     o::::o      t:::::t    tttttto::::o     o::::o  B::::B     B:::::Bo::::o     o::::o      t:::::t    tttttt');
+        log('i', 'PP::::::PP           r:::::r            o:::::ooooo:::::o      t::::::tttt:::::to:::::ooooo:::::oBB:::::BBBBBB::::::Bo:::::ooooo:::::o      t::::::tttt:::::t');
+        log('i', 'P::::::::P           r:::::r            o:::::::::::::::o      tt::::::::::::::to:::::::::::::::oB:::::::::::::::::B o:::::::::::::::o      tt::::::::::::::t');
+        log('i', 'P::::::::P           r:::::r             oo:::::::::::oo         tt:::::::::::tt oo:::::::::::oo B::::::::::::::::B   oo:::::::::::oo         tt:::::::::::tt');
+        log('i', 'PPPPPPPPPP           rrrrrrr               ooooooooooo             ttttttttttt     ooooooooooo   BBBBBBBBBBBBBBBBB      ooooooooooo             ttttttttttt');
+    })()
     log('i', 'Ready!');
     log(
         'i',
