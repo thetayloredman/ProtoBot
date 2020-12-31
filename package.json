@@ -15,7 +15,7 @@
         "better-sqlite3": "^7.1.2",
         "chalk": "^4.1.0",
         "discord.js": "^12.5.1",
-        "enmap": "^5.8.2",
+        "enmap": "git+https://github.com/eslachance/enmap.git#a870ec78095c087a24e304b8b6e9b12381a0ce39",
         "markov-strings": "^3.0.1",
         "module-alias": "^2.2.2",
         "node-fetch": "^2.6.1",
