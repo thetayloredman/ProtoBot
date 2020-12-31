@@ -52,14 +52,47 @@ ${client.config.prefixes[0]}fursona set bio <bio>   :: Set your fursona's bio
 ${client.config.prefixes[0]}fursona set type <type> :: Set your fursona's breed/type
 \`\`\``);
         } else if (args[1].toLowerCase() === 'name') {
+            if (!args[2]) {
+                const temp = client.fursonas.ensure(message.author.id, {});
+                if ('name' in temp) {
+                    delete temp.name;
+                    message.reply('Deleted value.');
+                    client.fursonas.set(message.author.id, temp);
+                }
+                client.fursonas.set(message.author.id, temp);
+                message.reply('You need to provide a value!');
+                return;
+            }
             client.fursonas.ensure(message.author.id, {});
             client.fursonas.set(message.author.id, args.slice(2).join(' '), 'name');
             message.channel.send('Set!');
         } else if (args[1].toLowerCase() === 'bio') {
+            if (!args[2]) {
+                const temp = client.fursonas.ensure(message.author.id, {});
+                if ('bio' in temp) {
+                    delete temp.bio;
+                    message.reply('Deleted value.');
+                    client.fursonas.set(message.author.id, temp);
+                }
+                client.fursonas.set(message.author.id, temp);
+                message.reply('You need to provide a value!');
+                return;
+            }
             client.fursonas.ensure(message.author.id, {});
             client.fursonas.set(message.author.id, args.slice(2).join(' '), 'bio');
             message.channel.send('Set!');
         } else if (args[1].toLowerCase() === 'type') {
+            if (!args[2]) {
+                const temp = client.fursonas.ensure(message.author.id, {});
+                if ('type' in temp) {
+                    delete temp.type;
+                    message.reply('Deleted value.');
+                    client.fursonas.set(message.author.id, temp);
+                }
+                client.fursonas.set(message.author.id, temp);
+                message.reply('You need to provide a value!');
+                return;
+            }
             client.fursonas.ensure(message.author.id, {});
             client.fursonas.set(message.author.id, args.slice(2).join(' '), 'type');
             message.channel.send('Set!');
