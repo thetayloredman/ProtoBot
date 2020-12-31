@@ -24,5 +24,5 @@ import chalk from 'chalk';
  * @param query The SQL query ran
  */
 export default function EnmapVerbose(dbname: string, query: string): void {
-    log('i', `${chalk.blue('[')}${chalk.blue.bold('DatabaseQuery')}${chalk.blue(']')} ${chalk.underline('query')} ${chalk.red(dbname)}: ${query}`);
+    log('i', `${chalk.blue('[')}${chalk.blue.bold('DatabaseQuery')}${chalk.blue(']')} ${chalk.underline('Query')} ${chalk.red(dbname)}: ${query}`);
 }
