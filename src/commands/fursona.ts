@@ -58,6 +58,7 @@ ${client.config.prefixes[0]}fursona set type <type> :: Set your fursona's breed/
                     delete temp.name;
                     message.reply('Deleted value.');
                     client.fursonas.set(message.author.id, temp);
+                    return;
                 }
                 client.fursonas.set(message.author.id, temp);
                 message.reply('You need to provide a value!');
@@ -73,6 +74,7 @@ ${client.config.prefixes[0]}fursona set type <type> :: Set your fursona's breed/
                     delete temp.bio;
                     message.reply('Deleted value.');
                     client.fursonas.set(message.author.id, temp);
+                    return;
                 }
                 client.fursonas.set(message.author.id, temp);
                 message.reply('You need to provide a value!');
@@ -88,6 +90,7 @@ ${client.config.prefixes[0]}fursona set type <type> :: Set your fursona's breed/
                     delete temp.type;
                     message.reply('Deleted value.');
                     client.fursonas.set(message.author.id, temp);
+                    return;
                 }
                 client.fursonas.set(message.author.id, temp);
                 message.reply('You need to provide a value!');
