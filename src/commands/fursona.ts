@@ -35,9 +35,9 @@ export function run(client: Client, message: Message, args: string[], log: (mode
             log('i', 'Displaying fursona!');
             const embed = new discord.MessageEmbed().setTitle('Fursona').setDescription('Here is your current fursona information.');
 
-            embed.addField('Name', fursona.name ?? '<unset>', true);
-            embed.addField('Bio', fursona.bio ?? '<unset>', true);
-            embed.addField('Type', fursona.type ?? '<unset>');
+            embed.addField('Name', fursona.name || '<unset>', true);
+            embed.addField('Bio', fursona.bio || '<unset>', true);
+            embed.addField('Type', fursona.type || '<unset>');
 
             message.channel.send(embed);
         }
