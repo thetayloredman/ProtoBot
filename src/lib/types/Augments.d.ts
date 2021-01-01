@@ -51,5 +51,8 @@ declare module 'discord.js' {
         commandsConfig: Enmap<string, CommandConfig>; // NOTE: is this redundant?
         commandsRefs: Enmap<string, string>;
         modules: Enmap<string, Module>;
+
+        // Functions
+        public async closeDatabases(): void;
     }
 }
