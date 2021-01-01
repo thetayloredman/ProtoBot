@@ -20,7 +20,7 @@
 import type { Client, Message } from 'discord.js';
 
 // Main
-export function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
+export async function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): Promise<void> {
     // Safety check
     if (message.author.id !== client.config.ownerID) {
         console.log('w', `User ${message.author.tag} tried to use "restart"!`);
@@ -32,7 +32,12 @@ export function run(client: Client, message: Message, args: string[], log: (mode
     // restart bot
     message.reply('Goodbye!').then(() => {
         log('w', 'Goodbye!');
+        log('w', 'Killing client...');
         client.destroy();
+        log('w', 'Client killed.');
+        log('w', 'Closing databases...');
+        client.closeDatabases();
+        log('w', 'Closed databases.');
         process.exit();
     });
 }
