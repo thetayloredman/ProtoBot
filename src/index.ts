@@ -43,7 +43,6 @@ const client = new Client();
 
 // Ready event
 client.on('ready', async () => {
-    console.clear();
     const userCountsPerGuild = client.guilds.cache.map((g) => g.memberCount - 1);
     let userTotal = 0;
     userCountsPerGuild.forEach((item) => (userTotal += item));
