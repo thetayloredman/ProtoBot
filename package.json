@@ -7,7 +7,8 @@
         "start": "chmod u+x ./start.sh; ./start.sh",
         "lint": "eslint .",
         "build": "tsc",
-        "CI_prettier": "prettier . --list-different"
+        "CI_prettier": "prettier . --list-different",
+        "prettier": "prettier . -w"
     },
     "author": "BadBoyHaloCat",
     "license": "GPL-3.0",
@@ -33,6 +34,12 @@
         "babel-eslint": "^10.1.0",
         "eslint": "^7.16.0",
         "eslint-config-prettier": "^7.1.0",
+        "husky": "^4.3.6",
         "typescript": "^4.1.3"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "npm run CI_prettier --silent > /dev/null || (echo \"error: unformatted files detected!\" && echo \"error: unformatted files:\" && echo \"$(npm run CI_prettier --silent -- --list-different)\" && echo \"error: commit cancelled\" && exit 1)"
+        }
     }
 }
