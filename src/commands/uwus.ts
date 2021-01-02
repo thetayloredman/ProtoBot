@@ -20,9 +20,6 @@
 import discord from 'discord.js';
 import type { Client, Message } from 'discord.js';
 
-// Types
-type FetchedUser = discord.User | null;
-
 // Main
 export function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
     let tops: [number, string][] = client.uwus.map((count: number, id: string) => [count, id]);
@@ -33,16 +30,16 @@ export function run(client: Client, message: Message, args: string[], log: (mode
     const uintop: boolean = t10ids.includes(message.author.id);
 
     (async () => {
-        const u1: FetchedUser = t10ids[0] ? await client.users.fetch(t10ids[0]) : null;
-        const u2: FetchedUser = t10ids[1] ? await client.users.fetch(t10ids[1]) : null;
-        const u3: FetchedUser = t10ids[2] ? await client.users.fetch(t10ids[2]) : null;
-        const u4: FetchedUser = t10ids[3] ? await client.users.fetch(t10ids[3]) : null;
-        const u5: FetchedUser = t10ids[4] ? await client.users.fetch(t10ids[4]) : null;
-        const u6: FetchedUser = t10ids[5] ? await client.users.fetch(t10ids[5]) : null;
-        const u7: FetchedUser = t10ids[6] ? await client.users.fetch(t10ids[6]) : null;
-        const u8: FetchedUser = t10ids[7] ? await client.users.fetch(t10ids[7]) : null;
-        const u9: FetchedUser = t10ids[8] ? await client.users.fetch(t10ids[8]) : null;
-        const u10: FetchedUser = t10ids[9] ? await client.users.fetch(t10ids[9]) : null;
+        const u1 = t10ids[0] ? await client.users.fetch(t10ids[0]) : null;
+        const u2 = t10ids[1] ? await client.users.fetch(t10ids[1]) : null;
+        const u3 = t10ids[2] ? await client.users.fetch(t10ids[2]) : null;
+        const u4 = t10ids[3] ? await client.users.fetch(t10ids[3]) : null;
+        const u5 = t10ids[4] ? await client.users.fetch(t10ids[4]) : null;
+        const u6 = t10ids[5] ? await client.users.fetch(t10ids[5]) : null;
+        const u7 = t10ids[6] ? await client.users.fetch(t10ids[6]) : null;
+        const u8 = t10ids[7] ? await client.users.fetch(t10ids[7]) : null;
+        const u9 = t10ids[8] ? await client.users.fetch(t10ids[8]) : null;
+        const u10 = t10ids[9] ? await client.users.fetch(t10ids[9]) : null;
 
         let msg = '```adoc\n';
         msg += '===== UWU LEADERBOARD =====\n';
