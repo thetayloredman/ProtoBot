@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-// Aliases
+// Aliases (aka @lib/ @root/ etc)
 import moduleAlias from 'module-alias';
 
 moduleAlias.addAliases({
