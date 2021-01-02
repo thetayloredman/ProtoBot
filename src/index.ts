@@ -259,7 +259,7 @@ process.on('exit', (code) => {
 
 // If we get an uncaught exception, close ASAP.
 process.on('uncaughtException', async (error) => {
-    log('e', 'Killing client...')
+    log('e', 'Killing client...');
     client.destroy();
     log('e', 'Client killed.');
     log('e', 'Closing databases...');
