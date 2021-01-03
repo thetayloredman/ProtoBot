@@ -35,6 +35,9 @@ import Client from '@lib/Client';
 import discord from 'discord.js';
 import type Command from '@lib/interfaces/Command';
 
+// MemStat Auto
+import '@lib/memstatAuto';
+
 // Log import
 import log from './log';
 
