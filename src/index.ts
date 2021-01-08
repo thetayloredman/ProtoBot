@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-// Aliases
+// Aliases (aka @lib/ @root/ etc)
 import moduleAlias from 'module-alias';
 
 moduleAlias.addAliases({
@@ -34,6 +34,9 @@ import chalk from 'chalk';
 import Client from '@lib/Client';
 import discord from 'discord.js';
 import type Command from '@lib/interfaces/Command';
+
+// MemStat Auto
+import '@lib/memstatAuto';
 
 // Log import
 import log from './log';
@@ -261,7 +264,7 @@ process.on('exit', (code) => {
 
 // If we get an uncaught exception, close ASAP.
 process.on('uncaughtException', async (error) => {
-    log('e', 'Killing client...')
+    log('e', 'Killing client...');
     client.destroy();
     log('e', 'Client killed.');
     log('e', 'Closing databases...');

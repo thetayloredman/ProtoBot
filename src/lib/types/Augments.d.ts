@@ -53,6 +53,6 @@ declare module 'discord.js' {
         modules: Enmap<string, Module>;
 
         // Functions
-        public async closeDatabases(): void;
+        public closeDatabases(): void;
     }
 }
