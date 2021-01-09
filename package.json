@@ -24,7 +24,7 @@
         "prettier": "^2.2.1",
         "source-map-support": "^0.5.19",
         "strip-ansi": "^6.0.0",
-        "uwuifier": "^2.0.2"
+        "uwuifier": "^2.0.4"
     },
     "devDependencies": {
         "@types/bytes": "^3.1.0",
