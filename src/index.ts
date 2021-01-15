@@ -138,26 +138,26 @@ client.on('ready', async () => {
             log(type, `${chalk.yellow('[')}${chalk.yellow.bold('MODLOAD')}${chalk.yellow(']')} ${message}`);
         }
         l('i', 'Beginning initial module load...');
-        fs.readdir(client.config.dirs.modules, (err, files) => {
+        fs.readdir(client.config.dirs.hooks, (err, files) => {
             if (err) {
-                l('e', `Failed to read directory ${client.config.dirs.modules}:`);
+                l('e', `Failed to read directory ${client.config.dirs.hooks}:`);
                 l('e', err);
             } else {
                 files.forEach((path: string) => {
                     if (path.endsWith('.js')) {
                         // normal load
-                        const moduleData = require(client.config.dirs.modules.endsWith('/')
-                            ? client.config.dirs.modules + path
-                            : `${client.config.dirs.modules}/${path}`);
+                        const moduleData = require(client.config.dirs.hooks.endsWith('/')
+                            ? client.config.dirs.hooks + path
+                            : `${client.config.dirs.hooks}/${path}`);
                         const modName = path.replace('.js', '');
                         l('i', `Loading module "${modName}"...`);
-                        client.modules.set(modName, moduleData);
+                        client.hooks.set(modName, moduleData);
                         l('i', `Finished loading module "${modName}"!`);
                     } else if (path.endsWith('.map')) {
                         return;
                     } else {
                         // unknown ext
-                        l('w', `File in modules dir with unknown extension: ${path}`);
+                        l('w', `File in hooks dir with unknown extension: ${path}`);
                     }
                 });
             }
@@ -179,7 +179,7 @@ client.on('message', (message: discord.Message) => {
         return;
     }
     // @ts-ignore
-    client.modules.forEach((moduleData) => {
+    client.hooks.forEach((moduleData) => {
         log('i', `${chalk.green('[')}${chalk.green.bold('ModuleRunner')}${chalk.green(']')} Running module ${moduleData.config.name}!`);
         moduleData.run(client, message, log);
     });
