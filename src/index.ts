@@ -179,7 +179,7 @@ client.on('message', (message: discord.Message) => {
         return;
     }
     // @ts-ignore
-    client.hooks.forEach((moduleData) => {
+    client.hooks.forEach((hookData) => {
         log('i', `${chalk.green('[')}${chalk.green.bold('ModuleRunner')}${chalk.green(']')} Running module ${moduleData.config.name}!`);
         hookData.run(client, message, log);
     });
