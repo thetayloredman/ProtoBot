@@ -52,4 +52,5 @@ jobs:
 
             # run the build
             - name: Build
-              run: npm run build
+              # -b and --verbose: verbose logging
+              run: npm run build -- -b --verbose
