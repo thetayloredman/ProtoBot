@@ -43,6 +43,15 @@
         "security",
         "test"
       ]
+    },
+    {
+      "login": "shadowplays4k",
+      "name": "JustAnotherDev",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/37817019?v=4",
+      "profile": "https://www.linuxbad.com/",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
