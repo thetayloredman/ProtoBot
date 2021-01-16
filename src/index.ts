@@ -150,7 +150,7 @@ client.on('ready', async () => {
                             ? client.config.dirs.hooks + path
                             : `${client.config.dirs.hooks}/${path}`);
                         const hookName = path.replace('.js', '');
-                        l('i', `Loading hook "${modName}"...`);
+                        l('i', `Loading hook "${hookName}"...`);
                         client.hooks.set(hookName, hookData);
                         l('i', `Finished loading hook "${hookName}"!`);
                     } else if (path.endsWith('.map')) {
