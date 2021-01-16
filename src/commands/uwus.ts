@@ -55,11 +55,11 @@ export function run(client: Client, message: Message, args: string[], log: (mode
         msg += ` 9 :: ${u9?.tag ?? '(none)'}${t10[8] ? ` with ${t10[8][0]} uwus` : ''}\n`;
         msg += `10 :: ${u10?.tag ?? '(none)'}${t10[9] ? ` with ${t10[9][0]} uwus` : ''}\n`;
         if (!uintop) {
-            const ownIndex = client.uwus.indexes.indexOf(message.author.id);
+            let ownIndex = client.uwus.indexes.indexOf(message.author.id);
             if (ownIndex > -1) {
-                const ownUwus = client.uwus.get(message.author.id);
+                let ownUwus = client.uwus.get(message.author.id);
                 msg += "====================";
-                msg += `${client.uwus.indexes.indexOf(message.author.id)} :: ${message.author.tag ?? '(none)'}${ownUwus ? ` with ${ownUwus} uwus` : ''}\n`;
+                msg += `${ownIndex} :: ${message.author.tag ?? '(none)'}${ownUwus ? ` with ${ownUwus} uwus` : ''}\n`;
             }
         }
         msg += '```';
