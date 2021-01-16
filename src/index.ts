@@ -133,37 +133,37 @@ client.on('ready', async () => {
         });
     }
     loadCmds();
-    function loadMods(): void {
+    function loadHooks(): void {
         function l(type: 'i' | 'w' | 'e', message: any) {
-            log(type, `${chalk.yellow('[')}${chalk.yellow.bold('MODLOAD')}${chalk.yellow(']')} ${message}`);
+            log(type, `${chalk.yellow('[')}${chalk.yellow.bold('HOOKLOAD')}${chalk.yellow(']')} ${message}`);
         }
-        l('i', 'Beginning initial module load...');
-        fs.readdir(client.config.dirs.modules, (err, files) => {
+        l('i', 'Beginning initial hook load...');
+        fs.readdir(client.config.dirs.hooks, (err, files) => {
             if (err) {
-                l('e', `Failed to read directory ${client.config.dirs.modules}:`);
+                l('e', `Failed to read directory ${client.config.dirs.hooks}:`);
                 l('e', err);
             } else {
                 files.forEach((path: string) => {
                     if (path.endsWith('.js')) {
                         // normal load
-                        const moduleData = require(client.config.dirs.modules.endsWith('/')
-                            ? client.config.dirs.modules + path
-                            : `${client.config.dirs.modules}/${path}`);
-                        const modName = path.replace('.js', '');
-                        l('i', `Loading module "${modName}"...`);
-                        client.modules.set(modName, moduleData);
-                        l('i', `Finished loading module "${modName}"!`);
+                        const hookData = require(client.config.dirs.hooks.endsWith('/')
+                            ? client.config.dirs.hooks + path
+                            : `${client.config.dirs.hooks}/${path}`);
+                        const hookName = path.replace('.js', '');
+                        l('i', `Loading hook "${hookName}"...`);
+                        client.hooks.set(hookName, hookData);
+                        l('i', `Finished loading hook "${hookName}"!`);
                     } else if (path.endsWith('.map')) {
                         return;
                     } else {
                         // unknown ext
-                        l('w', `File in modules dir with unknown extension: ${path}`);
+                        l('w', `File in hooks dir with unknown extension: ${path}`);
                     }
                 });
             }
         });
     }
-    loadMods();
+    loadHooks();
 
     // Status
     client.user?.setActivity(`${client.config.prefixes[0]}about | Written for furries, by furries!`, { type: 'PLAYING' });
@@ -179,9 +179,9 @@ client.on('message', (message: discord.Message) => {
         return;
     }
     // @ts-ignore
-    client.modules.forEach((moduleData) => {
-        log('i', `${chalk.green('[')}${chalk.green.bold('ModuleRunner')}${chalk.green(']')} Running module ${moduleData.config.name}!`);
-        moduleData.run(client, message, log);
+    client.hooks.forEach((hookData) => {
+        log('i', `${chalk.green('[')}${chalk.green.bold('HookRunner')}${chalk.green(']')} Running hook ${hookData.config.name}!`);
+        hookData.run(client, message, log);
     });
     let msgIsCommand = false;
     let prefixLen = 0;
