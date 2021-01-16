@@ -181,7 +181,7 @@ client.on('message', (message: discord.Message) => {
     // @ts-ignore
     client.hooks.forEach((moduleData) => {
         log('i', `${chalk.green('[')}${chalk.green.bold('ModuleRunner')}${chalk.green(']')} Running module ${moduleData.config.name}!`);
-        moduleData.run(client, message, log);
+        hookData.run(client, message, log);
     });
     let msgIsCommand = false;
     let prefixLen = 0;
