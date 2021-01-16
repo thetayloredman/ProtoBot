@@ -133,7 +133,7 @@ client.on('ready', async () => {
         });
     }
     loadCmds();
-    function loadMods(): void {
+    function loadHooks(): void {
         function l(type: 'i' | 'w' | 'e', message: any) {
             log(type, `${chalk.yellow('[')}${chalk.yellow.bold('HOOKLOAD'}${chalk.yellow(']')} ${message}`);
         }
@@ -163,7 +163,7 @@ client.on('ready', async () => {
             }
         });
     }
-    loadMods();
+    loadHooks();
 
     // Status
     client.user?.setActivity(`${client.config.prefixes[0]}about | Written for furries, by furries!`, { type: 'PLAYING' });
