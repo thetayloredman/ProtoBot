@@ -20,7 +20,7 @@ import Cooldowns from '@lib/interfaces/Cooldowns';
 
 export default interface Config {
     token: string;
-    dirs: { commands: string; modules: string };
+    dirs: { commands: string; hooks: string };
     prefixes: string[];
     cooldowns: { [key in keyof Cooldowns]: number /* (ms) */ };
     ownerID: string;

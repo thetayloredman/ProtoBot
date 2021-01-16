@@ -43,7 +43,7 @@ export default class Client extends BaseClient {
         this.commands = new enmap();
         this.commandsConfig = new enmap();
         this.commandsRefs = new enmap(); // Refs are basically aliases that "link" to the actual command
-        this.modules = new enmap();
+        this.hooks = new enmap();
     }
 
     public async closeDatabases(): Promise<void> {

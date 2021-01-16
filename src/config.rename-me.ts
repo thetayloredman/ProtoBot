@@ -32,7 +32,7 @@ const config: Config = {
     token: 'your-super-cool-token',
     dirs: {
         commands: './commands/',
-        modules: './modules/'
+        hooks: './hooks/'
     },
     // The first prefix listed here will
     // be the "primary prefix", the one

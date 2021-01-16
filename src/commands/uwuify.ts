@@ -29,7 +29,7 @@ export function run(client: Client, message: Message, args: string[], log: (mode
     const uwuify: Uwuifier = new Uwuifier();
     const msg: string = uwuify.uwuifySentence(args.join(' '));
     // @ts-ignore
-    message.channel.send(`**Uwuified text:** ${msg}`);
+    message.channel.send(`${msg}`);
 }
 
 // Config
