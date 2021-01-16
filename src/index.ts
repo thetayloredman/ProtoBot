@@ -135,7 +135,7 @@ client.on('ready', async () => {
     loadCmds();
     function loadMods(): void {
         function l(type: 'i' | 'w' | 'e', message: any) {
-            log(type, `${chalk.yellow('[')}${chalk.yellow.bold('MODLOAD')}${chalk.yellow(']')} ${message}`);
+            log(type, `${chalk.yellow('[')}${chalk.yellow.bold('HOOKLOAD'}${chalk.yellow(']')} ${message}`);
         }
         l('i', 'Beginning initial module load...');
         fs.readdir(client.config.dirs.hooks, (err, files) => {
