@@ -137,7 +137,7 @@ client.on('ready', async () => {
         function l(type: 'i' | 'w' | 'e', message: any) {
             log(type, `${chalk.yellow('[')}${chalk.yellow.bold('HOOKLOAD'}${chalk.yellow(']')} ${message}`);
         }
-        l('i', 'Beginning initial module load...');
+        l('i', 'Beginning initial hook load...');
         fs.readdir(client.config.dirs.hooks, (err, files) => {
             if (err) {
                 l('e', `Failed to read directory ${client.config.dirs.hooks}:`);
