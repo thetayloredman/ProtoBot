@@ -146,12 +146,12 @@ client.on('ready', async () => {
                 files.forEach((path: string) => {
                     if (path.endsWith('.js')) {
                         // normal load
-                        const moduleData = require(client.config.dirs.hooks.endsWith('/')
+                        const hookData = require(client.config.dirs.hooks.endsWith('/')
                             ? client.config.dirs.hooks + path
                             : `${client.config.dirs.hooks}/${path}`);
-                        const modName = path.replace('.js', '');
+                        const hookName = path.replace('.js', '');
                         l('i', `Loading hook "${modName}"...`);
-                        client.hooks.set(modName, moduleData);
+                        client.hooks.set(hookName, hookData);
                         l('i', `Finished loading hook "${hookName}"!`);
                     } else if (path.endsWith('.map')) {
                         return;
