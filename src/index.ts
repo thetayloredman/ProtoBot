@@ -180,7 +180,7 @@ client.on('message', (message: discord.Message) => {
     }
     // @ts-ignore
     client.hooks.forEach((hookData) => {
-        log('i', `${chalk.green('[')}${chalk.green.bold('ModuleRunner')}${chalk.green(']')} Running module ${moduleData.config.name}!`);
+        log('i', `${chalk.green('[')}${chalk.green.bold('HookRunner')}${chalk.green(']')} Running hook ${hookData.config.name}!`);
         hookData.run(client, message, log);
     });
     let msgIsCommand = false;
