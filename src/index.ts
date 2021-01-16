@@ -152,7 +152,7 @@ client.on('ready', async () => {
                         const modName = path.replace('.js', '');
                         l('i', `Loading hook "${modName}"...`);
                         client.hooks.set(modName, moduleData);
-                        l('i', `Finished loading module "${modName}"!`);
+                        l('i', `Finished loading hook "${hookName}"!`);
                     } else if (path.endsWith('.map')) {
                         return;
                     } else {
