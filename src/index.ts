@@ -135,7 +135,7 @@ client.on('ready', async () => {
     loadCmds();
     function loadHooks(): void {
         function l(type: 'i' | 'w' | 'e', message: any) {
-            log(type, `${chalk.yellow('[')}${chalk.yellow.bold('HOOKLOAD'}${chalk.yellow(']')} ${message}`);
+            log(type, `${chalk.yellow('[')}${chalk.yellow.bold('HOOKLOAD')}${chalk.yellow(']')} ${message}`);
         }
         l('i', 'Beginning initial hook load...');
         fs.readdir(client.config.dirs.hooks, (err, files) => {
