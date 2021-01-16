@@ -23,6 +23,26 @@
         "maintenance",
         "code"
       ]
+    },
+    {
+      "login": "thetayloredman",
+      "name": "BadBoyHaloCat",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/26350849?v=4",
+      "profile": "https://badboyhalocat.tk/",
+      "contributions": [
+        "bug",
+        "code",
+        "data",
+        "doc",
+        "ideas",
+        "infra",
+        "maintenance",
+        "projectManagement",
+        "question",
+        "review",
+        "security",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
