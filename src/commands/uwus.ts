@@ -58,7 +58,7 @@ export function run(client: Client, message: Message, args: string[], log: (mode
             let ownIndex = client.uwus.indexes.indexOf(message.author.id);
             if (ownIndex > -1) {
                 let ownUwus = client.uwus.get(message.author.id);
-                msg += "====================";
+                msg += '====================';
                 msg += `${ownIndex} :: ${message.author.tag ?? '(none)'}${ownUwus ? ` with ${ownUwus} uwus` : ''}\n`;
             }
         }

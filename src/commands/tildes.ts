@@ -58,7 +58,7 @@ export function run(client: Client, message: Message, args: string[], log: (mode
             let ownIndex = client.tildes.indexes.indexOf(message.author.id);
             if (ownIndex > -1) {
                 let ownTildes = client.tildes.get(message.author.id);
-                msg += "====================";
+                msg += '====================';
                 msg += `${ownIndex} :: ${message.author.tag ?? '(none)'}${ownTildes ? ` with ${ownTildes} tildes` : ''}\n`;
             }
         }

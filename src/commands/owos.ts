@@ -58,7 +58,7 @@ export function run(client: Client, message: Message, args: string[], log: (mode
             let ownIndex = client.owos.indexes.indexOf(message.author.id);
             if (ownIndex > -1) {
                 let ownOwos = client.owos.get(message.author.id);
-                msg += "====================";
+                msg += '====================';
                 msg += `${ownIndex} :: ${message.author.tag ?? '(none)'}${ownOwos ? ` with ${ownOwos} owos` : ''}\n`;
             }
         }
