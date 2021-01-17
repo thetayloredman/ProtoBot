@@ -54,6 +54,14 @@ export function run(client: Client, message: Message, args: string[], log: (mode
         msg += ` 8 :: ${u8?.tag ?? '(none)'}${t10[7] ? ` with ${t10[7][0]} owos` : ''}\n`;
         msg += ` 9 :: ${u9?.tag ?? '(none)'}${t10[8] ? ` with ${t10[8][0]} owos` : ''}\n`;
         msg += `10 :: ${u10?.tag ?? '(none)'}${t10[9] ? ` with ${t10[9][0]} owos` : ''}\n`;
+        if (!uintop) {
+            let ownIndex = client.owos.indexes.indexOf(message.author.id);
+            if (ownIndex > -1) {
+                let ownOwos = client.owos.get(message.author.id);
+                msg += "====================";
+                msg += `${ownIndex} :: ${message.author.tag ?? '(none)'}${ownOwos ? ` with ${ownOwos} owos` : ''}\n`;
+            }
+        }
         msg += '```';
         message.reply(msg);
     })();

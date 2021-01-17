@@ -27,6 +27,7 @@ export function run(client: Client, message: Message, args: string[], log: (mode
     const t10: ([number, string] | undefined)[] = [tops[0], tops[1], tops[2], tops[3], tops[4], tops[5], tops[6], tops[7], tops[8], tops[9]];
     // @ts-ignore
     const t10ids: string[] = t10.map((item: [number, string] | undefined) => (item ? item[1] : undefined));
+    const uintop: boolean = t10ids.includes(message.author.id);
 
     (async () => {
         const u1 = t10ids[0] ? await client.users.fetch(t10ids[0]) : null;
@@ -53,6 +54,14 @@ export function run(client: Client, message: Message, args: string[], log: (mode
         msg += ` 8 :: ${u8?.tag ?? '(none)'}${t10[7] ? ` with ${t10[7][0]} tildes` : ''}\n`;
         msg += ` 9 :: ${u9?.tag ?? '(none)'}${t10[8] ? ` with ${t10[8][0]} tildes` : ''}\n`;
         msg += `10 :: ${u10?.tag ?? '(none)'}${t10[9] ? ` with ${t10[9][0]} tildes` : ''}\n`;
+        if (!uintop) {
+            let ownIndex = client.tildes.indexes.indexOf(message.author.id);
+            if (ownIndex > -1) {
+                let ownTildes = client.tildes.get(message.author.id);
+                msg += "====================";
+                msg += `${ownIndex} :: ${message.author.tag ?? '(none)'}${ownTildes ? ` with ${ownTildes} tildes` : ''}\n`;
+            }
+        }
         msg += '```';
         message.reply(msg);
     })();
