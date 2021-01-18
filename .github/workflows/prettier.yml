@@ -48,10 +48,10 @@ jobs:
               run: npm ci
 
             - name: Run prettier
-              run: npm run CI_prettier
+              run: npm run prettier:ci -- --check
 
             - name: Run actual reformat if bad
-              run: npm run CI_prettier -- -w
+              run: npm run prettier:ci -- -w
               if: ${{ failure() }}
 
             - name: Show diff
