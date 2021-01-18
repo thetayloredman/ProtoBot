@@ -48,7 +48,7 @@ jobs:
               run: npm ci
 
             - name: Run prettier
-              run: npm run prettier:ci
+              run: npm run prettier:ci -- --check
 
             - name: Run actual reformat if bad
               run: npm run prettier:ci -- -w
