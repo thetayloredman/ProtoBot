@@ -7,7 +7,7 @@
         "start": "chmod u+x ./start.sh; ./start.sh",
         "lint": "eslint .",
         "build": "tsc",
-        "CI_prettier": "prettier .",
+        "prettier:ci": "prettier .",
         "prettier": "prettier . -w"
     },
     "author": "BadBoyHaloCat",
