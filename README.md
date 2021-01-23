@@ -14,6 +14,10 @@ We are not supportive of the idea of people self hosting ProtoBot because the de
 
 Plus, as ProtoBot grows we will continue to rely on MANY, MANY more external services to provide it's function.
 
+## What is ProtoBot?
+
+ProtoBot is a Discord bot made by furries, for furries.
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):

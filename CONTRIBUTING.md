@@ -105,4 +105,4 @@ Your changes will be reviewed soon. Keep an eye on your pull request!
 
 All merges should be done using the `Squash and Merge` strategy.
 
-Avoid merging Pull Requests that have failed a CI check.
+Avoid merging Pull Requests that have failed a CI check, unless the CI broke.
