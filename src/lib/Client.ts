@@ -18,7 +18,7 @@
 
 import config from '@root/config';
 import { Client as BaseClient, ClientOptions } from 'discord.js';
-import enmap from 'enmap';
+import Enmap from 'enmap';
 import EnmapVerbose from '@lib/EnmapVerbose';
 
 export default class Client extends BaseClient {
@@ -30,20 +30,20 @@ export default class Client extends BaseClient {
             USER_STATS: { hugs: 0 },
             COOLDOWNS: { owos: 0, uwus: 0, tildes: 0 }
         };
-        this.cooldowns = new enmap({ name: 'cooldowns', verbose: (q: string) => EnmapVerbose('cooldowns', q) });
-        this.tildes = new enmap({ name: 'tildes', verbose: (q: string) => EnmapVerbose('tildes', q) });
-        this.owos = new enmap({ name: 'owos', verbose: (q: string) => EnmapVerbose('owos', q) });
-        this.uwus = new enmap({ name: 'uwus', verbose: (q: string) => EnmapVerbose('uwus', q) });
-        this.ustats = new enmap({ name: 'ustats', verbose: (q: string) => EnmapVerbose('ustats', q) });
-        this.uconfs = new enmap({ name: 'uconfs', verbose: (q: string) => EnmapVerbose('uconfs', q) });
-        this.markovMessages = new enmap({ name: 'markovMessages', verbose: (q: string) => EnmapVerbose('markovMessages', q) });
-        this.fursonas = new enmap({ name: 'fursonas', verbose: (q: string) => EnmapVerbose('fursonas', q) });
+        this.cooldowns = new Enmap({ name: 'cooldowns', verbose: (q: string) => EnmapVerbose('cooldowns', q) });
+        this.tildes = new Enmap({ name: 'tildes', verbose: (q: string) => EnmapVerbose('tildes', q) });
+        this.owos = new Enmap({ name: 'owos', verbose: (q: string) => EnmapVerbose('owos', q) });
+        this.uwus = new Enmap({ name: 'uwus', verbose: (q: string) => EnmapVerbose('uwus', q) });
+        this.ustats = new Enmap({ name: 'ustats', verbose: (q: string) => EnmapVerbose('ustats', q) });
+        this.uconfs = new Enmap({ name: 'uconfs', verbose: (q: string) => EnmapVerbose('uconfs', q) });
+        this.markovMessages = new Enmap({ name: 'markovMessages', verbose: (q: string) => EnmapVerbose('markovMessages', q) });
+        this.fursonas = new Enmap({ name: 'fursonas', verbose: (q: string) => EnmapVerbose('fursonas', q) });
 
         // In memory items
-        this.commands = new enmap();
-        this.commandsConfig = new enmap();
-        this.commandsRefs = new enmap(); // Refs are basically aliases that "link" to the actual command
-        this.hooks = new enmap();
+        this.commands = new Enmap();
+        this.commandsConfig = new Enmap();
+        this.commandsRefs = new Enmap(); // Refs are basically aliases that "link" to the actual command
+        this.hooks = new Enmap();
     }
 
     public async closeDatabases(): Promise<void> {
