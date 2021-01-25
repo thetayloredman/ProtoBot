@@ -87,6 +87,7 @@ export default function log(mode: 'i' | 'w' | 'e', message: any): void;
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function log(mode: 'i' | 'w' | 'e' | 'CLOSE_STREAMS', message?: any): void | Promise<void> {
     if (mode === 'CLOSE_STREAMS') {
+        // Close all of the file streams
         return new Promise((resolve) => {
             errStr.end(() => {
                 warnStr.end(() => {
@@ -98,7 +99,8 @@ export default function log(mode: 'i' | 'w' | 'e' | 'CLOSE_STREAMS', message?: a
         });
     } else {
         if (typeof message !== 'string') {
-            message = util.inspect(message, undefined, undefined, true);
+            // Use util.inspect to color the message
+            message = util.inspect(message, { colors: true });
         }
         let msg = '';
         let preparsedDate: any = new Date(Date.now()).toLocaleDateString('en-US', {
@@ -124,16 +126,23 @@ export default function log(mode: 'i' | 'w' | 'e' | 'CLOSE_STREAMS', message?: a
 
         switch (mode) {
             case 'i':
+                // Info
                 msg = `${chalk.blue('[')}${chalk.blue.bold('INFO')}${chalk.blue(']')} ${message}`;
                 break;
             case 'w':
+                // Warning
                 msg = `${chalk.yellow('[')}${chalk.yellow.bold('WARN')}${chalk.yellow(']')} ${message}`;
                 break;
             case 'e':
+                // Error
                 msg = `${chalk.red('[')}${chalk.red.bold('ERR')}${chalk.red(']')} ${message}`;
                 break;
             default:
+                // Default
                 msg = `${chalk.blue('[')}${chalk.blue.bold('INFO')}${chalk.blue(']')} ${message}`;
+
+                // Throw a warning for invalid name
+                log('w', `[log] Invalid log level ${mode}`);
                 break;
         }
 
