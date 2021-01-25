@@ -18,11 +18,18 @@
 
 import log from '../log';
 import chalk from 'chalk';
+import { highlight } from 'cli-highlight';
 
 /**
  * Called on every query to the Enmap internal database.
  * @param query The SQL query ran
  */
 export default function EnmapVerbose(dbname: string, query: string): void {
-    log('i', `${chalk.blue('[')}${chalk.blue.bold('DatabaseQuery')}${chalk.blue(']')} ${chalk.underline('Query')} ${chalk.red(dbname)}: ${query}`);
+    log(
+        'i',
+        `${chalk.blue('[')}${chalk.blue.bold('DatabaseQuery')}${chalk.blue(']')} ${chalk.underline('Query')} ${chalk.red(dbname)}: ${highlight(
+            query,
+            { language: 'sql' }
+        )}`
+    );
 }
