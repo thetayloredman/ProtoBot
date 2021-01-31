@@ -109,7 +109,7 @@ ${stdout4 === '' ? stderr4 : stdout4}
                                                 )
                                                 .addField('Status', '**Complete.**')
                                                 .addField(
-                                                    'Restart to apply changes',
+                                                    'Restart to apply changes with `~restart`. (you may want to run `~exec yarn install` first if dependencies were changed)',
                                                     `To apply the update, run ${client.config.prefixes[0]}restart.`
                                                 );
 
