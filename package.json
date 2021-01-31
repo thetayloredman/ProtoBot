@@ -18,7 +18,7 @@
         "chalk": "^4.1.0",
         "cli-highlight": "^2.1.10",
         "discord.js": "^12.5.1",
-        "enmap": "git+https://github.com/eslachance/enmap.git#master",
+        "enmap": "^5.8.4",
         "markov-strings": "^3.0.1",
         "module-alias": "^2.2.2",
         "node-fetch": "^2.6.1",

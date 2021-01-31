@@ -697,9 +697,10 @@ end-of-stream@^1.1.0, end-of-stream@^1.4.1:
   dependencies:
     once "^1.4.0"
 
-"enmap@git+https://github.com/eslachance/enmap.git#master":
+enmap@^5.8.4:
   version "5.8.4"
-  resolved "git+https://github.com/eslachance/enmap.git#c5db4ab34170a693d62e1fdae5127b53cf1e3ae2"
+  resolved "https://registry.yarnpkg.com/enmap/-/enmap-5.8.4.tgz#1e007be1d9930f43d03e7306c2e2b3b49e35bd3a"
+  integrity sha512-36zXOIJrAvL6Dk03vz9PA4anpIkms3kelJhG+X1hw5HYlRv8yT6UEMvDH1yUaMYfsH4v3D04nLoBX4z2Vqambw==
   dependencies:
     better-sqlite3 "^7.1.0"
     lodash "^4.17.20"
