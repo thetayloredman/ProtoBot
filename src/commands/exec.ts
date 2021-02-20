@@ -123,7 +123,11 @@ ${code}`
         }
 
         if (!silent) {
-            message.channel.send(embed);
+            try {
+                message.channel.send(embed);
+            } catch (e) {
+                log('e', e);
+            }
         } else {
             message.delete().catch(() => {
                 // delete silent msg
