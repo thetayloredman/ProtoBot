@@ -1,7 +1,7 @@
 ---
 name: Feature request
 about: Suggest an idea to be added to ProtoBot
-title: '[FEATURE] Describe the feature request...'
+title: 'feat: Describe the feature request...'
 labels: 'enhancement'
 assignees: ''
 ---
