@@ -8,6 +8,24 @@
 
 A Discord furry bot
 
+## Recovering from a recent force-push
+
+On Sunday, February 21 at 12:43 AM PST, [thetayloredman](https://github.com/thetayloredman) force-pushed to this repository to update commit messages.
+
+### Pulling changes
+
+For each branch in your local repo (list with `git branch`):
+
+```bash
+git checkout <branch>
+git fetch
+git reset --hard origin/<branch>
+```
+
+### Updating your fork
+
+Just delete and re-create your fork.
+
 ## A note to aspiring developers who want to self host ProtoBot
 
 We are not supportive of the idea of people self hosting ProtoBot because the dev team has put a very high priority on providing the best experience we can. This repository will be deleted if people self-host it as they will not use the same setup to what we do and will most likely not put the same amount of effort we do. If ProtoBot is lacking a feature you'd like to see, please refer to the developing guidelines and if you can add that feature it will be in to stay.
