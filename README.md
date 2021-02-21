@@ -10,7 +10,7 @@ A Discord furry bot
 
 ## Recovering from a recent force-push
 
-On Sunday, February 21 at 12:43 AM PST, [thetayloredman](https://github.com/thetayloredman) force-pushed to this repository to update commit messages.
+On Sunday, February 21 at 12:43 PM PST, [thetayloredman](https://github.com/thetayloredman) force-pushed to this repository to update commit messages.
 
 ### Pulling changes
 
