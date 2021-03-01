@@ -20,7 +20,12 @@
 import type { Client, Message } from 'discord.js';
 
 // Main
-export async function run(client: Client, message: Message, args: string[], log: (mode: 'v' | 'i' | 'w' | 'e', message: string) => void): Promise<void> {
+export async function run(
+    client: Client,
+    message: Message,
+    args: string[],
+    log: (mode: 'v' | 'i' | 'w' | 'e', message: string) => void
+): Promise<void> {
     // Safety check
     if (message.author.id !== client.config.ownerID) {
         console.log('w', `User ${message.author.tag} tried to use "restart"!`);
