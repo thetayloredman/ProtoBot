@@ -110,18 +110,18 @@ client.on('ready', async () => {
                                 : `${client.config.dirs.commands}/${path}`)
                         );
                         const cmdName = path.replace('.js', '');
-                        l('i', `Loading command "${cmdName}"...`);
+                        l('v', `Loading command "${cmdName}"...`);
                         client.commandsConfig.set(cmdName, commandData.config);
                         client.commands.set(cmdName, commandData);
                         // Load aliases into the refs along with the base command
-                        l('i', `Loading command aliases for ${cmdName}...`);
-                        l('i', 'Loaded base alias!');
+                        l('v', `Loading command aliases for ${cmdName}...`);
+                        l('v', 'Loaded base alias!');
                         client.commandsRefs.set(cmdName, cmdName); // base
                         (commandData.config.aliases ?? []).forEach((alias) => {
-                            l('i', `Loaded alias ${alias}!`);
+                            l('v', `Loaded alias ${alias}!`);
                             client.commandsRefs.set(alias, cmdName);
                         });
-                        l('i', `Finished loading command "${cmdName}"!`);
+                        l('v', `Finished loading command "${cmdName}"!`);
                     } else if (path.endsWith('.map')) {
                         return;
                     } else {
@@ -150,9 +150,9 @@ client.on('ready', async () => {
                             ? client.config.dirs.hooks + path
                             : `${client.config.dirs.hooks}/${path}`);
                         const hookName = path.replace('.js', '');
-                        l('i', `Loading hook "${hookName}"...`);
+                        l('v', `Loading hook "${hookName}"...`);
                         client.hooks.set(hookName, hookData);
-                        l('i', `Finished loading hook "${hookName}"!`);
+                        l('v', `Finished loading hook "${hookName}"!`);
                     } else if (path.endsWith('.map')) {
                         return;
                     } else {
@@ -206,17 +206,17 @@ client.on('message', (message: discord.Message) => {
         }
 
         // verbose info
-        log('i', `Running command "${command}" for "${message.author.tag}" with args "${args.join(' ')}"!`);
+        log('v', `Running command "${command}" for "${message.author.tag}" with args "${args.join(' ')}"!`);
         log(
-            'i',
+            'v',
             `Command found at: ${message.guild?.name ?? 'unknown'} (${message.guild?.id ?? 'unknown'}) => #${message.channel?.name ?? '#unknown'} (${
                 message.channel?.id ?? 'unknown'
             }) => ${message.id}`
         );
 
-        log('i', 'Resolving alias...');
+        log('v', 'Resolving alias...');
         command = client.commandsRefs.get(command) ?? '';
-        log('i', `Alias resolved to "${command}"!`);
+        log('v', `Alias resolved to "${command}"!`);
 
         const commandData: Command | undefined = client.commands.get(command);
         if (!commandData) {
