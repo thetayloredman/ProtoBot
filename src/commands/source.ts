@@ -25,9 +25,7 @@ export function run(client: Client, message: Message, args: string[], log: (mode
     message.channel.messages.fetch({ limit: 2 }).then((messages) => {
         // @ts-ignore *temporary
         const m: Message = messages.last();
-        message.reply(`Content of message ID \`${m.id}\` in channel <#${m.channel.id}>${
-            m.content.includes('```') ? ' (**Formatting may be broken, the message contains a code fence**)' : ''
-        }:
+        message.reply(`Content of message ID \`${m.id}\` in channel <#${m.channel.id}>:
 
 ${
     // @ts-ignore
