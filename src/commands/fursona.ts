@@ -21,7 +21,7 @@ import discord from 'discord.js';
 import type { Client, Message } from 'discord.js';
 
 // Main
-export function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
+export function run(client: Client, message: Message, args: string[], log: (mode: 'v' | 'i' | 'w' | 'e', message: string) => void): void {
     log('i', 'Fursona command fired!');
     // Get their fursona, PLS GIB I WANT AAAA >w<
     if (!args[0]) {

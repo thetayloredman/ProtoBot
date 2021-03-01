@@ -21,7 +21,7 @@ import discord from 'discord.js';
 import type { Client, Message } from 'discord.js';
 
 // Main
-export function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
+export function run(client: Client, message: Message, args: string[], log: (mode: 'v' | 'i' | 'w' | 'e', message: string) => void): void {
     let tops: [number, string][] = client.tildes.map((count: number, id: string) => [count, id]);
     tops = tops.sort((item1: [number, string], item2: [number, string]) => (item1[0] > item2[0] ? -1 : item1[0] < item2[0] ? 1 : 0));
     const t10: ([number, string] | undefined)[] = [tops[0], tops[1], tops[2], tops[3], tops[4], tops[5], tops[6], tops[7], tops[8], tops[9]];

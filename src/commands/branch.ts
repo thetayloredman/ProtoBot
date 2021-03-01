@@ -22,7 +22,7 @@ import type { Client, Message } from 'discord.js';
 import { exec, ExecException } from 'child_process';
 
 // Main
-export function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
+export function run(client: Client, message: Message, args: string[], log: (mode: 'v' | 'i' | 'w' | 'e', message: string) => void): void {
     // Safety check
     if (message.author.id !== client.config.ownerID) {
         log('w', `User ${message.author.tag} tried to use branch! Destination: ${args[0]}`);

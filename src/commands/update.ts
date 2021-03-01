@@ -23,7 +23,7 @@ import chalk from 'chalk';
 import { exec, ExecException } from 'child_process';
 
 // Main
-export function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
+export function run(client: Client, message: Message, args: string[], log: (mode: 'v' | 'i' | 'w' | 'e', message: string) => void): void {
     // Safety check
     if (message.author.id !== client.config.ownerID) {
         log('w', `User ${message.author.tag} tried to use "update"!`);
@@ -35,7 +35,7 @@ export function run(client: Client, message: Message, args: string[], log: (mode
 
     const embed: discord.MessageEmbed = new discord.MessageEmbed().setTitle('Update').setDescription('Updating the bot... This may take a while...');
 
-    function l(mode: 'i' | 'w' | 'e', message: string): void {
+    function l(mode: 'v' | 'i' | 'w' | 'e', message: string): void {
         return log(mode, `${chalk.green('[')}${chalk.green.bold('Updater')}${chalk.green(']')} ${message}`);
     }
 

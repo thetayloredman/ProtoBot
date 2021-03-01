@@ -21,7 +21,7 @@ import chalk from 'chalk';
 import type { Client, Message } from 'discord.js';
 
 // Main
-export function run(client: Client, message: Message, log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
+export function run(client: Client, message: Message, log: (mode: 'v' | 'i' | 'w' | 'e', message: string) => void): void {
     //                                                      To be safe we will not perform
     //                                                      generation without the guild.
     //                                                      vvvvvvvvvvvvvvvvv

@@ -20,7 +20,7 @@
 import type { Client, Message } from 'discord.js';
 
 // Main
-export function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
+export function run(client: Client, message: Message, args: string[], log: (mode: 'v' | 'i' | 'w' | 'e', message: string) => void): void {
     message.channel.send(`**Oh hewwo there <@${message.author.id}>!**
 
 **I'm ProtoBot.**

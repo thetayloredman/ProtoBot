@@ -87,7 +87,7 @@ client.on('ready', async () => {
     log('i', `${chalk.green('[')}${chalk.green.bold('USERAVG')}${chalk.green(']')} Average user count per guilds: ${chalk.red(Math.round(userAvg))}`);
     log('i', `${chalk.green('[')}${chalk.green.bold('PREFIXES')}${chalk.green(']')} Loaded ${chalk.red(client.config.prefixes.length)} prefixes!`);
     function loadCmds(): void {
-        function l(type: 'i' | 'w' | 'e', message: any) {
+        function l(type: 'v' | 'i' | 'w' | 'e', message: any) {
             log(type, `${chalk.yellow('[')}${chalk.yellow.bold('CMDLOAD')}${chalk.yellow(']')} ${message}`);
         }
         l('i', 'Beginning initial command load...');
@@ -134,7 +134,7 @@ client.on('ready', async () => {
     }
     loadCmds();
     function loadHooks(): void {
-        function l(type: 'i' | 'w' | 'e', message: any) {
+        function l(type: 'v' | 'i' | 'w' | 'e', message: any) {
             log(type, `${chalk.yellow('[')}${chalk.yellow.bold('HOOKLOAD')}${chalk.yellow(']')} ${message}`);
         }
         l('i', 'Beginning initial hook load...');

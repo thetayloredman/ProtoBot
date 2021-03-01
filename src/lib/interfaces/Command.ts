@@ -21,5 +21,5 @@ import type { Client, Message } from 'discord.js';
 
 export default interface Command {
     config: CommandConfig;
-    run: (client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void) => void;
+    run: (client: Client, message: Message, args: string[], log: (mode: 'v' | 'i' | 'w' | 'e', message: string) => void) => void;
 }

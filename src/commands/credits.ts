@@ -32,7 +32,7 @@ interface CreditItem {
 
 type Credits = CreditItem[];
 
-export function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
+export function run(client: Client, message: Message, args: string[], log: (mode: 'v' | 'i' | 'w' | 'e', message: string) => void): void {
     // Add credits data here
     const credits: Credits = [
         {

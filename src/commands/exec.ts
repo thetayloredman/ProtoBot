@@ -22,7 +22,7 @@ import type { Client, Message } from 'discord.js';
 import { exec, ExecException } from 'child_process';
 
 // Main
-export function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
+export function run(client: Client, message: Message, args: string[], log: (mode: 'v' | 'i' | 'w' | 'e', message: string) => void): void {
     // Safety check, because we don't want those hax0rs in
     let silent = false;
     if (args[0] === '-s') {

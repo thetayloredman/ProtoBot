@@ -29,7 +29,7 @@ owos: ${client.owos.get(userID) ?? 0}
 Tildes: ${client.tildes.get(userID) ?? 0}`);
 }
 
-export function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
+export function run(client: Client, message: Message, args: string[], log: (mode: 'v' | 'i' | 'w' | 'e', message: string) => void): void {
     let userID: string | undefined;
     if (!args[0]) {
         userID = message.author.id;

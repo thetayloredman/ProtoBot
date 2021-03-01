@@ -21,7 +21,7 @@ import type { Client, Message } from 'discord.js';
 import { Uwuifier } from 'uwuifier';
 
 // Main
-export function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
+export function run(client: Client, message: Message, args: string[], log: (mode: 'v' | 'i' | 'w' | 'e', message: string) => void): void {
     if (args.length === 0) {
         message.reply('**Error:** No text provided!');
         return;

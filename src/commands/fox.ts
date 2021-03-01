@@ -25,7 +25,7 @@ interface FoxData {
     link: string;
 }
 
-export async function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): Promise<void> {
+export async function run(client: Client, message: Message, args: string[], log: (mode: 'v' | 'i' | 'w' | 'e', message: string) => void): Promise<void> {
     const msg = await message.channel.send('Fetching a fox picture...');
     const body = <FoxData>await fetch('https://randomfox.ca/floof/').then((res) => res.json());
     const embed = new MessageEmbed()
