@@ -18,14 +18,10 @@
 
 // Modules
 import type { Client, Message } from 'discord.js';
+import type Logger from '@lib/interfaces/Logger';
 
 // Main
-export async function run(
-    client: Client,
-    message: Message,
-    args: string[],
-    log: (mode: 'v' | 'i' | 'w' | 'e', message: string) => void
-): Promise<void> {
+export async function run(client: Client, message: Message, args: string[], log: Logger): Promise<void> {
     // Safety check
     if (message.author.id !== client.config.ownerID) {
         console.log('w', `User ${message.author.tag} tried to use "restart"!`);

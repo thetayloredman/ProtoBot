@@ -19,10 +19,11 @@
 // Modules
 import discord from 'discord.js';
 import type { Client, Message } from 'discord.js';
+import type Logger from '@lib/interfaces/Logger';
 
 // Main
 // ===== COMMAND MADE BY Mr. EL =====
-export function run(client: Client, message: Message, args: string[], log: (mode: 'v' | 'i' | 'w' | 'e', message: string) => void): void {
+export function run(client: Client, message: Message, args: string[], log: Logger): void {
     // If it's FurDevs, we can ping mr. el:
     if (message.guild?.id === '731520035717251142') {
         const embed = new discord.MessageEmbed()

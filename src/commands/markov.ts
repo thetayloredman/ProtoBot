@@ -22,9 +22,10 @@
 import discord from 'discord.js';
 import Markov, { MarkovResult } from 'markov-strings';
 import type { Client, Message } from 'discord.js';
+import type Logger from '@lib/interfaces/Logger';
 
 // Main
-export function run(client: Client, message: Message, args: string[], log: (mode: 'v' | 'i' | 'w' | 'e', message: string) => void): void {
+export function run(client: Client, message: Message, args: string[], log: Logger): void {
     if (!args[0]) {
         message.reply(`**Markov Chain Generation**
 

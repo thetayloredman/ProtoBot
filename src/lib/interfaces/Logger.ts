@@ -18,9 +18,7 @@
 
 import CommandConfig from '@lib/interfaces/CommandConfig';
 import type { Client, Message } from 'discord.js';
-import type Logger from '@lib/interfaces/Logger';
 
-export default interface Command {
-    config: CommandConfig;
-    run: (client: Client, message: Message, args: string[], log: Logger) => void;
-}
+type Logger = (mode: 'v' | 'i' | 'w' | 'e', message: string) => void;
+
+export default Logger;

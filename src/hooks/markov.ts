@@ -19,9 +19,10 @@
 // Modules
 import chalk from 'chalk';
 import type { Client, Message } from 'discord.js';
+import type Logger from '@lib/interfaces/Logger';
 
 // Main
-export function run(client: Client, message: Message, log: (mode: 'v' | 'i' | 'w' | 'e', message: string) => void): void {
+export function run(client: Client, message: Message, log: Logger): void {
     //                                                      To be safe we will not perform
     //                                                      generation without the guild.
     //                                                      vvvvvvvvvvvvvvvvv

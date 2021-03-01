@@ -18,9 +18,10 @@
 
 // Modules
 import type { Client, Message } from 'discord.js';
+import type Logger from '@lib/interfaces/Logger';
 
 // Main
-export function run(client: Client, message: Message, args: string[], log: (mode: 'v' | 'i' | 'w' | 'e', message: string) => void): void {}
+export function run(client: Client, message: Message, args: string[], log: Logger): void {}
 
 // Config
 export const config = {

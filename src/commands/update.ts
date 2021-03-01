@@ -21,9 +21,10 @@ import discord from 'discord.js';
 import type { Client, Message } from 'discord.js';
 import chalk from 'chalk';
 import { exec, ExecException } from 'child_process';
+import type Logger from '@lib/interfaces/Logger';
 
 // Main
-export function run(client: Client, message: Message, args: string[], log: (mode: 'v' | 'i' | 'w' | 'e', message: string) => void): void {
+export function run(client: Client, message: Message, args: string[], log: Logger): void {
     // Safety check
     if (message.author.id !== client.config.ownerID) {
         log('w', `User ${message.author.tag} tried to use "update"!`);

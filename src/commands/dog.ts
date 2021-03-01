@@ -18,18 +18,14 @@
 
 // Imports
 import { Client, Message, MessageEmbed } from 'discord.js';
+import type Logger from '@lib/interfaces/Logger';
 import fetch from 'node-fetch';
 
 interface DogData {
     link: string;
 }
 
-export async function run(
-    client: Client,
-    message: Message,
-    args: string[],
-    log: (mode: 'v' | 'i' | 'w' | 'e', message: string) => void
-): Promise<void> {
+export async function run(client: Client, message: Message, args: string[], log: Logger): Promise<void> {
     const msg = await message.channel.send('Fetching a dog picture...');
     const body = <DogData>await fetch('https://some-random-api.ml/img/dog').then((res) => res.json());
     const embed = new MessageEmbed().setTitle(`Dog for ${message.author.username}`).setImage(body.link).setTimestamp(Date.now()).setColor('RANDOM');
