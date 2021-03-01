@@ -30,13 +30,13 @@ export default function memstat(): { residentSetSize: number; heapUsed: number; 
 
     const out = { residentSetSize, heapTotal, heapUsed, external, arrayBuffers };
 
-    l('i', 'Finished getting memory status!');
-    l('i', 'MemStat results:');
-    l('i', `Resident Set Size (total allocated memory): ${bytes(residentSetSize)}`);
-    l('i', `Heap Used: ${bytes(heapUsed)}`);
-    l('i', `Heap Allocated: ${bytes(heapTotal)}`);
-    l('i', `Array Buffers: ${bytes(arrayBuffers)}`);
-    l('i', `External: ${bytes(external)}`);
+    l('v', 'Finished getting memory status!');
+    l('v', 'MemStat results:');
+    l('v', `Resident Set Size (total allocated memory): ${bytes(residentSetSize)}`);
+    l('v', `Heap Used: ${bytes(heapUsed)}`);
+    l('v', `Heap Allocated: ${bytes(heapTotal)}`);
+    l('v', `Array Buffers: ${bytes(arrayBuffers)}`);
+    l('v', `External: ${bytes(external)}`);
 
     return out;
 }

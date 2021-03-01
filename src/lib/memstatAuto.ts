@@ -22,9 +22,9 @@ import memstat from '@lib/memstat';
 import log from '../log';
 
 function run() {
-    log('i', 'MemStat Auto: running!');
+    log('v', 'MemStat Auto: running!');
     memstat();
-    log('i', 'MemStat Auto: Done! See above logs.');
+    log('v', 'MemStat Auto: Done! See above logs.');
 }
 
 setInterval(run, 600000);
