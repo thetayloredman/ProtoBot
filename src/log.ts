@@ -139,7 +139,7 @@ export default function log(mode: 'v' | 'i' | 'w' | 'e' | 'CLOSE_STREAMS', messa
         switch (mode) {
             case 'v':
                 // Verbose
-                msg = `${chalk.cyan('[')}${chalk.cyan.bold('VERBOSE')}${chalk.blue(']')} ${message}`;
+                msg = `${chalk.cyan('[')}${chalk.cyan.bold('VERBOSE')}${chalk.cyan(']')} ${message}`;
                 break;
             case 'i':
                 // Info
