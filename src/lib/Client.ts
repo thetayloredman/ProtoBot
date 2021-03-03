@@ -36,7 +36,6 @@ export default class Client extends BaseClient {
         this.uwus = new Enmap({ name: 'uwus', verbose: (q: string) => EnmapVerbose('uwus', q) });
         this.ustats = new Enmap({ name: 'ustats', verbose: (q: string) => EnmapVerbose('ustats', q) });
         this.uconfs = new Enmap({ name: 'uconfs', verbose: (q: string) => EnmapVerbose('uconfs', q) });
-        this.markovMessages = new Enmap({ name: 'markovMessages', verbose: (q: string) => EnmapVerbose('markovMessages', q) });
         this.fursonas = new Enmap({ name: 'fursonas', verbose: (q: string) => EnmapVerbose('fursonas', q) });
 
         // In memory items
