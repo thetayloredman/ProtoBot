@@ -18,6 +18,7 @@
 
 // Modules
 import type { Client, Message } from 'discord.js';
+import type Logger from '@lib/interfaces/Logger';
 import sleep from '@lib/sleep';
 
 interface CutieData {
@@ -27,7 +28,7 @@ interface CutieData {
 }
 
 // Main
-export async function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): Promise<void> {
+export async function run(client: Client, message: Message, args: string[], log: Logger): Promise<void> {
     const cuties: CutieData[] = [
         { username: 'Foxley Affection', tag: '6969', id: '701951512410062858' },
         { username: 'CJ_Sever', tag: '6531', id: '699773917577084948' },

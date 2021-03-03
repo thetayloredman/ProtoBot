@@ -26,7 +26,7 @@ import { highlight } from 'cli-highlight';
  */
 export default function EnmapVerbose(dbname: string, query: string): void {
     log(
-        'i',
+        'v',
         `${chalk.blue('[')}${chalk.blue.bold('DatabaseQuery')}${chalk.blue(']')} ${chalk.underline('Query')} ${chalk.red(dbname)}: ${highlight(
             query,
             { language: 'sql' }

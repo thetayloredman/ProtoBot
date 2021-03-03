@@ -18,6 +18,7 @@
 
 // Modules
 import type { Client, Message } from 'discord.js';
+import type Logger from '@lib/interfaces/Logger';
 
 // Main
 interface IEmoteData {
@@ -25,7 +26,7 @@ interface IEmoteData {
     bolt: string;
     cloud_bolt: string;
 }
-export function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
+export function run(client: Client, message: Message, args: string[], log: Logger): void {
     if (!args[0]) {
         message.reply('Who..?').then((m) => {
             setTimeout(async () => {

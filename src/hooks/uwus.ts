@@ -19,9 +19,10 @@
 // Modules
 import chalk from 'chalk';
 import type { Client, Message } from 'discord.js';
+import type Logger from '@lib/interfaces/Logger';
 
 // Main
-export function run(client: Client, message: Message, log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
+export function run(client: Client, message: Message, log: Logger): void {
     // Get the user's current cooldowns (in timestamps)
 
     const cooldowns = client.cooldowns.ensure(message.author.id, client.defaults.COOLDOWNS).uwus;

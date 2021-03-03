@@ -19,9 +19,10 @@
 // Modules
 import type { Client, Message } from 'discord.js';
 import { Uwuifier } from 'uwuifier';
+import type Logger from '@lib/interfaces/Logger';
 
 // Main
-export function run(client: Client, message: Message, args: string[], log: (mode: 'i' | 'w' | 'e', message: string) => void): void {
+export function run(client: Client, message: Message, args: string[], log: Logger): void {
     if (args.length === 0) {
         message.reply('**Error:** No text provided!');
         return;

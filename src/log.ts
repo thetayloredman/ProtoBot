@@ -45,6 +45,13 @@ try {
     console.error(e);
     process.exit(1);
 }
+let verboseStr: fs.WriteStream;
+try {
+    verboseStr = fs.createWriteStream(`../logs/${logInitTime}/verbose.log`);
+} catch (e) {
+    console.error(e);
+    process.exit(1);
+}
 let allStr: fs.WriteStream;
 try {
     allStr = fs.createWriteStream(`../logs/${logInitTime}/all.log`);
@@ -68,24 +75,29 @@ try {
 }
 
 // Log to file func
-function writeItem(mode: 'i' | 'w' | 'e', message: string): void {
+function writeItem(mode: 'v' | 'i' | 'w' | 'e', message: string): void {
     if (mode === 'e') {
         errStr.write(`${strip(message)}\n`);
         warnStr.write(`${strip(message)}\n`);
         allStr.write(`${strip(message)}\n`);
+        verboseStr.write(`${strip(message)}\n`);
     } else if (mode === 'w') {
         warnStr.write(`${strip(message)}\n`);
         allStr.write(`${strip(message)}\n`);
+        verboseStr.write(`${strip(message)}\n`);
     } else if (mode === 'i') {
         allStr.write(`${strip(message)}\n`);
+        verboseStr.write(`${strip(message)}\n`);
+    } else if (mode === 'v') {
+        verboseStr.write(`${strip(message)}\n`);
     }
 }
 
 // Main
 export default function log(mode: 'CLOSE_STREAMS'): Promise<void>;
-export default function log(mode: 'i' | 'w' | 'e', message: any): void;
+export default function log(mode: 'v' | 'i' | 'w' | 'e', message: any): void;
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export default function log(mode: 'i' | 'w' | 'e' | 'CLOSE_STREAMS', message?: any): void | Promise<void> {
+export default function log(mode: 'v' | 'i' | 'w' | 'e' | 'CLOSE_STREAMS', message?: any): void | Promise<void> {
     if (mode === 'CLOSE_STREAMS') {
         // Close all of the file streams
         return new Promise((resolve) => {
@@ -125,6 +137,10 @@ export default function log(mode: 'i' | 'w' | 'e' | 'CLOSE_STREAMS', message?: a
         )} ${chalk.red(preparsedTime[1])}`;
 
         switch (mode) {
+            case 'v':
+                // Verbose
+                msg = `${chalk.cyan('[')}${chalk.cyan.bold('VERBOSE')}${chalk.cyan(']')} ${message}`;
+                break;
             case 'i':
                 // Info
                 msg = `${chalk.blue('[')}${chalk.blue.bold('INFO')}${chalk.blue(']')} ${message}`;

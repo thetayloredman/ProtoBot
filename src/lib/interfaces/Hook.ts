@@ -17,8 +17,9 @@
  */
 
 import type { Client, Message } from 'discord.js';
+import type Logger from '@lib/interfaces/Logger';
 
 export default interface Hook {
     config: { name: string; description: string };
-    run: (client: Client, message: Message, log: (mode: 'i' | 'w' | 'e', message: string) => void) => void;
+    run: (client: Client, message: Message, log: Logger) => void;
 }
