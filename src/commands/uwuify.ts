@@ -28,6 +28,21 @@ export function run(client: Client, message: Message, args: string[], log: Logge
         return;
     }
     const uwuify: Uwuifier = new Uwuifier();
+    uwuify.actions = [
+        '*blushes*',
+        '*whispers to self*',
+        '*cries*',
+        '*screams*',
+        '*sweats*',
+        '*twerks*',
+        '*runs away*',
+        '*screeches*',
+        '*walks away*',
+        '*looks at you*',
+        '*starts twerking*',
+        '*huggles tightly*',
+        '*boops your nose*'
+    ];
     const msg: string = uwuify.uwuifySentence(args.join(' '));
     // @ts-ignore
     message.channel.send(`${msg}`, { split: { prepend: '...', append: '...' } });
