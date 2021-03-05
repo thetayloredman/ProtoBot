@@ -23,6 +23,11 @@ import type Logger from '@lib/interfaces/Logger';
 
 // Main
 export function run(client: Client, message: Message, args: string[], log: Logger): void {
+    let intense = false;
+    if (args[0] === '-i') {
+        intense = true;
+        args.shift();
+    }
     if (args.length === 0) {
         message.reply('**Error:** No text provided!');
         return;
@@ -45,13 +50,13 @@ export function run(client: Client, message: Message, args: string[], log: Logge
     ];
     const msg: string = uwuify.uwuifySentence(args.join(' '));
     // @ts-ignore
-    message.channel.send(`${msg}`, { split: { prepend: '...', append: '...' } });
+    message.channel.send(`${intense ? msg.replace(/u/gi, 'UwU').replace(/o/gi, 'OwO') : msg}`, { split: { prepend: '...', append: '...' } });
 }
 
 // Config
 export const config = {
     name: 'uwuify',
-    description: 'Converts all of your text to UwU-talk!\nPowered by [Uwuifier](https://github.com/Schotsl/Uwuifier)',
+    description: 'Converts all of your text to UwU-talk!\nIntense mode available with `-i` flag: `~uwuify -i text`\nPowered by [Uwuifier](https://github.com/Schotsl/Uwuifier)',
     enabled: true,
     aliases: ['uwu'],
 
