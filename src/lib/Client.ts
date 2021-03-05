@@ -21,6 +21,10 @@ import { Client as BaseClient, ClientOptions } from 'discord.js';
 import Enmap from 'enmap';
 import EnmapVerbose from '@lib/EnmapVerbose';
 
+function makeVerboseFunction(name: string): (q: string) => void {
+    return (q: string) => EnmapVerbose(name, q);
+}
+
 export default class Client extends BaseClient {
     public constructor(options?: ClientOptions) {
         super(options);
@@ -30,13 +34,13 @@ export default class Client extends BaseClient {
             USER_STATS: { hugs: 0 },
             COOLDOWNS: { owos: 0, uwus: 0, tildes: 0 }
         };
-        this.cooldowns = new Enmap({ name: 'cooldowns', verbose: (q: string) => EnmapVerbose('cooldowns', q) });
-        this.tildes = new Enmap({ name: 'tildes', verbose: (q: string) => EnmapVerbose('tildes', q) });
-        this.owos = new Enmap({ name: 'owos', verbose: (q: string) => EnmapVerbose('owos', q) });
-        this.uwus = new Enmap({ name: 'uwus', verbose: (q: string) => EnmapVerbose('uwus', q) });
-        this.ustats = new Enmap({ name: 'ustats', verbose: (q: string) => EnmapVerbose('ustats', q) });
-        this.uconfs = new Enmap({ name: 'uconfs', verbose: (q: string) => EnmapVerbose('uconfs', q) });
-        this.fursonas = new Enmap({ name: 'fursonas', verbose: (q: string) => EnmapVerbose('fursonas', q) });
+        this.cooldowns = new Enmap({ name: 'cooldowns', verbose: makeVerboseFunction('cooldowns') });
+        this.tildes = new Enmap({ name: 'tildes', verbose: makeVerboseFunction('tildes') });
+        this.owos = new Enmap({ name: 'owos', verbose: makeVerboseFunction('owos') });
+        this.uwus = new Enmap({ name: 'uwus', verbose: makeVerboseFunction('uwus') });
+        this.ustats = new Enmap({ name: 'ustats', verbose: makeVerboseFunction('ustats') });
+        this.uconfs = new Enmap({ name: 'uconfs', verbose: makeVerboseFunction('uconfs') });
+        this.fursonas = new Enmap({ name: 'fursonas', verbose: makeVerboseFunction('fursonas') });
 
         // In memory items
         this.commands = new Enmap();
