@@ -56,7 +56,8 @@ export function run(client: Client, message: Message, args: string[], log: Logge
 // Config
 export const config = {
     name: 'uwuify',
-    description: 'Converts all of your text to UwU-talk!\nIntense mode available with `-i` flag: `~uwuify -i text`\nPowered by [Uwuifier](https://github.com/Schotsl/Uwuifier)',
+    description:
+        'Converts all of your text to UwU-talk!\nIntense mode available with `-i` flag: `~uwuify -i text`\nPowered by [Uwuifier](https://github.com/Schotsl/Uwuifier)',
     enabled: true,
     aliases: ['uwu'],
 
