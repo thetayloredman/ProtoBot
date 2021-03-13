@@ -18,4 +18,6 @@
 
 export default interface UserStats {
     hugs: number;
+    boops: number;
+    pats: number;
 }
