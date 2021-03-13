@@ -34,7 +34,7 @@ export function run(client: Client, message: Message, args: string[], log: Logge
     }
 
     if (userID === message.author.id) {
-        message.reply(`<a:boopdafox:820437819226587137> **Self pat?**
+        message.reply(`**Self pat?**
 <@${message.author.id}> pats themselves on the head..?`);
         return;
     }
