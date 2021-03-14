@@ -56,10 +56,10 @@ export function run(client: Client, message: Message, args: string[], log: Logge
         msg += ` 9 :: ${u9?.tag ?? '(none)'}${t10[8] ? ` with ${t10[8][0]} owos` : ''}\n`;
         msg += `10 :: ${u10?.tag ?? '(none)'}${t10[9] ? ` with ${t10[9][0]} owos` : ''}\n`;
         if (!uintop) {
-            const ownIndex = client.owos.indexes.indexOf(message.author.id);
+            const ownIndex = tops.map((i) => i[1]).indexOf(message.author.id);
             if (ownIndex > -1) {
                 const ownOwos = client.owos.get(message.author.id);
-                msg += '====================';
+                msg += '====================\n';
                 msg += `${ownIndex} :: ${message.author.tag ?? '(none)'}${ownOwos ? ` with ${ownOwos} owos` : ''}\n`;
             }
         }

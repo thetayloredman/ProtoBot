@@ -56,10 +56,10 @@ export function run(client: Client, message: Message, args: string[], log: Logge
         msg += ` 9 :: ${u9?.tag ?? '(none)'}${t10[8] ? ` with ${t10[8][0]} tildes` : ''}\n`;
         msg += `10 :: ${u10?.tag ?? '(none)'}${t10[9] ? ` with ${t10[9][0]} tildes` : ''}\n`;
         if (!uintop) {
-            const ownIndex = client.tildes.indexes.indexOf(message.author.id);
+            const ownIndex = tops.map((i) => i[1]).indexOf(message.author.id);
             if (ownIndex > -1) {
                 const ownTildes = client.tildes.get(message.author.id);
-                msg += '====================';
+                msg += '====================\n';
                 msg += `${ownIndex} :: ${message.author.tag ?? '(none)'}${ownTildes ? ` with ${ownTildes} tildes` : ''}\n`;
             }
         }
