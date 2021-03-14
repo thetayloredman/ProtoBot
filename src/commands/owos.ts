@@ -59,7 +59,7 @@ export function run(client: Client, message: Message, args: string[], log: Logge
             const ownIndex = tops.map((i) => i[1]).indexOf(message.author.id);
             if (ownIndex > -1) {
                 const ownOwos = client.owos.get(message.author.id);
-                msg += '====================\n';
+                msg += '...\n';
                 msg += `${ownIndex} :: ${message.author.tag ?? '(none)'}${ownOwos ? ` with ${ownOwos} owos` : ''}\n`;
             }
         }

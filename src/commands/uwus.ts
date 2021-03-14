@@ -59,7 +59,7 @@ export function run(client: Client, message: Message, args: string[], log: Logge
             const ownIndex = tops.map((i) => i[1]).indexOf(message.author.id);
             if (ownIndex > -1) {
                 const ownUwus = client.uwus.get(message.author.id);
-                msg += '====================\n';
+                msg += '...\n';
                 msg += `${ownIndex} :: ${message.author.tag ?? '(none)'}${ownUwus ? ` with ${ownUwus} uwus` : ''}\n`;
             }
         }
