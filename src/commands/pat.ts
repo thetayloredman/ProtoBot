@@ -45,7 +45,7 @@ export function run(client: Client, message: Message, args: string[], log: Logge
     message.channel.send(
         `**Pat!**
 <@${message.author.id}> pats <@${userID}> on the head~!`,
-        { disableMentions: ['@everyone', '@here'] }
+        { disableMentions: 'everyone' }
     );
     message.delete().catch((err) => {
         log('w', `Failed to delete command message for "pat"!: ${err}`);
