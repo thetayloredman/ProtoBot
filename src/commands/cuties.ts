@@ -33,7 +33,8 @@ export async function run(client: Client, message: Message, args: string[], log:
         { username: 'Foxley Affection', tag: '6969', id: '701951512410062858' },
         { username: 'boa', tag: '0771', id: '251105781867347969' },
         { username: 'Nepgfurmixpro', tag: '1717', id: '456528012100239370' },
-        { username: 'AlphaSerpentis', tag: '3203', id: '216037365829992448' }
+        { username: 'AlphaSerpentis', tag: '3203', id: '216037365829992448' },
+        { username: 'A Fox', tag: '3696', id: '649394695570718730' }
     ];
 
     const m = await message.channel.send(`**Detecting cuties for <@${message.author.id}>...**
