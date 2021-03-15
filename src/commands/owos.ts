@@ -18,45 +18,55 @@
 
 // Modules
 import discord from 'discord.js';
-import type { Client, Message } from 'discord.js';
+import type { Client, Message, User } from 'discord.js';
 import type Logger from '@lib/interfaces/Logger';
+
+// Types
+type UserOrNull = User | null;
+type LotsOfUsers = [UserOrNull, UserOrNull, UserOrNull, UserOrNull, UserOrNull, UserOrNull, UserOrNull, UserOrNull, UserOrNull, UserOrNull];
 
 // Main
 export function run(client: Client, message: Message, args: string[], log: Logger): void {
-    let tops: [number, string][] = client.owos.map((count: number, id: string) => [count, id]);
-    tops = tops.sort((item1: [number, string], item2: [number, string]) => (item1[0] > item2[0] ? -1 : item1[0] < item2[0] ? 1 : 0));
-    const t10: ([number, string] | undefined)[] = [tops[0], tops[1], tops[2], tops[3], tops[4], tops[5], tops[6], tops[7], tops[8], tops[9]];
+    const sorted: [number, string][] = client.owos
+        .map((count, id) => [count, id] as [number, string]) // cast it to [number, string] because [1, "foo"] is (number | string)[]
+        .sort(([x], [y]) => (x > y ? -1 : x < y ? 1 : 0));
+    const top10: ([number, string] | undefined)[] = sorted.slice(0, 9);
     // @ts-ignore
-    const t10ids: string[] = t10.map((item: [number, string] | undefined) => (item ? item[1] : undefined));
-    const uintop: boolean = t10ids.includes(message.author.id);
+    const top10ids: string[] = top10.map((item) => (item ? item[1] : undefined));
+    const userInTop: boolean = top10ids.includes(message.author.id);
 
     (async () => {
-        const u1 = t10ids[0] ? await client.users.fetch(t10ids[0]) : null;
-        const u2 = t10ids[1] ? await client.users.fetch(t10ids[1]) : null;
-        const u3 = t10ids[2] ? await client.users.fetch(t10ids[2]) : null;
-        const u4 = t10ids[3] ? await client.users.fetch(t10ids[3]) : null;
-        const u5 = t10ids[4] ? await client.users.fetch(t10ids[4]) : null;
-        const u6 = t10ids[5] ? await client.users.fetch(t10ids[5]) : null;
-        const u7 = t10ids[6] ? await client.users.fetch(t10ids[6]) : null;
-        const u8 = t10ids[7] ? await client.users.fetch(t10ids[7]) : null;
-        const u9 = t10ids[8] ? await client.users.fetch(t10ids[8]) : null;
-        const u10 = t10ids[9] ? await client.users.fetch(t10ids[9]) : null;
+        const getUser = async (n: number): Promise<User | null> => (top10ids[n] ? await client.users.fetch(top10ids[n]) : null);
+        const getUsers = async (): Promise<LotsOfUsers> => [
+            await getUser(0),
+            await getUser(1),
+            await getUser(2),
+            await getUser(3),
+            await getUser(4),
+            await getUser(5),
+            await getUser(6),
+            await getUser(7),
+            await getUser(8),
+            await getUser(9)
+        ];
+
+        const [u1,u2,u3,u4,u5,u6,u7,u8,u9,u10] = await getUsers()
 
         let msg = '```adoc\n';
         msg += '===== OWO LEADERBOARD =====\n';
         msg += '\n';
-        msg += ` 1 :: ${u1?.tag ?? '(none)'}${t10[0] ? ` with ${t10[0][0]} owos` : ''}\n`;
-        msg += ` 2 :: ${u2?.tag ?? '(none)'}${t10[1] ? ` with ${t10[1][0]} owos` : ''}\n`;
-        msg += ` 3 :: ${u3?.tag ?? '(none)'}${t10[2] ? ` with ${t10[2][0]} owos` : ''}\n`;
-        msg += ` 4 :: ${u4?.tag ?? '(none)'}${t10[3] ? ` with ${t10[3][0]} owos` : ''}\n`;
-        msg += ` 5 :: ${u5?.tag ?? '(none)'}${t10[4] ? ` with ${t10[4][0]} owos` : ''}\n`;
-        msg += ` 6 :: ${u6?.tag ?? '(none)'}${t10[5] ? ` with ${t10[5][0]} owos` : ''}\n`;
-        msg += ` 7 :: ${u7?.tag ?? '(none)'}${t10[6] ? ` with ${t10[6][0]} owos` : ''}\n`;
-        msg += ` 8 :: ${u8?.tag ?? '(none)'}${t10[7] ? ` with ${t10[7][0]} owos` : ''}\n`;
-        msg += ` 9 :: ${u9?.tag ?? '(none)'}${t10[8] ? ` with ${t10[8][0]} owos` : ''}\n`;
-        msg += `10 :: ${u10?.tag ?? '(none)'}${t10[9] ? ` with ${t10[9][0]} owos` : ''}\n`;
-        if (!uintop) {
-            const ownIndex = tops.map((i) => i[1]).indexOf(message.author.id);
+        msg += ` 1 :: ${u1?.tag ?? '(none)'}${top10[0] ? ` with ${top10[0][0]} owos` : ''}\n`;
+        msg += ` 2 :: ${u2?.tag ?? '(none)'}${top10[1] ? ` with ${top10[1][0]} owos` : ''}\n`;
+        msg += ` 3 :: ${u3?.tag ?? '(none)'}${top10[2] ? ` with ${top10[2][0]} owos` : ''}\n`;
+        msg += ` 4 :: ${u4?.tag ?? '(none)'}${top10[3] ? ` with ${top10[3][0]} owos` : ''}\n`;
+        msg += ` 5 :: ${u5?.tag ?? '(none)'}${top10[4] ? ` with ${top10[4][0]} owos` : ''}\n`;
+        msg += ` 6 :: ${u6?.tag ?? '(none)'}${top10[5] ? ` with ${top10[5][0]} owos` : ''}\n`;
+        msg += ` 7 :: ${u7?.tag ?? '(none)'}${top10[6] ? ` with ${top10[6][0]} owos` : ''}\n`;
+        msg += ` 8 :: ${u8?.tag ?? '(none)'}${top10[7] ? ` with ${top10[7][0]} owos` : ''}\n`;
+        msg += ` 9 :: ${u9?.tag ?? '(none)'}${top10[8] ? ` with ${top10[8][0]} owos` : ''}\n`;
+        msg += `10 :: ${u10?.tag ?? '(none)'}${top10[9] ? ` with ${top10[9][0]} owos` : ''}\n`;
+        if (!userInTop) {
+            const ownIndex = sorted.map((i) => i[1]).indexOf(message.author.id);
             if (ownIndex > -1) {
                 const ownOwos = client.owos.get(message.author.id);
                 msg += '...\n';
