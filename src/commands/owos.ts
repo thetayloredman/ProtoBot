@@ -16,66 +16,46 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-// Modules
-import discord from 'discord.js';
 import type { Client, Message, User } from 'discord.js';
-import type Logger from '@lib/interfaces/Logger';
 
-// Types
-type UserOrNull = User | null;
-type LotsOfUsers = [UserOrNull, UserOrNull, UserOrNull, UserOrNull, UserOrNull, UserOrNull, UserOrNull, UserOrNull, UserOrNull, UserOrNull];
+// The number of users that should be displayed on the leaderboard at a
+// given time.
+const CUTOFF = 10;
 
-// Main
-export function run(client: Client, message: Message, args: string[], log: Logger): void {
-    const sorted: [number, string][] = client.owos
-        .map((count, id) => [count, id] as [number, string]) // cast it to [number, string] because [1, "foo"] is (number | string)[]
-        .sort(([x], [y]) => (x > y ? -1 : x < y ? 1 : 0));
-    const top10: ([number, string] | undefined)[] = sorted.slice(0, 9);
-    // @ts-ignore
-    const top10ids: string[] = top10.map((item) => (item ? item[1] : undefined));
-    const userInTop: boolean = top10ids.includes(message.author.id);
+function formatRow(index: number, user: User | null, client: Client): string {
+    const ranking = (index + 1).toString().padStart(2, ' ');
+    const count = user ? client.owos.get(user?.id) : 0;
+    return `${ranking} :: ${user ? `${user.tag} with ${count} owos` : '(none)'}`;
+}
 
-    (async () => {
-        const getUser = async (n: number): Promise<User | null> => (top10ids[n] ? await client.users.fetch(top10ids[n]) : null);
-        const getUsers = async (): Promise<LotsOfUsers> => [
-            await getUser(0),
-            await getUser(1),
-            await getUser(2),
-            await getUser(3),
-            await getUser(4),
-            await getUser(5),
-            await getUser(6),
-            await getUser(7),
-            await getUser(8),
-            await getUser(9)
-        ];
+export async function run(client: Client, message: Message): Promise<void> {
+    const sorted = client.owos.map((count, id) => [id, count] as [string, number]).sort((a, b) => b[1] - a[1]);
 
-        const [u1,u2,u3,u4,u5,u6,u7,u8,u9,u10] = await getUsers()
+    // Whether or not the user of the command has placed in the top of the
+    // leaderboard.
+    let placed = false;
 
-        let msg = '```adoc\n';
-        msg += '===== OWO LEADERBOARD =====\n';
-        msg += '\n';
-        msg += ` 1 :: ${u1?.tag ?? '(none)'}${top10[0] ? ` with ${top10[0][0]} owos` : ''}\n`;
-        msg += ` 2 :: ${u2?.tag ?? '(none)'}${top10[1] ? ` with ${top10[1][0]} owos` : ''}\n`;
-        msg += ` 3 :: ${u3?.tag ?? '(none)'}${top10[2] ? ` with ${top10[2][0]} owos` : ''}\n`;
-        msg += ` 4 :: ${u4?.tag ?? '(none)'}${top10[3] ? ` with ${top10[3][0]} owos` : ''}\n`;
-        msg += ` 5 :: ${u5?.tag ?? '(none)'}${top10[4] ? ` with ${top10[4][0]} owos` : ''}\n`;
-        msg += ` 6 :: ${u6?.tag ?? '(none)'}${top10[5] ? ` with ${top10[5][0]} owos` : ''}\n`;
-        msg += ` 7 :: ${u7?.tag ?? '(none)'}${top10[6] ? ` with ${top10[6][0]} owos` : ''}\n`;
-        msg += ` 8 :: ${u8?.tag ?? '(none)'}${top10[7] ? ` with ${top10[7][0]} owos` : ''}\n`;
-        msg += ` 9 :: ${u9?.tag ?? '(none)'}${top10[8] ? ` with ${top10[8][0]} owos` : ''}\n`;
-        msg += `10 :: ${u10?.tag ?? '(none)'}${top10[9] ? ` with ${top10[9][0]} owos` : ''}\n`;
-        if (!userInTop) {
-            const ownIndex = sorted.map((i) => i[1]).indexOf(message.author.id);
-            if (ownIndex > -1) {
-                const ownOwos = client.owos.get(message.author.id);
-                msg += '...\n';
-                msg += `${ownIndex} :: ${message.author.tag ?? '(none)'}${ownOwos ? ` with ${ownOwos} owos` : ''}\n`;
-            }
+    const buf = ['```adoc\n===== OWO LEADERBOARD ====='];
+
+    for (let i = 0; i < sorted.length && i < CUTOFF; i++) {
+        const [id, count] = sorted[i];
+        if (id === message.author.id) {
+            placed = true;
         }
-        msg += '```';
-        message.reply(msg);
-    })();
+        // eslint-disable-next-line no-await-in-loop
+        const user = await client.users.fetch(id).catch(() => null);
+        buf.push(formatRow(i, user, client));
+    }
+
+    if (!placed) {
+        const index = sorted.findIndex(([id]) => id === message.author.id);
+        if (index !== -1) {
+            buf.push('...', formatRow(index, message.author, client));
+        }
+    }
+
+    buf.push('```');
+    await message.reply(buf.join('\n'));
 }
 
 // Config
