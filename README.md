@@ -12,7 +12,7 @@ A Discord furry bot
 
 **This project is still alive and maintained.** I've just gotten less time to work on it lately.
 
-*If you want to help maintain,* shoot me a message on Discord (BadBoyHaloCat#1826)
+_If you want to help maintain,_ shoot me a message on Discord (BadBoyHaloCat#1826)
 
 ## Recovering from a recent force-push
 
