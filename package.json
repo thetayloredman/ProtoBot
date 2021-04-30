@@ -17,7 +17,7 @@
         "bytes": "^3.1.0",
         "chalk": "^4.1.0",
         "cli-highlight": "^2.1.11",
-        "discord.js": "^12.5.1",
+        "discord.js": "^12.5.3",
         "enmap": "git+https://github.com/eslachance/enmap.git#84027493614137fdef2d395e815b8fb04965f053",
         "markov-strings": "^3.0.1",
         "module-alias": "^2.2.2",
