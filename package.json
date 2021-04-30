@@ -24,7 +24,7 @@
         "node-fetch": "^2.6.1",
         "prettier": "^2.2.1",
         "source-map-support": "^0.5.19",
-        "strip-ansi": "^6.0.0",
+        "strip-ansi": "^7.0.0",
         "uwuifier": "^2.0.4"
     },
     "devDependencies": {
