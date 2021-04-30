@@ -8,6 +8,12 @@
 
 A Discord furry bot
 
+## Status of this project
+
+**This project is still alive and maintained.** I've just gotten less time to work on it lately.
+
+*If you want to help maintain,* shoot me a message on Discord (BadBoyHaloCat#1826)
+
 ## Recovering from a recent force-push
 
 On Sunday, February 21 at 12:43 PM PST, [thetayloredman](https://github.com/thetayloredman) force-pushed to this repository to update commit messages.
