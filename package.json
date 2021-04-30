@@ -15,7 +15,7 @@
     "dependencies": {
         "better-sqlite3": "^7.1.5",
         "bytes": "^3.1.0",
-        "chalk": "^4.1.0",
+        "chalk": "^4.1.1",
         "cli-highlight": "^2.1.11",
         "discord.js": "^12.5.1",
         "enmap": "git+https://github.com/eslachance/enmap.git#84027493614137fdef2d395e815b8fb04965f053",
