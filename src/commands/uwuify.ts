@@ -18,7 +18,7 @@
 
 // Modules
 import type { Client, Message } from 'discord.js';
-import { Uwuifier } from 'uwuifier';
+import Uwuifier from 'uwuifier';
 import type Logger from '@lib/interfaces/Logger';
 
 // Main
