@@ -169,13 +169,13 @@ export default function log(mode: 'v' | 'i' | 'w' | 'e' | 'CLOSE_STREAMS', messa
         console.log(msg);
         // @ts-ignore
         writeItem(mode, msg);
-        
+
         // #125: Add stack traces for errors - BadBoyHaloCat
         if (mode === 'e' && !_bypassStackPrint) {
             let s = new Error('Temporary stack creation error').stack || '';
             let a = s.split('\n');
             a.shift();
-            
+
             for (let entry of a) {
                 log('e', 'STACK: ' + entry, true);
             }
