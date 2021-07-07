@@ -28,7 +28,7 @@
         "uwuifier": "^4.0.4"
     },
     "devDependencies": {
-        "@types/bytes": "^3.1.0",
+        "@types/bytes": "^3.1.1",
         "@types/module-alias": "^2.0.0",
         "@types/node": "^16.0.1",
         "@types/node-fetch": "^2.5.11",
