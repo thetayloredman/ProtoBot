@@ -16,17 +16,11 @@ _If you want to help maintain,_ shoot me a message on Discord (BadBoyHaloCat#182
 
 ## Recovering from a recent force-push
 
-On Sunday, February 21 at 12:43 PM PST, [thetayloredman](https://github.com/thetayloredman) force-pushed to this repository to update commit messages.
+On Friday, May 28 at 8:38 AM PST, [thetayloredman](https://github.com/thetayloredman) force-pushed to this repository to update commit messages.
 
 ### Pulling changes
 
-For each branch in your local repo (list with `git branch`):
-
-```bash
-git checkout <branch>
-git fetch
-git reset --hard origin/<branch>
-```
+**Save all local changes first. You will need to re-clone the repo.**
 
 ### Updating your fork
 

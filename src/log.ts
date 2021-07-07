@@ -95,9 +95,9 @@ function writeItem(mode: 'v' | 'i' | 'w' | 'e', message: string): void {
 
 // Main
 export default function log(mode: 'CLOSE_STREAMS'): Promise<void>;
-export default function log(mode: 'v' | 'i' | 'w' | 'e', message: any): void;
+export default function log(mode: 'v' | 'i' | 'w' | 'e', message: any, _bypassStackPrint?: boolean): void;
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export default function log(mode: 'v' | 'i' | 'w' | 'e' | 'CLOSE_STREAMS', message?: any): void | Promise<void> {
+export default function log(mode: 'v' | 'i' | 'w' | 'e' | 'CLOSE_STREAMS', message?: any, _bypassStackPrint = false): void | Promise<void> {
     if (mode === 'CLOSE_STREAMS') {
         // Close all of the file streams
         return new Promise((resolve) => {
@@ -169,6 +169,17 @@ export default function log(mode: 'v' | 'i' | 'w' | 'e' | 'CLOSE_STREAMS', messa
         console.log(msg);
         // @ts-ignore
         writeItem(mode, msg);
+
+        // #125: Add stack traces for errors - BadBoyHaloCat
+        if (mode === 'e' && !_bypassStackPrint) {
+            const s = new Error('Temporary stack creation error').stack || '';
+            const a = s.split('\n');
+            a.shift();
+
+            for (const entry of a) {
+                log('e', 'STACK: ' + entry, true);
+            }
+        }
 
         return undefined;
     }
